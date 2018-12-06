@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class BallStandardGravity : MonoBehaviour {
-    [HideInInspector] private float _gravity;
+    [SerializeField] private float _gravity;
     public float Gravity { get{ return _gravity; } }
 
     private Rigidbody ballRB;
