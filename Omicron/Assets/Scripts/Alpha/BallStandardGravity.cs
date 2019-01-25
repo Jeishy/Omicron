@@ -4,27 +4,26 @@ using UnityEngine;
 
 public class BallStandardGravity : MonoBehaviour {
     [SerializeField] private float _gravity;
-    public float Gravity { get{ return _gravity; } }
+    private float Gravity { get{ return _gravity; } }
 
-    private Rigidbody ballRB;
+    private AlphaLevelManager alphaLevelManager;
 
+    private void Start()
+    {
+        alphaLevelManager = GetComponent<AlphaLevelManager>();
+    }
 
-    public PlayerManager PlayerManager;
-    public AlphaLevelManager AlphaManager;
-
-    // Use this for initialization
-    void Start () {
-        ballRB = GetComponent<Rigidbody>();
-        //ballRB.isKinematic = (!PlayerManager.IsBallThrown)
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        if (!AlphaManager.IsGravityChanged)
+    // Update is called once per frame
+    private void Update ()
+    {
+        if (alphaLevelManager.IsGravityChanged != true)
             StandardGravity();
+        //else
+           // Debug.Log(Physics.gravity);
+        
 	}
 
-    void StandardGravity()
+    private void StandardGravity()
     {
         Physics.gravity = new Vector3(0, Gravity, 0);
     }

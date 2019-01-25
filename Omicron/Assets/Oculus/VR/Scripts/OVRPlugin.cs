@@ -35,10 +35,12 @@ public static class OVRPlugin
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
 	public static readonly System.Version wrapperVersion = _versionZero;
 #else
-	public static readonly System.Version wrapperVersion = OVRP_1_31_0.version;
+	public static readonly System.Version wrapperVersion = OVRP_1_32_0.version;
 #endif
 
+#if !OVRPLUGIN_UNSUPPORTED_PLATFORM
 	private static System.Version _version;
+#endif
 	public static System.Version version
 	{
 		get {
@@ -81,7 +83,9 @@ public static class OVRPlugin
 		}
 	}
 
+#if !OVRPLUGIN_UNSUPPORTED_PLATFORM
 	private static System.Version _nativeSDKVersion;
+#endif
 	public static System.Version nativeSDKVersion
 	{
 		get {
@@ -342,17 +346,21 @@ public static class OVRPlugin
 	public enum PerfMetrics
 	{
 		App_CpuTime_Float = 0,
-		App_GpuTime_Float,
-		App_MotionToPhotonLatencyTime_Float,
+		App_GpuTime_Float = 1,
 
-		Compositor_CpuTime_Float,
-		Compositor_GpuTime_Float,
-		Compositor_DroppedFrameCount_Int,
-		Compositor_LatencyTime_Float,
+		Compositor_CpuTime_Float = 3,
+		Compositor_GpuTime_Float = 4,
+		Compositor_DroppedFrameCount_Int = 5,
 
-		System_GpuUtilPercentage_Float,
-		System_CpuUtilAveragePercentage_Float,
-		System_CpuUtilWorstPercentage_Float,
+		System_GpuUtilPercentage_Float = 7,
+		System_CpuUtilAveragePercentage_Float = 8,
+		System_CpuUtilWorstPercentage_Float = 9,
+
+		// 1.32.0
+		Device_CpuClockFrequencyInMHz_Float = 10,
+		Device_GpuClockFrequencyInMHz_Float = 11,
+		Device_CpuClockLevel_Int = 12,
+		Device_GpuClockLevel_Int = 13,
 
 		Count,
 		EnumSize = 0x7FFFFFFF
@@ -447,7 +455,7 @@ public static class OVRPlugin
 		public Vector3f Acceleration;
 		public Vector3f AngularVelocity;
 		public Vector3f AngularAcceleration;
-		double Time;
+		public double Time;
 
 		public static readonly PoseStatef identity = new PoseStatef
 		{
@@ -1470,6 +1478,9 @@ public static class OVRPlugin
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
 		return false;
 #else
+		if (!initialized)
+			return false;
+
 		if (version >= OVRP_1_6_0.version)
 		{
 			uint flags = (uint)OverlayFlag.None;
@@ -1536,6 +1547,8 @@ public static class OVRPlugin
 		return new LayerDesc();
 #else
 		LayerDesc layerDesc = new LayerDesc();
+		if (!initialized)
+			return layerDesc;
 
 		if (version >= OVRP_1_15_0.version)
 		{
@@ -1552,6 +1565,9 @@ public static class OVRPlugin
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
 		return false;
 #else
+		if (!initialized)
+			return false;
+
 		if (version >= OVRP_1_28_0.version)
 			return OVRP_1_28_0.ovrp_EnqueueSetupLayer2(ref desc, compositionDepth, layerID) == Result.Success;
 		else if (version >= OVRP_1_15_0.version)
@@ -1572,6 +1588,8 @@ public static class OVRPlugin
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
 		return false;
 #else
+		if (!initialized)
+			return false;
 		if (version >= OVRP_1_15_0.version)
 			return OVRP_1_15_0.ovrp_EnqueueDestroyLayer(layerID) == Result.Success;
 
@@ -1585,6 +1603,8 @@ public static class OVRPlugin
 		return IntPtr.Zero;
 #else
 		IntPtr textureHandle = IntPtr.Zero;
+		if (!initialized)
+			return textureHandle;
 
 		if (version >= OVRP_1_15_0.version)
 			OVRP_1_15_0.ovrp_GetLayerTexturePtr(layerId, stage, eyeId, ref textureHandle);
@@ -1598,6 +1618,9 @@ public static class OVRPlugin
 #if OVRPLUGIN_UNSUPPORTED_PLATFORM
 		return 1;
 #else
+		if (!initialized)
+			return 1;
+
 		int stageCount = 1;
 
 		if (version >= OVRP_1_15_0.version)
@@ -1613,6 +1636,8 @@ public static class OVRPlugin
 		return IntPtr.Zero;
 #else
 		IntPtr surfaceObject = IntPtr.Zero;
+		if (!initialized)
+			return surfaceObject;
 
 		if (version >= OVRP_1_29_0.version)
 			OVRP_1_29_0.ovrp_GetLayerAndroidSurfaceObject(layerId, ref surfaceObject);
@@ -3302,6 +3327,22 @@ public static class OVRPlugin
 #endif
 	}
 
+	public static bool AddCustomMetadata(string name, string param = "")
+	{
+#if OVRPLUGIN_UNSUPPORTED_PLATFORM
+		return false;
+#else
+		if (version >= OVRP_1_32_0.version)
+		{
+			return OVRP_1_32_0.ovrp_AddCustomMetadata(name, param) == Result.Success;
+		}
+		else
+		{
+			return false;
+		}
+#endif
+	}
+
 	private const string pluginName = "OVRPlugin";
 	private static System.Version _versionZero = new System.Version(0, 0, 0);
 
@@ -3938,6 +3979,14 @@ public static class OVRPlugin
 
 		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
 		public static extern Result ovrp_SetColorScaleAndOffset(Vector4 colorScale, Vector4 colorOffset, Bool applyToAllLayers);
+	}
+
+	private static class OVRP_1_32_0
+	{
+		public static readonly System.Version version = new System.Version(1, 32, 0);
+
+		[DllImport(pluginName, CallingConvention = CallingConvention.Cdecl)]
+		public static extern Result ovrp_AddCustomMetadata(string name, string param);
 	}
 
 #endif // !OVRPLUGIN_UNSUPPORTED_PLATFORM
