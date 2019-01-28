@@ -12,7 +12,6 @@ public class GameManager : MonoBehaviour {
     public event GameEventManager OnGamePaused;
     public event GameEventManager OnGameQuit;
     public event GameEventManager OnNextPuzzle;
-    public event GameEventManager OnRestartPuzzle;
     public event GameEventManager OnNextLevel;
     public event GameEventManager OnLevelRestart;
 
@@ -21,7 +20,7 @@ public class GameManager : MonoBehaviour {
     [HideInInspector] public GameObject[] activePuzzle;
     GameObject[] puzzles;
     int[] puzzleInts;
-    [SerializeField] private Text debugText;
+    //[SerializeField] private Text debugText;
 
     private void Awake()
     {
@@ -90,14 +89,6 @@ public class GameManager : MonoBehaviour {
         if (OnNextPuzzle != null)
         {
             OnNextPuzzle();
-        }
-    }
-
-    public void RestartPuzzle()
-    {
-        if (OnRestartPuzzle != null)
-        {
-            OnRestartPuzzle();
         }
     }
 

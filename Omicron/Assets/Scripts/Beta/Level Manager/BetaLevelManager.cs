@@ -4,15 +4,47 @@ using UnityEngine;
 
 public class BetaLevelManager : MonoBehaviour
 {
-    public delegate void PlayerEventManagerBeta();
-    public event PlayerEventManagerBeta OnMagnetPlace;
+    public delegate void PlayerPlacementEventBeta(Vector3 remoteTarget);
+    public event PlayerPlacementEventBeta OnMagnetPlaced;
 
-    [HideInInspector] public bool IsMagnetPlaced;
-    public void MagnetPlace()
+    public delegate void PlayerEventManagerBeta();
+        public event PlayerEventManagerBeta OnRestartPuzzle;
+        public event PlayerEventManagerBeta OnMagnetAttach;
+
+    [HideInInspector] public int MaxPlaceableMagnets;
+
+    private void Start()
     {
-        if (OnMagnetPlace != null)
+        StartCoroutine("WaitToAttachMagnet");
+    }
+
+    private IEnumerator WaitToAttachMagnet()
+    {
+        yield return new WaitForSeconds(0.5f);
+        MagnetAttach();
+    }
+
+    public void MagnetPlaced(Vector3 remoteTarget)
+    {
+        if (OnMagnetPlaced != null)
         {
-            OnMagnetPlace();
+            OnMagnetPlaced(remoteTarget);
+        }
+    }
+
+    public void MagnetAttach()
+    {
+        if (OnMagnetAttach != null)
+        {
+            OnMagnetAttach();
+        }
+    }
+
+    public void RestartPuzzle()
+    {
+        if (OnRestartPuzzle != null)
+        {
+            OnRestartPuzzle();
         }
     }
 }

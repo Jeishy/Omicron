@@ -6,17 +6,17 @@ public class BetaMagnets : MonoBehaviour
 {
     [Tooltip ("Sets polarity of magnet (TRUE = North, FALSE = South)")]
     [SerializeField] private bool magnetPolarity;
-    [SerializeField] [Range(0.01f, 10.0f)]private float magnetStrength;
-    [SerializeField] [Range(0.1f, 30.0f)] private float maxRadius;
+    public float magnetStrength;
+    public float maxRadius;
     private Collider[] magnetsInRange;
 
     // Update is called once per frame
-    private void FixedUpdate()
+    private void Update()
     {
         FindAllMagnetsInRange(maxRadius);
 
         if (magnetPolarity == true)
-            NorthMagnet(magnetStrength);
+            NorthMagnet();
         else if (magnetPolarity == false)
             SouthMagnet(magnetStrength);
     }
@@ -27,54 +27,93 @@ public class BetaMagnets : MonoBehaviour
         magnetsInRange = Physics.OverlapSphere(transform.position, distance, layerMask);
     } 
 
-    private void NorthMagnet(float magStrength)
+    private void NorthMagnet()
     {
-        foreach (Collider magnet in magnetsInRange)
+        if (magnetsInRange.Length > 1)
         {
-            Rigidbody magnetRB = magnet.GetComponent<Rigidbody>();
-            Vector3 magnetPos = magnetRB.position;
-            Vector3 direction = Vector3.Normalize(magnetPos - transform.position);
-            bool isNorth = magnet.GetComponent<BetaMagnets>().magnetPolarity;
+            foreach (Collider targetMagnet in magnetsInRange)
+            {
+                Transform targetMagnetTrans = targetMagnet.GetComponent<Transform>();
+                if (targetMagnetTrans.root != transform)
+                {
+                    Rigidbody magnetRB = targetMagnet.GetComponent<Rigidbody>();
+                    Rigidbody targetMagnetRB = targetMagnet.GetComponent<Rigidbody>();
 
-            if (isNorth)
-            {
-                Repel(magnetRB, direction, magStrength);
-            }
-            else
-            {
-                Attract(magnetRB, direction, magStrength);
+                    Vector3 targetMagnetPos = magnetRB.position;
+                    Vector3 magnetPos = transform.position;
+                    Vector3 direction = Vector3.Normalize(targetMagnetPos - magnetPos);
+
+                    float targetMagnetFieldStrength = targetMagnet.GetComponent<BetaMagnets>().magnetStrength;
+
+                    bool isNorth = targetMagnet.GetComponent<BetaMagnets>().magnetPolarity;
+
+                    if (isNorth)
+                    {
+                        Repel(magnetRB, targetMagnetRB, direction);
+                    }
+                    else
+                    {
+                        Attract(magnetRB, targetMagnetRB, direction);
+                    }
+                }
             }
         }
     }
 
     private void SouthMagnet(float magStrength)
     {
-        foreach (Collider magnet in magnetsInRange)
+        if (magnetsInRange.Length > 1)
         {
-            Rigidbody magnetRB = magnet.GetComponent<Rigidbody>();
-            Vector3 magnetPos = magnetRB.position;
-            Vector3 direction = Vector3.Normalize(magnetPos - transform.position);
-            bool isNorth = magnet.GetComponent<BetaMagnets>().magnetPolarity;
+            foreach (Collider targetMagnet in magnetsInRange)
+            {
+                Transform targetMagnetTrans = targetMagnet.GetComponent<Transform>();
+                if (targetMagnetTrans.root != transform)
+                {
+                    Rigidbody magnetRB = GetComponent<Rigidbody>();
+                    Rigidbody targetMagnetRB = targetMagnet.GetComponent<Rigidbody>();
 
-            if (isNorth)
-            {
-                Attract(magnetRB, direction, magStrength);
-            }
-            else
-            {
-                Repel(magnetRB, direction, magStrength);
+                    Vector3 targetMagnetPos = targetMagnetRB.position;
+                    Vector3 magnetPos = transform.position;
+                    Vector3 direction = Vector3.Normalize(targetMagnetPos - magnetPos);
+
+                    // Setting mass to determine magnet's strength, due to using Newton's law of universal gravitation equation
+                    GetComponent<Rigidbody>().mass = magStrength;
+
+                    bool isNorth = targetMagnet.GetComponent<BetaMagnets>().magnetPolarity;
+
+                    if (isNorth)
+                    {
+                        Attract(magnetRB, targetMagnetRB, direction);
+                    }
+                    else
+                    {
+                        Repel(magnetRB, targetMagnetRB, direction);
+                    }
+                }
             }
         }
     }
 
-    private void Attract(Rigidbody magnet, Vector3 direction, float strength)
+    private void Attract(Rigidbody magnet, Rigidbody targetMagnet, Vector3 direction)
     {
-        magnet.AddForce(-direction * strength, ForceMode.Acceleration);
+        float force = CalculateForce(magnet, targetMagnet);
+        magnet.AddForce(-direction * force);
     }
 
-    private void Repel(Rigidbody magnet, Vector3 direction, float strength)
+    private void Repel(Rigidbody magnet, Rigidbody targetMagnet, Vector3 direction)
     {
-        magnet.AddForce(direction * strength, ForceMode.Acceleration);
+        float force = CalculateForce(magnet, targetMagnet);
+        magnet.AddForce(direction * force);
+    }
+
+    public float CalculateForce(Rigidbody magnet, Rigidbody targetMagnet)
+    {
+        float distance = Vector3.Distance(magnet.position, targetMagnet.position);
+        float force = (magnet.mass * targetMagnet.mass)/Mathf.Pow(distance, 2);
+        if (force > 0.2f)
+            force = 0.2f;
+        Debug.Log(force);
+        return force;
     }
 
     private void OnDrawGizmos()

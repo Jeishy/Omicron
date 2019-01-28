@@ -47,6 +47,6 @@ public class NextLevel : MonoBehaviour
                 break;
         }
 
-        SceneManager.LoadScene(currentLevel);
+        SceneManager.LoadSceneAsync(currentLevel);
     }
 }
