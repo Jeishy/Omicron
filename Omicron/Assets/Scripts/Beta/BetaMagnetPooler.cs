@@ -59,7 +59,6 @@ public class BetaMagnetPooler : MonoBehaviour
         magnetToSpawn.SetActive(true);
         magnetToSpawn.transform.position = position;
         magnetToSpawn.transform.rotation = rotation;
-
         poolDictionary[tag].Enqueue(magnetToSpawn);
 
         return magnetToSpawn;

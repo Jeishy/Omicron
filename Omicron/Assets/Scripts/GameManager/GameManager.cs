@@ -59,7 +59,7 @@ public class GameManager : MonoBehaviour {
     public GameObject FindNextPuzzle(GameObject lastPuzzle)
     {
         int puzzle = Convert.ToInt32(lastPuzzle.name);
-        GameObject nextPuzzle = puzzles[puzzle];
+        GameObject nextPuzzle = puzzles[puzzle];        
         return nextPuzzle;
     }
 

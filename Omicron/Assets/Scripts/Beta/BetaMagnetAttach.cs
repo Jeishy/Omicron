@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 public class BetaMagnetAttach : MonoBehaviour
 {
     private BetaLevelManager betaManager;
@@ -36,5 +36,7 @@ public class BetaMagnetAttach : MonoBehaviour
         // To-doVector3 ballSpawnPointPos = ballSpawnPoint.GetComponent<Transform>().position;
         currentMagnet = bMagnetPooler.SpawnMagnetFromPool("Magnet", magnetSpawnPointPos, Quaternion.identity);
         currentMagnet.GetComponent<Transform>().SetParent(magnetSpawnPointTrans);
+        currentMagnet.GetComponentInChildren<Canvas>().enabled = false;
+        Debug.Log("Magnet Attached");
     }
 }

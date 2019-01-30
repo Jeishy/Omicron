@@ -31,7 +31,6 @@ public class NextPuzzle : MonoBehaviour
         // Note: update later to load with a transition
         GameObject lastPuzzle = gameManager.FindActivePuzzle();
         lastPuzzle.SetActive(false);
-
         GameObject nextPuzzle = gameManager.FindNextPuzzle(lastPuzzle);
         nextPuzzle.SetActive(true);
     }

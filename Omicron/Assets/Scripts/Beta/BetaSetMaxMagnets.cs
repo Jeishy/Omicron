@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BetaSetMaxMagnets : MonoBehaviour
 {
-    [SerializeField] private int maxMagnets;
+    public int maxMagnets;
     private BetaLevelManager betaManager;
     // Start is called before the first frame update
     private void Start()

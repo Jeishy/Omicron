@@ -8,8 +8,10 @@ public class BetaLevelManager : MonoBehaviour
     public event PlayerPlacementEventBeta OnMagnetPlaced;
 
     public delegate void PlayerEventManagerBeta();
-        public event PlayerEventManagerBeta OnRestartPuzzle;
-        public event PlayerEventManagerBeta OnMagnetAttach;
+    public event PlayerEventManagerBeta OnRestartPuzzle;
+    public event PlayerEventManagerBeta OnMagnetAttach;
+    public event PlayerEventManagerBeta OnReset;
+    public event PlayerEventManagerBeta OnResetMagnets;
 
     [HideInInspector] public int MaxPlaceableMagnets;
 
@@ -45,6 +47,22 @@ public class BetaLevelManager : MonoBehaviour
         if (OnRestartPuzzle != null)
         {
             OnRestartPuzzle();
+        }
+    }
+
+    public void Reset()
+    {
+        if (OnReset != null)
+        {
+            OnReset();
+        }
+    }
+
+    public void ResetMagnets()
+    {
+        if (OnResetMagnets != null)
+        {
+            OnResetMagnets();
         }
     }
 }

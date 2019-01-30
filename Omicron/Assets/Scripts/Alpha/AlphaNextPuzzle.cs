@@ -6,8 +6,13 @@ using UnityEngine.UI;
 public class AlphaNextPuzzle : MonoBehaviour
 {
     [SerializeField] private AlphaLevelManager alphaLevelManager;
-    [SerializeField] private GameManager gameManager;
+    private GameManager gameManager;
     //[SerializeField] private Text debugText;
+
+    private void Start()
+    {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
 
     private void OnTriggerEnter(Collider col)
     {

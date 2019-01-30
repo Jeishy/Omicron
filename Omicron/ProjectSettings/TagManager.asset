@@ -6,6 +6,9 @@ TagManager:
   tags:
   - Puzzles
   - Ball
+  - NorthMagnet
+  - SouthMagnet
+  - MagnetSpawnPoint
   layers:
   - Default
   - TransparentFX
