@@ -14,10 +14,13 @@ public class BetaLevelManager : MonoBehaviour
     public event PlayerEventManagerBeta OnResetMagnets;
 
     [HideInInspector] public int MaxPlaceableMagnets;
+    private GameManager gameManager;
 
     private void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         StartCoroutine("WaitToAttachMagnet");
+        gameManager.FindAllPuzzles();
     }
 
     private IEnumerator WaitToAttachMagnet()

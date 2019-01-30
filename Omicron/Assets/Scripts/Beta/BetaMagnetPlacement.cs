@@ -31,14 +31,15 @@ public class BetaMagnetPlacement : MonoBehaviour
         betaManager = GetComponent<BetaLevelManager>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         magnetAttach = GetComponent<BetaMagnetAttach>();
-        magnetSpawnPointTrans = GameObject.Find("BallSpawnPoint").GetComponent<Transform>();
     }
 
     private void MagnetPlace(Vector3 targetPos)
     {
+        magnetSpawnPointTrans = GameObject.Find("BallSpawnPoint").GetComponent<Transform>();
         // Check if all given magnets are placed
-        if (ballsPlaced < betaManager.MaxPlaceableMagnets)
+        if (ballsPlaced < betaManager.MaxPlaceableMagnets && magnetAttach.IsMagnetAttached == true)
         {
+            magnetAttach.IsMagnetAttached = false;
             ballsPlaced++;
             magnetSpawnPointTrans.GetComponent<Transform>().DetachChildren();
             GameObject magnet = magnetAttach.currentMagnet;

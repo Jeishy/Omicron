@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class AlphaNextPuzzle : MonoBehaviour
 {
     [SerializeField] private AlphaLevelManager alphaLevelManager;
+    [SerializeField] private Text debugText;
     private GameManager gameManager;
     //[SerializeField] private Text debugText;
 
@@ -18,8 +19,33 @@ public class AlphaNextPuzzle : MonoBehaviour
     {
         if (col.CompareTag("Ball"))
         {
-            gameManager.NextPuzzle();
-            alphaLevelManager.ResetBallPosition();
+            if (gameManager.FindNextPuzzle(gameManager.FindActivePuzzle()) == null)
+            {
+                debugText.text = "Going to next level";
+                gameManager.NextLevel();
+            }
+            else
+            {
+                gameManager.NextPuzzle();
+                alphaLevelManager.ResetBallPosition();
+            }
+        }
+    }
+
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (gameManager.FindNextPuzzle(gameManager.FindActivePuzzle()) == null)
+            {
+                debugText.text = "Going to next level";
+                gameManager.NextLevel();
+            }
+            else
+            {
+                gameManager.NextPuzzle();
+                alphaLevelManager.ResetBallPosition();
+            }
         }
     }
 

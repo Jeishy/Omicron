@@ -59,8 +59,15 @@ public class GameManager : MonoBehaviour {
     public GameObject FindNextPuzzle(GameObject lastPuzzle)
     {
         int puzzle = Convert.ToInt32(lastPuzzle.name);
-        GameObject nextPuzzle = puzzles[puzzle];        
-        return nextPuzzle;
+        if (puzzle+1 > puzzles.Length)
+        {
+            return null;
+        }
+        else
+        {
+            GameObject nextPuzzle = puzzles[puzzle];        
+            return nextPuzzle;
+        }
     }
 
     public string FindActiveLevel()

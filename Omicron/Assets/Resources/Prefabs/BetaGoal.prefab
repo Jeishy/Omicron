@@ -108,6 +108,7 @@ MonoBehaviour:
   betaLevelManager: {fileID: 0}
   debugText: {fileID: 0}
   maxTriggerDuration: 1
+  minimumVel: 0.2
 --- !u!1 &3088557392822729637
 GameObject:
   m_ObjectHideFlags: 0

@@ -11,6 +11,7 @@ public class BetaNextPuzzle : MonoBehaviour
     private BetaSetMaxMagnets betaSetMaxMagnets;
     private float triggerTime;
     [SerializeField] private float maxTriggerDuration;
+    [SerializeField] private float minimumVel;
 
     private void Start()
     {
@@ -29,8 +30,9 @@ public class BetaNextPuzzle : MonoBehaviour
     {
         if (col.CompareTag("SouthMagnet"))
         {
-            Debug.Log("South magnet stays in trigger");
-            if (triggerTime + maxTriggerDuration < Time.time)
+            float colVel = col.GetComponent<Rigidbody>().velocity.magnitude;
+            
+            if (triggerTime + maxTriggerDuration < Time.time && colVel <= minimumVel)
             {
                 // Note: Add UI here for countdown if so desired
                 WaitForNextPuzzle();
