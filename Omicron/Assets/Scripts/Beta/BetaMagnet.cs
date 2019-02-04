@@ -10,6 +10,7 @@ public class BetaMagnet : MonoBehaviour
     public float magnetStrength;
     public float maxRadius;
     [HideInInspector] public Collider[] magnetsInRange;
+    
     public virtual void Attract(Rigidbody magnet, Rigidbody targetMagnet, Vector3 direction)
     {
         float force = CalculateForce(magnet, targetMagnet);
