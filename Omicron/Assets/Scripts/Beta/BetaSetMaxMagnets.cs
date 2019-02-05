@@ -10,6 +10,7 @@ public class BetaSetMaxMagnets : MonoBehaviour
     private void Start()
     {
         betaManager = GameObject.Find("BetaLevelManager").GetComponent<BetaLevelManager>();
+        // Run coroutine to wait for max magnets to be set in each puzzle
         StartCoroutine("SetMaxMagnets");
     }
 

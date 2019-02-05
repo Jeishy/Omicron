@@ -10,6 +10,7 @@ public class GravityShield : MonoBehaviour
     {
         if (col.CompareTag("Ball"))
         {
+            // If ball enters the gravity shield trigger, change gravity by specified Vector3
             alphaLevelManager.GravityChange(gravityChange);
         }
     }

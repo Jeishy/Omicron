@@ -6,7 +6,8 @@ public class ResetBallPosition: MonoBehaviour
 {
     private AlphaLevelManager alphaLevelManager;
 
-    [SerializeField] private GameObject ballSpawnPoint;
+    // Reference to the spawn point of the ball, on the controller
+    private Transform ballSpawnPoint;
     [SerializeField] private GameObject ball;
     private void OnEnable()
     {
@@ -22,19 +23,24 @@ public class ResetBallPosition: MonoBehaviour
     private void Setup()
     {
         alphaLevelManager = GetComponent<AlphaLevelManager>();
+        // Sets cached reference of the balls spawn point in the PlayerControllerRefereneces class
+        ballSpawnPoint = PlayerControllerReferences.Instance.BallSpawnPoint;
     }
 
     private void Reset()
     {
-        alphaLevelManager.IsGravityChanged = false;
-        alphaLevelManager.IsBallShot = false;
-        Vector3 ballSpawnPointPos = ballSpawnPoint.GetComponent<Transform>().position;
-        ball.GetComponent<Transform>().position = ballSpawnPointPos;
+        alphaLevelManager.IsGravityChanged = false;                          // Sets IsGravityChanged back to false, so that standard gravity can be used
+        alphaLevelManager.IsBallShot = false;                                // Sets IsBallShot to false, so that the ball can be shot again
+        Vector3 ballSpawnPointPos = ballSpawnPoint.position;                 // Cache the ball spawn point's position
 
-        ball.GetComponent<Rigidbody>().useGravity = false;
-        ball.GetComponent<Transform>().SetParent(ballSpawnPoint.transform);
+        ball.transform.position = ballSpawnPointPos;                         // Set balls position to cached spawn point position
+
+        ball.GetComponent<Rigidbody>().useGravity = false;                   // Set gravity to false, so that the ball does not continue to fall
+        ball.GetComponent<Transform>().SetParent(ballSpawnPoint.transform);  // Set balls parent transform to ballSpawnPoint
 
         float ballSpeed = ball.GetComponent<Rigidbody>().velocity.magnitude;
+        // If the calculated balls speed is greater than 0, set it to 0
+        // This ensures the ball doesn't continue to fall once attached to the front of the oculus go remote
         if (ballSpeed > 0)
         {
             ball.GetComponent<Rigidbody>().velocity = new Vector3(0f, 0f, 0f);

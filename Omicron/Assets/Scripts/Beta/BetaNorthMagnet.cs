@@ -15,7 +15,10 @@ public class BetaNorthMagnet : BetaMagnet
     // Update is called once per frame
     private void Update()
     {
+        // Find all magnets in range of magnet, with specified radius
         FindAllMagnetsInRange(maxRadius);
+        // If there is a magnet (that isnt the magnet itself)
+        // Run NorthMagnet method
         if (magnetsInRange.Length > 1)
         {
             NorthMagnet();
@@ -24,6 +27,9 @@ public class BetaNorthMagnet : BetaMagnet
 
      private void NorthMagnet()
     {
+        // For every magnet in magnetsInRange array
+        // Cache their stats and check if they are a North or South magnet
+        // Repel or Attract respectively
         foreach (Collider targetMagnet in magnetsInRange)
         {
             Rigidbody magnetRB = targetMagnet.GetComponent<Rigidbody>();

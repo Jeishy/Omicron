@@ -9,21 +9,21 @@ public class BetaInputHandler : MonoBehaviour
     private BetaMagnetPlacement betaMagnetPlacement;
     private Transform ovrRemote;
     [SerializeField] private Text debugText;
-    [SerializeField] private Transform centerCameraAnchorTrans;
-    [SerializeField] private GameObject magnetPlaceVisualizerPrefab;
-    [SerializeField] private float hitZPos;
-    // Start is called before the first frame update
+    [SerializeField] private GameObject magnetPlaceVisualizerPrefab;    // Reference to grey magnet placement visualizer prefab
+    [SerializeField] private float hitZPos;                             // Z component of position that magnets must be placed in
     private void Start()
     {
         betaManager = GetComponent<BetaLevelManager>();
         betaMagnetPlacement = betaManager.GetComponent<BetaMagnetPlacement>();
-        ovrRemote = GameObject.Find("OculusGoControllerModel").GetComponent<Transform>();
+        ovrRemote = PlayerControllerReferences.Instance.OculusRemoteTransform;
         betaMagnetPlacement = betaManager.GetComponent<BetaMagnetPlacement>();
     }
 
     // Update is called once per frame
     private void Update()
     {
+        // Checks whether game is being run on PC or VR
+        // changes input methods based ont this
         if (Application.platform == RuntimePlatform.WindowsEditor)
             PCInput();
         else
@@ -35,25 +35,27 @@ public class BetaInputHandler : MonoBehaviour
 
     private void VRInput()
     {
+        // If Oculus go remote trigger is squeezed,
+        // raycast is used to see if BetaBox placeable zone is being targetted when mouse button is clicked
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTrackedRemote))
         {
-            Debug.Log("Magnet placing commenced.");
             RaycastHit hit;
             Vector3 remoteDirection = ovrRemote.forward;
-            Vector3 remotePos = ovrRemote.transform.position;
-            int layerMask = 1 << 11;
+            Vector3 remotePos = ovrRemote.position;
+            int layerMask = 1 << 11;                // bit shifted layer mask of MagnetPlaceable
             if (Physics.Raycast(remotePos, remoteDirection, out hit, Mathf.Infinity, layerMask))
             {
                 //debugText.text = "Boundary Hit!";
                 Vector3 hitPos = hit.point;
-                Vector3 placementPos = new Vector3(hitPos.x, hitPos.y, hitZPos);
-                betaManager.MagnetPlaced(placementPos);
+                Vector3 placementPos = new Vector3(hitPos.x, hitPos.y, hitZPos);    // Ensures magnets are placed on correct Z position, X and Y of hit position
+                betaManager.MagnetPlaced(placementPos);                             // Places magnet at placement position
             }
         }
     }
 
     private void PCInput()
     {
+        // Uses raycast to see if BetaBox placeable zone is being targetted when mouse button is clicked
         RaycastHit hit;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Input.GetMouseButtonDown(0))
@@ -69,7 +71,11 @@ public class BetaInputHandler : MonoBehaviour
     
     private void MagnetsReset()
     {
+        // Caches position of balls placed
         float ballsPlaced = betaMagnetPlacement.ballsPlaced;
+        // If there are more than 0 balls placed,
+        // and Touchpad is pressed
+        // reset all balls position and remove all balls plaed
         if (ballsPlaced > 0)
         {
             if (OVRInput.Get(OVRInput.Button.PrimaryTouchpad, OVRInput.Controller.RTrackedRemote))
@@ -91,6 +97,8 @@ public class BetaInputHandler : MonoBehaviour
         float ballsPlaced = betaMagnetPlacement.ballsPlaced;
         float maxPlaceableMagnets = betaManager.MaxPlaceableMagnets;
         int layerMask = 1 << 11;
+        // If the player is targetting the magnet placeable area, and there are more balls to place
+        // then show the magnet visualizer prefab, so that player can see where they will place a magnet
         if (Physics.Raycast(remotePos, remoteDirection, out hit, Mathf.Infinity, layerMask) && ballsPlaced < maxPlaceableMagnets)
         {
             magnetPlaceVisualizerPrefab.SetActive(true);
@@ -98,6 +106,7 @@ public class BetaInputHandler : MonoBehaviour
         }
         else
         {
+            // Set prefab to false if magnet placeable area is not targetted
             magnetPlaceVisualizerPrefab.SetActive(false);
         }
     }

@@ -28,8 +28,10 @@ public class NextPuzzle : MonoBehaviour
 
     private void NextPzzle()
     {
+        // Find current active puzzle and set it to false
+        // Find the next puzzle and set it to true
         // Note: update later to load with a transition
-        GameObject lastPuzzle = gameManager.FindActivePuzzle();
+        GameObject lastPuzzle = gameManager.FindActivePuzzle();         
         lastPuzzle.SetActive(false);
         GameObject nextPuzzle = gameManager.FindNextPuzzle(lastPuzzle);
         nextPuzzle.SetActive(true);

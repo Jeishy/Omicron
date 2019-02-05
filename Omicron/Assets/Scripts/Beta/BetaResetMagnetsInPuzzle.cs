@@ -25,8 +25,8 @@ public class BetaResetMagnetsInPuzzle : MonoBehaviour
 
     private void Reset()
     {
-        Debug.Log("Resetting south magnet");
-        transform.position = spawnPoint.position;
-        GetComponent<Rigidbody>().velocity = Vector3.zero;
+        // Resets position of all magnets already in the puzzle (Not placeable magnets)
+        transform.position = spawnPoint.position;           // Set there positions to their respective spawn point positions
+        GetComponent<Rigidbody>().velocity = Vector3.zero;  // Set their velocities to 0 so that they dont move after being reset
     }
 }

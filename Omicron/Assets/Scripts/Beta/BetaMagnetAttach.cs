@@ -7,10 +7,8 @@ public class BetaMagnetAttach : MonoBehaviour
     private BetaLevelManager betaManager;
     private Transform magnetSpawnPointTrans;
     private BetaMagnetPooler bMagnetPooler;
-    [HideInInspector] public GameObject currentMagnet;
-    [HideInInspector] public float MagnetStrength;
-    [HideInInspector] public float MaxRadius;
-    [HideInInspector] public bool IsMagnetAttached;
+    [HideInInspector] public GameObject currentMagnet;  // The current magnet attached to the remote
+    [HideInInspector] public bool IsMagnetAttached;     // Flag for case that the magnet is attached
 
     private void OnEnable()
     {
@@ -27,20 +25,20 @@ public class BetaMagnetAttach : MonoBehaviour
     {
         betaManager = GetComponent<BetaLevelManager>();
         bMagnetPooler = GetComponent<BetaMagnetPooler>();
+        magnetSpawnPointTrans = PlayerControllerReferences.Instance.BallSpawnPoint;
     }
 
     private void MagnetAttach()
     {
-        magnetSpawnPointTrans = GameObject.Find("BallSpawnPoint").GetComponent<Transform>();
+        // If there is no attached magnet
+        // Attach a magnet
         if (!IsMagnetAttached)
         {
             IsMagnetAttached = true;
-            Vector3 magnetSpawnPointPos = magnetSpawnPointTrans.position;
-            // To-doVector3 ballSpawnPointPos = ballSpawnPoint.GetComponent<Transform>().position;
-            currentMagnet = bMagnetPooler.SpawnMagnetFromPool("Magnet", magnetSpawnPointPos, Quaternion.identity);
+            Vector3 magnetSpawnPointPos = magnetSpawnPointTrans.position;                                           // Caches spawn point's position (BallSpawnPoint Gameobject)
+            currentMagnet = bMagnetPooler.SpawnMagnetFromPool("Magnet", magnetSpawnPointPos, Quaternion.identity);  // Spawns and caches reference to magnet next in pool
             currentMagnet.GetComponent<Transform>().SetParent(magnetSpawnPointTrans);
-            currentMagnet.GetComponentInChildren<Canvas>().enabled = false;
-            Debug.Log("Magnet Attached");
+            currentMagnet.GetComponentInChildren<Canvas>().enabled = false;                                         // Turns off canvas for seeing magnet's range
         }
     }
 }

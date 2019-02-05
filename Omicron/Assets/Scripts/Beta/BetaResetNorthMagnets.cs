@@ -29,7 +29,11 @@ public class BetaResetNorthMagnets : MonoBehaviour
 
     private void ResetNorthMagnets()
     {
+        // Find all placed north magnets in the map
         northMagnetsPlaced = GameObject.FindGameObjectsWithTag("NorthMagnet");
+        // If there are magnets that have been placed
+        // Cycle through northMagnetsPlaced array and set their velocities to 0
+        // Set gameobjects to false
         if (northMagnetsPlaced.Length > 0)
         {
             foreach (GameObject northMagnet in northMagnetsPlaced)
@@ -43,7 +47,9 @@ public class BetaResetNorthMagnets : MonoBehaviour
             debugText.text = "No north magnets in the puzzle";
         }
 
+        // Reset ballsPlaced variable in BetaMagnetPlacement class
         betaManager.Reset();
+        // Attach magnet to oculus go remote
         betaManager.MagnetAttach();
     }
 }

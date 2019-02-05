@@ -16,6 +16,7 @@ public class BallStandardGravity : MonoBehaviour {
     // Update is called once per frame
     private void Update ()
     {
+        // If gravity hasnt been changed, implement standard gravity
         if (alphaLevelManager.IsGravityChanged != true)
             StandardGravity();
         //else
@@ -25,6 +26,7 @@ public class BallStandardGravity : MonoBehaviour {
 
     private void StandardGravity()
     {
+        // Set gravity to specified lateral gravity 
         Physics.gravity = new Vector3(0, Gravity, 0);
     }
 }

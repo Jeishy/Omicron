@@ -26,6 +26,7 @@ public class BetaReset : MonoBehaviour
 
     private void Reset()
     {
+        // Sets ballsPlaced to 0, so thats magnets can be placed after reset
         betaMagnetPlacement.ballsPlaced = 0;
     }
 }

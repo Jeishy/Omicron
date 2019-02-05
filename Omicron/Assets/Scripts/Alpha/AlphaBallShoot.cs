@@ -5,10 +5,10 @@ using UnityEngine;
 public class AlphaBallShoot : MonoBehaviour
 {
     private AlphaLevelManager alphaLevelManager;
-    [SerializeField] private Transform oculusGoTransform;
+    private Transform oculusGoTransform;
     [SerializeField] private GameObject ball;
-    [SerializeField] private GameObject ballSpawnPoint;
-    [SerializeField][Range(0.1f, 20.0f)] private float ballShotSpeed;
+    private Transform ballSpawnPoint;
+    [SerializeField][Range(0.1f, 20.0f)] private float ballShotSpeed;   // Speed at which the fall is shot
 
     private void OnEnable()
     {
@@ -24,16 +24,23 @@ public class AlphaBallShoot : MonoBehaviour
     private void Setup()
     {
         alphaLevelManager = GetComponent<AlphaLevelManager>();
+        oculusGoTransform = PlayerControllerReferences.Instance.OculusRemoteTransform;
+        ballSpawnPoint = PlayerControllerReferences.Instance.BallSpawnPoint;
     }
 
     private void Shoot()
     {
+        // If ball hasnt the been shot,
+        // flag it as having been shot,
+        // turn back on balls gravity
+        // Detach is from the OculusGoRemoteModel's transform
+        // and set its velocity to the calculated direcition and specified speed
         if (alphaLevelManager.IsBallShot != true)
         {
             alphaLevelManager.IsBallShot = true;
             Vector3 direction = oculusGoTransform.forward;
             ball.GetComponent<Rigidbody>().useGravity = true;
-            ballSpawnPoint.GetComponent<Transform>().DetachChildren();
+            ballSpawnPoint.DetachChildren();
             ball.GetComponent<Rigidbody>().velocity = direction * ballShotSpeed;
         }       
     }

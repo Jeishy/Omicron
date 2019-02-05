@@ -10,8 +10,7 @@ public class BetaMagnetPlacement : MonoBehaviour
     private BetaMagnetAttach magnetAttach;
     private Transform magnetSpawnPointTrans;
     private Rigidbody magnetRB;
-    private BetaMagnetPooler bMagnetPooler;
-    [HideInInspector] public int ballsPlaced;
+    [HideInInspector] public int ballsPlaced;   // Variable that holds number of ballsPlaced
     [SerializeField] private Text debugText;
 
     private void OnEnable()
@@ -27,30 +26,34 @@ public class BetaMagnetPlacement : MonoBehaviour
 
     private void Setup()
     {
-        ballsPlaced = 0;
+        ballsPlaced = 0;    // Sets balls placed to 0 at beginning of level
         betaManager = GetComponent<BetaLevelManager>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         magnetAttach = GetComponent<BetaMagnetAttach>();
+        magnetSpawnPointTrans = PlayerControllerReferences.Instance.BallSpawnPoint;
     }
 
     private void MagnetPlace(Vector3 targetPos)
     {
-        magnetSpawnPointTrans = GameObject.Find("BallSpawnPoint").GetComponent<Transform>();
-        // Check if all given magnets are placed
+        // Check if all given magnets are not placed
+        // and there is an attached magnet
         if (ballsPlaced < betaManager.MaxPlaceableMagnets && magnetAttach.IsMagnetAttached == true)
         {
-            magnetAttach.IsMagnetAttached = false;
-            ballsPlaced++;
-            magnetSpawnPointTrans.GetComponent<Transform>().DetachChildren();
-            GameObject magnet = magnetAttach.currentMagnet;
+            magnetAttach.IsMagnetAttached = false;                                // A magnet has been placed, set IsMagnetAttached to false
+            ballsPlaced++;                                                        // Increment number of balls placed by one
+            magnetSpawnPointTrans.GetComponent<Transform>().DetachChildren();     // Detach magnet from spawn point's transform
+            GameObject magnet = magnetAttach.currentMagnet;                      
             Transform magnetTrans = magnet.GetComponent<Transform>();
-            Canvas magnetRadiusCanvas = magnet.GetComponentInChildren<Canvas>();
+            Canvas magnetRadiusCanvas = magnet.GetComponentInChildren<Canvas>();  // Turns on canvas used for seeing magnet's radius
 
-            magnetTrans.position = targetPos;
-            magnetTrans.rotation = Quaternion.Euler(0, 0, 0);
-            magnetRadiusCanvas.enabled = true;
+            magnetTrans.position = targetPos;                                     // Set parsed in target position to position of magnet to be placed
+            magnetTrans.rotation = Quaternion.Euler(0, 0, 0);                     // Set rotation of magnet to 0 on all axes
+            magnetRadiusCanvas.enabled = true;                                    // Turns on canvas for seeing magnets radius
 
             magnetTrans.SetParent(gameManager.FindActivePuzzle().GetComponent<Transform>());
+
+            // If there are more balls to be placed
+            // attach another magnet to the end of the remote
             if (ballsPlaced != betaManager.MaxPlaceableMagnets)
                 betaManager.MagnetAttach();
         }

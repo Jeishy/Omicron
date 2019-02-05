@@ -5,6 +5,7 @@ using UnityEngine;
 public class AlphaGravityChange : MonoBehaviour
 {
     private AlphaLevelManager alphaManager;
+    // Reference to parabolicRaycaster, used to see parabolic curve ball will follow
     [SerializeField] private ParabolicRaycaster parabolicRaycaster;
 
     private void OnEnable()
@@ -25,9 +26,10 @@ public class AlphaGravityChange : MonoBehaviour
 
     private void ChangeGravity(Vector3 gravity)
     {
+        // IsGravityChanged is flagged as true
+        // This stops standard gravity being used
         alphaManager.IsGravityChanged = true;
-        //parabolicRaycaster.acceleration = -gravity.y;
-        //Debug.Log(parabolicRaycaster.acceleration);
+        // Set gravity in game to parsed gravity
         Physics.gravity = gravity;
     }
 }

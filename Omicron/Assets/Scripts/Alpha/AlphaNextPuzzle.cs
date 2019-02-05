@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class AlphaNextPuzzle : MonoBehaviour
 {
     [SerializeField] private AlphaLevelManager alphaLevelManager;
-    [SerializeField] private Text debugText;
+    [SerializeField] private Text debugText;    // Used for debugging purposes
     private GameManager gameManager;
     //[SerializeField] private Text debugText;
 
@@ -19,19 +19,25 @@ public class AlphaNextPuzzle : MonoBehaviour
     {
         if (col.CompareTag("Ball"))
         {
+            // If the next calculated puzzle return as null go to the next level
             if (gameManager.FindNextPuzzle(gameManager.FindActivePuzzle()) == null)
             {
+                // Note: Open puzzle finished window
+                // allow player to go to next level or back to main menu here
                 debugText.text = "Going to next level";
                 gameManager.NextLevel();
             }
             else
             {
+                // Go to the next puzzle if there is one
+                // and reset the balls position
                 gameManager.NextPuzzle();
                 alphaLevelManager.ResetBallPosition();
             }
         }
     }
 
+    // Used for debugging; to cycle through puzzles in the game
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.E))
@@ -48,14 +54,4 @@ public class AlphaNextPuzzle : MonoBehaviour
             }
         }
     }
-
-    /* private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.F))
-        {
-            gameManager.NextPuzzle();
-            alphaLevelManager.ResetBallPosition();
-
-        }
-    }*/
 }
