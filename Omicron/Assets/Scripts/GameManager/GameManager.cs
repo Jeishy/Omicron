@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
     #region Delegates and Events
     public delegate void GameEventManager();
     public event GameEventManager OnGamePaused;
+    public event GameEventManager OnHubWorld;
     public event GameEventManager OnGameQuit;
     public event GameEventManager OnNextPuzzle;
     public event GameEventManager OnNextLevel;
@@ -105,6 +106,15 @@ public class GameManager : MonoBehaviour {
         if (OnGamePaused != null)
         {
             OnGamePaused();
+        }
+    }
+
+    // Function for running all methods subcribed to the OnHubWorld event
+    public void MainMenu()
+    {
+        if (OnHubWorld != null)
+        {
+            OnHubWorld();
         }
     }
 

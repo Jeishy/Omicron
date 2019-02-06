@@ -15,7 +15,7 @@ public class BetaInputHandler : MonoBehaviour
     {
         betaManager = GetComponent<BetaLevelManager>();
         betaMagnetPlacement = betaManager.GetComponent<BetaMagnetPlacement>();
-        ovrRemote = PlayerControllerReferences.Instance.OculusRemoteTransform;
+        ovrRemote = GameObject.FindGameObjectWithTag("OculusRemote").transform;
         betaMagnetPlacement = betaManager.GetComponent<BetaMagnetPlacement>();
     }
 

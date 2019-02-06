@@ -635,6 +635,36 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.19999999
       objectReference: {fileID: 0}
+    - target: {fileID: 647420769, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 647420768, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
+      propertyPath: magnetStrength
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 647420768, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
+      propertyPath: maxRadius
+      value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
+        type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 788907357}
+    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
+        type: 3}
+      propertyPath: betaManager
+      value: 
+      objectReference: {fileID: 1694342037}
+    - target: {fileID: 1641501240, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 4.186
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641501240, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 4.186
+      objectReference: {fileID: 0}
     - target: {fileID: 1643346981, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
@@ -654,36 +684,6 @@ PrefabInstance:
     - target: {fileID: 1643346981, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
-        type: 3}
-      propertyPath: spawnPoint
-      value: 
-      objectReference: {fileID: 788907357}
-    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
-        type: 3}
-      propertyPath: betaManager
-      value: 
-      objectReference: {fileID: 1694342037}
-    - target: {fileID: 647420769, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
-      propertyPath: m_Constraints
-      value: 126
-      objectReference: {fileID: 0}
-    - target: {fileID: 647420768, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
-      propertyPath: magnetStrength
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 647420768, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
-      propertyPath: maxRadius
-      value: 1.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1641501240, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 4.186
-      objectReference: {fileID: 0}
-    - target: {fileID: 1641501240, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 4.186
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
@@ -1180,6 +1180,36 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.19999999
       objectReference: {fileID: 0}
+    - target: {fileID: 647420769, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
+      propertyPath: m_Constraints
+      value: 126
+      objectReference: {fileID: 0}
+    - target: {fileID: 647420768, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
+      propertyPath: magnetStrength
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 647420768, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
+      propertyPath: maxRadius
+      value: 1.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
+        type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 70768310}
+    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
+        type: 3}
+      propertyPath: betaManager
+      value: 
+      objectReference: {fileID: 1694342037}
+    - target: {fileID: 1641501240, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 4.186
+      objectReference: {fileID: 0}
+    - target: {fileID: 1641501240, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 4.186
+      objectReference: {fileID: 0}
     - target: {fileID: 1643346981, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
@@ -1199,36 +1229,6 @@ PrefabInstance:
     - target: {fileID: 1643346981, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
-        type: 3}
-      propertyPath: spawnPoint
-      value: 
-      objectReference: {fileID: 70768310}
-    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
-        type: 3}
-      propertyPath: betaManager
-      value: 
-      objectReference: {fileID: 1694342037}
-    - target: {fileID: 647420769, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
-      propertyPath: m_Constraints
-      value: 126
-      objectReference: {fileID: 0}
-    - target: {fileID: 647420768, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
-      propertyPath: magnetStrength
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 647420768, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
-      propertyPath: maxRadius
-      value: 1.9
-      objectReference: {fileID: 0}
-    - target: {fileID: 1641501240, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 4.186
-      objectReference: {fileID: 0}
-    - target: {fileID: 1641501240, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 4.186
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
@@ -1358,6 +1358,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
+        type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 1903124207}
+    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
+        type: 3}
+      propertyPath: betaManager
+      value: 
+      objectReference: {fileID: 1694342037}
     - target: {fileID: 1643346981, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
@@ -1378,16 +1388,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
-        type: 3}
-      propertyPath: spawnPoint
-      value: 
-      objectReference: {fileID: 1903124207}
-    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
-        type: 3}
-      propertyPath: betaManager
-      value: 
-      objectReference: {fileID: 1694342037}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
 --- !u!1 &1528387320
@@ -1520,6 +1520,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
+        type: 3}
+      propertyPath: betaManager
+      value: 
+      objectReference: {fileID: 1694342037}
+    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
+        type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 1510923395}
     - target: {fileID: 1643346981, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -1540,16 +1550,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
-        type: 3}
-      propertyPath: betaManager
-      value: 
-      objectReference: {fileID: 1694342037}
-    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
-        type: 3}
-      propertyPath: spawnPoint
-      value: 
-      objectReference: {fileID: 1510923395}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
 --- !u!4 &1564698422 stripped
@@ -1823,8 +1823,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentMagnet: {fileID: 0}
-  MagnetStrength: 0
-  MaxRadius: 0
   IsMagnetAttached: 0
 --- !u!114 &1694342041
 MonoBehaviour:
@@ -1839,7 +1837,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   debugText: {fileID: 384546863}
-  centerCameraAnchorTrans: {fileID: 0}
   magnetPlaceVisualizerPrefab: {fileID: 1967253941}
   hitZPos: 5.12
 --- !u!114 &1694342042
@@ -1881,7 +1878,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c86fa36e0106da40921c9a2cc62d9ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  magnetCounter: {fileID: 0}
 --- !u!1 &1774592880
 GameObject:
   m_ObjectHideFlags: 0
@@ -2055,6 +2051,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
+        type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 1682367533}
+    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
+        type: 3}
+      propertyPath: betaManager
+      value: 
+      objectReference: {fileID: 1694342037}
     - target: {fileID: 1643346981, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
@@ -2075,16 +2081,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
-        type: 3}
-      propertyPath: spawnPoint
-      value: 
-      objectReference: {fileID: 1682367533}
-    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
-        type: 3}
-      propertyPath: betaManager
-      value: 
-      objectReference: {fileID: 1694342037}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
 --- !u!4 &1825770629 stripped
@@ -2377,6 +2373,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
+        type: 3}
+      propertyPath: spawnPoint
+      value: 
+      objectReference: {fileID: 190281821}
+    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
+        type: 3}
+      propertyPath: betaManager
+      value: 
+      objectReference: {fileID: 1694342037}
     - target: {fileID: 1643346981, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0
@@ -2397,16 +2403,6 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
-        type: 3}
-      propertyPath: spawnPoint
-      value: 
-      objectReference: {fileID: 190281821}
-    - target: {fileID: 3809563965056859199, guid: 17d07ae70b9646b4484565cd7d82ebc4,
-        type: 3}
-      propertyPath: betaManager
-      value: 
-      objectReference: {fileID: 1694342037}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 17d07ae70b9646b4484565cd7d82ebc4, type: 3}
 --- !u!4 &1967394788 stripped

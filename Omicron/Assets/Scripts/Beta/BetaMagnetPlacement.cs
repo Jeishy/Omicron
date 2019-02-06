@@ -30,7 +30,7 @@ public class BetaMagnetPlacement : MonoBehaviour
         betaManager = GetComponent<BetaLevelManager>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         magnetAttach = GetComponent<BetaMagnetAttach>();
-        magnetSpawnPointTrans = PlayerControllerReferences.Instance.BallSpawnPoint;
+        magnetSpawnPointTrans = GameObject.FindGameObjectWithTag("BallSpawnPoint").transform;
     }
 
     private void MagnetPlace(Vector3 targetPos)

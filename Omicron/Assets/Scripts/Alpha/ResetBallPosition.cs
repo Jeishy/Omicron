@@ -24,7 +24,7 @@ public class ResetBallPosition: MonoBehaviour
     {
         alphaLevelManager = GetComponent<AlphaLevelManager>();
         // Sets cached reference of the balls spawn point in the PlayerControllerRefereneces class
-        ballSpawnPoint = PlayerControllerReferences.Instance.BallSpawnPoint;
+        ballSpawnPoint = GameObject.FindGameObjectWithTag("BallSpawnPoint").transform;
     }
 
     private void Reset()

@@ -24,8 +24,8 @@ public class AlphaBallShoot : MonoBehaviour
     private void Setup()
     {
         alphaLevelManager = GetComponent<AlphaLevelManager>();
-        oculusGoTransform = PlayerControllerReferences.Instance.OculusRemoteTransform;
-        ballSpawnPoint = PlayerControllerReferences.Instance.BallSpawnPoint;
+        oculusGoTransform = GameObject.FindGameObjectWithTag("OculusRemote").transform;
+        ballSpawnPoint = GameObject.FindGameObjectWithTag("BallSpawnPoint").transform;
     }
 
     private void Shoot()

@@ -25,7 +25,7 @@ public class BetaMagnetAttach : MonoBehaviour
     {
         betaManager = GetComponent<BetaLevelManager>();
         bMagnetPooler = GetComponent<BetaMagnetPooler>();
-        magnetSpawnPointTrans = PlayerControllerReferences.Instance.BallSpawnPoint;
+        magnetSpawnPointTrans = GameObject.FindGameObjectWithTag("BallSpawnPoint").transform;
     }
 
     private void MagnetAttach()

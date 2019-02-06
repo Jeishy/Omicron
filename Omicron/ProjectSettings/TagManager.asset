@@ -9,6 +9,8 @@ TagManager:
   - MagnetSpawnPoint
   - NorthMagnet
   - Ball
+  - OculusRemote
+  - BallSpawnPoint
   layers:
   - Default
   - TransparentFX
@@ -22,7 +24,7 @@ TagManager:
   - Untargetable
   - Magnet
   - MagnetPlaceable
-  - 
+  - RaycastTargetable
   - 
   - 
   - 
