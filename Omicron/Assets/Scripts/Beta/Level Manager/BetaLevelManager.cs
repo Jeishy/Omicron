@@ -26,7 +26,7 @@ public class BetaLevelManager : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         // Note: Needs to be changed to normal method, FIX HAS BEEN FOUND!
         StartCoroutine("WaitToAttachMagnet");
-        gameManager.FindAllPuzzles();
+        gameManager.FindAllPuzzles();           // Find all puzzles at the beginning of the level, and deactivate all but the first
     }
 
     private IEnumerator WaitToAttachMagnet()

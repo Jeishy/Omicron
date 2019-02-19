@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class HubWorldOver : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private HubWorldManager hubManager;
+
+    private void OnEnable()
     {
-        
+        Setup();
+        hubManager.OnOver += Over;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        hubManager.OnOver -= Over;
     }
+
+    private void Setup()
+    {
+        hubManager = GetComponent<HubWorldManager>();
+    }
+
+    private void Over(Collider uiElement)
+    {
+        Animator anim = uiElement.GetComponent<Animator>();
+        anim.SetTrigger("Increase");
+   }
 }

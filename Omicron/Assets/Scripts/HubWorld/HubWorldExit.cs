@@ -4,15 +4,29 @@ using UnityEngine;
 
 public class HubWorldExit : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private HubWorldManager hubManager;
+
+    private void OnEnable()
     {
-        
+        Setup();
+        hubManager.OnExit += Exit;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnDisable()
     {
-        
+        hubManager.OnExit -= Exit;
     }
+
+    private void Setup()
+    {
+        hubManager = GetComponent<HubWorldManager>();
+    }
+
+    private void Exit(Collider uiElement)
+    {
+        Debug.Log("Decreasing UI Panel ");
+        Animator anim = uiElement.GetComponent<Animator>();
+        anim.SetTrigger("Decrease");
+   }
 }
+

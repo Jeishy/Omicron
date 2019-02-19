@@ -19,6 +19,7 @@ public class AlphaLevelManager : MonoBehaviour {
     [HideInInspector] public bool IsGravityChanged;     // Flag for change in gravity
     [HideInInspector] public bool IsBallDropped;        // Flag for case that the ball is dropped (Goes too far from player)
     [HideInInspector] public bool IsBallShot;           // Flag for case that the ball is shot by player 
+    private GameManager gameManager;
 
     private void Start()
     {
@@ -31,6 +32,8 @@ public class AlphaLevelManager : MonoBehaviour {
        {
            ResetBallPosition();
        }
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager.FindAllPuzzles();           // Find all puzzles at the beginning of the level, and deactivate all but the first
     }
 
     // Function called for methods subscribed to OnGravityChange event

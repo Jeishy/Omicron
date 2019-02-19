@@ -8,11 +8,13 @@ public class HubWorldManager : MonoBehaviour
     public delegate void HubWorldLevelSelectHandler(string level);
     public event HubWorldLevelSelectHandler OnLevelSelect;
 
-    public delegate void HubWorldInputHandler();
+    public delegate void HubWorldInputHandler(Collider col);
     public event HubWorldInputHandler OnOver;
     public event HubWorldInputHandler OnExit;
     public event HubWorldInputHandler OnOptions;
     #endregion
+
+    [HideInInspector] public bool IsEnlarged;
 
 
     // Function for running all methods subcribed to the OnLevelSelect event
@@ -25,29 +27,29 @@ public class HubWorldManager : MonoBehaviour
     }
 
     // Function for running all methods subcribed to the OnOver event
-    public void Over()
+    public void Over(Collider col)
     {
         if (OnOver != null)
         {
-            OnOver();
+            OnOver(col);
         }
     }
 
     // Function for running all methods subcribed to the OnExit event
-    public void Exit()
+    public void Exit(Collider col)
     {
         if (OnExit != null)
         {
-            OnExit();
+            OnExit(col);
         }
     } 
 
     // Function for running all methods subcribed to the OnOptions event
-    public void Options()
+    public void Options(Collider col)
     {
         if (OnOptions != null)
         {
-            OnOptions();
+            OnOptions(col);
         }
     }     
 }
