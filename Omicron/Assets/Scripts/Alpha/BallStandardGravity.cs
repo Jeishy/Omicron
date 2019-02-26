@@ -19,9 +19,6 @@ public class BallStandardGravity : MonoBehaviour {
         // If gravity hasnt been changed, implement standard gravity
         if (alphaLevelManager.IsGravityChanged != true)
             StandardGravity();
-        //else
-           // Debug.Log(Physics.gravity);
-        
 	}
 
     private void StandardGravity()

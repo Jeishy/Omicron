@@ -13,7 +13,7 @@ public class BetaSouthMagnet : BetaMagnet
     }
 
     // Update is called once per frame
-    private void Update()
+    private void FixedUpdate()
     {
         // Find all magnets in range of magnet, with specified radius
         FindAllMagnetsInRange(maxRadius);

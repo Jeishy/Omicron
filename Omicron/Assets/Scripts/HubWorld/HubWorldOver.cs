@@ -24,6 +24,7 @@ public class HubWorldOver : MonoBehaviour
 
     private void Over(Collider uiElement)
     {
+        // Increase the size of the panel that was selected
         Animator anim = uiElement.GetComponent<Animator>();
         anim.SetTrigger("Increase");
    }

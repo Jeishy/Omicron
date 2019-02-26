@@ -14,6 +14,7 @@ public class HubWorldManager : MonoBehaviour
     public event HubWorldInputHandler OnOptions;
     #endregion
 
+    // Bool to check if a panel has or hasn't already been enlarged on select
     [HideInInspector] public bool IsEnlarged;
 
 

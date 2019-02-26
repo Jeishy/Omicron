@@ -7,9 +7,7 @@ public class HubWorldInputHandler : MonoBehaviour
 {
     private HubWorldManager hubManager;
     private Transform oculusRemote;
-    private int layerMask;
     private Ray ray;
-    [SerializeField] private Text debugText;
     private bool isTargetted;
     private Collider hitPanelCol;
     private string selectedLevel;
@@ -19,7 +17,6 @@ public class HubWorldInputHandler : MonoBehaviour
     {
         oculusRemote = GameObject.FindGameObjectWithTag("OculusRemote").transform;
         hubManager = GetComponent<HubWorldManager>();
-        layerMask = 1 << 12;
         isTargetted = false;
     }
 
@@ -34,7 +31,7 @@ public class HubWorldInputHandler : MonoBehaviour
     private void VRInput()
     {
         RaycastHit hit;
-        if (Physics.Raycast(oculusRemote.position, oculusRemote.forward, out hit, Mathf.Infinity))
+        if (Physics.Raycast(oculusRemote.position, oculusRemote.forward, out hit, 15f))
         {
             if (hit.collider.CompareTag("UIPanel") && isTargetted == false)
             {
@@ -45,7 +42,6 @@ public class HubWorldInputHandler : MonoBehaviour
             }
             else if (isTargetted && OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTrackedRemote))
             {
-                debugText.text = "Remote Trigger Activated";
                 hubManager.LevelSelect(selectedLevel);
             }
         }
@@ -67,7 +63,6 @@ public class HubWorldInputHandler : MonoBehaviour
                 hitPanelCol = hit.collider;
                 isTargetted = true;
                 //hubManager.Over(hitPanelCol);
-                Debug.Log("Sup");
                 selectedLevel = hit.collider.name;
             }
             else if (isTargetted && Input.GetMouseButtonDown(0))

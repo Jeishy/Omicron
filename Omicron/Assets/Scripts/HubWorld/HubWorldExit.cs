@@ -24,7 +24,7 @@ public class HubWorldExit : MonoBehaviour
 
     private void Exit(Collider uiElement)
     {
-        Debug.Log("Decreasing UI Panel ");
+        // Decrease the size of the panel that was selected
         Animator anim = uiElement.GetComponent<Animator>();
         anim.SetTrigger("Decrease");
    }

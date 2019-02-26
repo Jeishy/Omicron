@@ -42,12 +42,6 @@ public class GameManager : MonoBehaviour {
         }
     }
     #endregion
-    
-    private void Start()
-    {
-        // Finds all puzzles at beginning of level
-        FindAllPuzzles();
-    }
 
     // Function for finding all the puzzles in a level
     // Called at the beginning of each level

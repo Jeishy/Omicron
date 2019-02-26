@@ -11,6 +11,7 @@ public class BetaInputHandler : MonoBehaviour
     [SerializeField] private Text debugText;
     [SerializeField] private GameObject magnetPlaceVisualizerPrefab;    // Reference to grey magnet placement visualizer prefab
     [SerializeField] private float hitZPos;                             // Z component of position that magnets must be placed in
+
     private void Start()
     {
         betaManager = GetComponent<BetaLevelManager>();
