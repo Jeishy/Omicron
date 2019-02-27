@@ -4,11 +4,12 @@ using UnityEngine;
 
 public class GammaNextPuzzle : MonoBehaviour
 {
+    [HideInInspector] public int HotParticlesInCorrectChamber;                       // The number of hot particles in the right chamber
+    [HideInInspector] public int ColdParticlesInCorrectChamber;                      // The number of cold particles in the right chamber
+
     [SerializeField] private float waitTimeTillPuzzleCompletion;    // The time taken till the puzzle is completed
 
     private GammaLevelManager gammaManager;
-    private int hotParticlesInCorrectChamber;                       // The number of hot particles in the right chamber
-    private int coldParticlesInCorrectChamber;                      // The number of cold particles in the right chamber
 
     private void Start()
     {
@@ -24,9 +25,6 @@ public class GammaNextPuzzle : MonoBehaviour
             if (gammaManager.HotParticlesInPuzzle == CheckNumberOfHotParticles() && gammaManager.ColdParticlesInPuzzle == CheckNumberOfColdParticles())
             {
                 StartCoroutine(WaitForNextPuzzle());
-                // reset the counters for the next puzzle
-                hotParticlesInCorrectChamber = 0;
-                coldParticlesInCorrectChamber = 0;
             }
         }
     }
@@ -46,7 +44,7 @@ public class GammaNextPuzzle : MonoBehaviour
 
     private int CheckNumberOfHotParticles()
     {
-        int hotParticlesInCorrectChamber = 0;
+        int HotParticlesInCorrectChamber = 0;
         // Get the currenct active puzzle
         GameObject activePuzzle = GameManager.Instance.FindActivePuzzle();
         // Find the number of hot chambers in the puzzle
@@ -54,14 +52,14 @@ public class GammaNextPuzzle : MonoBehaviour
         foreach(GammaHotChamber hotChamber in hotChambers)
         {
             // For every hot particle in the right chamber, add one to the total of hot particles in the right chambers
-            hotParticlesInCorrectChamber += hotChamber.HotParticlesInChamber;
+            HotParticlesInCorrectChamber += hotChamber.HotParticlesInChamber;
         }
-        return hotParticlesInCorrectChamber;
+        return HotParticlesInCorrectChamber;
     }
 
     private int CheckNumberOfColdParticles()
     {
-        int coldParticlesInCorrectChamber = 0;
+        int ColdParticlesInCorrectChamber = 0;
         // Get the currenct active puzzle
         GameObject activePuzzle = GameManager.Instance.FindActivePuzzle();
         // Find the number of cold chambers in the puzzle
@@ -69,9 +67,9 @@ public class GammaNextPuzzle : MonoBehaviour
         foreach (GammaColdChamber coldChamber in coldChambers)
         {
             // For every cold particle in the right chamber, add one to the total of cold particles in the right chambers
-            coldParticlesInCorrectChamber += coldChamber.ColdParticlesInChamber;
+            ColdParticlesInCorrectChamber += coldChamber.ColdParticlesInChamber;
         }
-        return coldParticlesInCorrectChamber;
+        return ColdParticlesInCorrectChamber;
     }
 
     private IEnumerator WaitForNextPuzzle()
@@ -79,6 +77,17 @@ public class GammaNextPuzzle : MonoBehaviour
         // Wait specified amount of seconds before checking if all particles are in the right chambers again
         yield return new WaitForSeconds(waitTimeTillPuzzleCompletion);
         if (gammaManager.HotParticlesInPuzzle == CheckNumberOfHotParticles() && gammaManager.ColdParticlesInPuzzle == CheckNumberOfColdParticles())
+        {
             GameManager.Instance.NextPuzzle();
+            // reset the counters for the next puzzle
+            HotParticlesInCorrectChamber = 0;
+            ColdParticlesInCorrectChamber = 0;
+            // Set IsParticleStateChanged to false before entering the next puzzle
+            foreach (GammaParticle particle in gammaManager.ParticlesInPuzzle)
+            {
+                particle.IsParticleStateChanged = false;
+                particle.Setup();
+            }
+        }
     }
 }

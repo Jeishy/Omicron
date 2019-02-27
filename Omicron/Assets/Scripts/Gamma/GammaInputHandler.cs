@@ -31,6 +31,9 @@ public class GammaInputHandler : MonoBehaviour
             PCInput();
         else
             VRInput();
+
+        CheckIfPuzzleFailed();
+        ResetPuzzle();
     }
 
     private void PCInput()
@@ -95,6 +98,23 @@ public class GammaInputHandler : MonoBehaviour
         else if (OVRInput.GetUp(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTrackedRemote) && gammaManager.IsTrapDoorSelected)
         {
             gammaManager.TrapDoorDeselect(trapDoor);
+        }
+    }
+
+    private void CheckIfPuzzleFailed()
+    {
+
+    }
+
+    private void ResetPuzzle()
+    {
+        if (OVRInput.Get(OVRInput.Button.PrimaryTouchpad, OVRInput.Controller.RTrackedRemote))
+        {
+            gammaManager.PuzzleReset();
+        }
+            else if (Input.GetKeyDown(KeyCode.E))
+        {
+            gammaManager.PuzzleReset();
         }
     }
 }

@@ -35,7 +35,6 @@ public class GammaSetParticleDirections : MonoBehaviour
     {
         Vector3 positionToMoveTowards = positionDirecitonTrans.position;
         Vector3 direction = Vector3.Normalize(positionToMoveTowards - initialPos);
-        Debug.Log(gameObject.name + "'s direction vector is: " + direction);
         gammaParticle.ParticleDirection = direction;
     }
 }

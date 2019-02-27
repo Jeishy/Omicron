@@ -4,17 +4,24 @@ using UnityEngine;
 
 public class GammaParticle : MonoBehaviour
 {
+    public bool CanTemperatureIncrease;                                         // bool for if the temperature will increase or decrease
+
     [HideInInspector] public Vector3 ParticleDirection;                         // The normalized direction of the particle (Set randomly at the beginning of the puzzle)
     [HideInInspector] public bool IsHot;                                        // flag if the temperature is hot or cold
     [HideInInspector] public Vector3 LastVelocity;                              // Last frame's velocity
+    [HideInInspector] public bool IsParticleStateChanged;
+    [HideInInspector] public float InitialSpeed;
+    [HideInInspector] public float HotSpeedModifier = 8.0f;                     // Hot particle speed multiplier, which is used in the calculation of the a hot particle's speed
+    [HideInInspector] public float ColdSpeedModifier = 9.0f;                    // Cold particle speed multiplier, which is used in the calculation of the a cold particle's speed
+    [HideInInspector] public Color OriginalColour;
+    [HideInInspector] public float OriginalTemperature;
+    [Range(minTemp, maxTemp)] public float Temperature;                         // Initial temperature of the particle, which can be changed over time
+    [HideInInspector] public float TemperatureTime;                             // The temperature time, which ensures the particles temperature changes during regular intervals
 
-    [SerializeField][Range(minTemp, maxTemp)] private float temperature;        // Initial temperature of the particle, which can be changed over time
     [SerializeField] private float timeTillTemperatureChange;                   // Time till the temperature of the particle changes
-
     [SerializeField] private bool canTemperatureChange;                         // bool for if the temperature of the particle can be changed during the puzzle
-    [SerializeField] private bool canTemperatureIncrease;                       // bool for if the temperature will increase or decrease
-    [SerializeField][Range(0.1f, 1.0f)] private float maxTemperatureIncrease;
-    [SerializeField][Range(0.1f, 1.0f)] private float minTemperatureDecrease;
+    [SerializeField][Range(minTemp, maxTemp)] private float maxTemperatureIncrease;
+    [SerializeField][Range(minTemp, maxTemp)] private float minTemperatureDecrease;
     [SerializeField] private float temperatureChangeRate;                       // Rate at which the temperature of the particle will change
     [SerializeField] private float temperatureDelta;                            // The change in the temperature of a particle over time
     [SerializeField] private Color blueColour;                                  // Blue particle colour (When its at its coldest)
@@ -26,13 +33,12 @@ public class GammaParticle : MonoBehaviour
     private const float minSpeed = 1.0f;                                        // Minimum speed that a particle can travel at
     private const float maxTemp = 2.0f;                                         // Maximum particle temperature
     private const float minTemp = 0.1f;                                         // Minimum particle temperature
-    private const float hotSpeedModifier = 8.0f;                               // Hot particle speed multiplier, which is used in the calculation of the a hot particle's speed
-    private const float coldSpeedModifier = 9.0f;                              // Cold particle speed multiplier, which is used in the calculation of the a cold particle's speed
+
 
     private Rigidbody particleRB;                                           
     private MeshRenderer particleMeshRenderer;                              
-    private float temperatureTime;                                              // The temperature time, which ensures the particles temperature changes during regular intervals
     private float speed;                                                        // Speed of the particle, which can be changed over time
+    private GammaLevelManager gammaManager;
 
     private void Awake()
     {
@@ -40,15 +46,10 @@ public class GammaParticle : MonoBehaviour
         particleMeshRenderer = GetComponent<MeshRenderer>();
     }
 
-    private void OnEnable()
+    private void Start()
     {
-        temperatureTime = 0;
-        // Change the temperature state from the beginning
-        CheckTemperatureState(temperature);
-        // Change the colour of the particle, according to its temperature
-        ChangeColour(temperature);
-        // Wait for particle's direction to be set before setting the particles velocity
-        StartCoroutine(WaitToSetVelocity());
+        gammaManager = GameObject.Find("GammaLevelManager").GetComponent<GammaLevelManager>();
+        Setup();
     }
 
     private void FixedUpdate()
@@ -56,20 +57,33 @@ public class GammaParticle : MonoBehaviour
         LastVelocity = particleRB.velocity;
         if (canTemperatureChange)
         {
-            if (timeTillTemperatureChange < Time.time && temperatureTime < Time.time)
+            if (timeTillTemperatureChange < Time.time && TemperatureTime < Time.time)
             {
-                // Set temperatureTime so that the particle's temperature changes according to regular intervals
-                temperatureTime = Time.time + temperatureChangeRate;       
+                // Set TemperatureTime so that the particle's temperature changes according to regular intervals
+                TemperatureTime = Time.time + temperatureChangeRate;       
                 // Change temperature based on if it is set to increase or not
-                ChangeTemperature(canTemperatureIncrease);
+                ChangeTemperature(CanTemperatureIncrease);
                 // Check and change state if below or above threshold
-                CheckTemperatureState(temperature);
+                CheckTemperatureState(Temperature);
                 // Change speed based on temperature
-                ChangeSpeed(temperature);
+                ChangeSpeed(Temperature);
                 // Change colour based on temperature
-                ChangeColour(temperature);
+                ChangeColour(Temperature);
             }
         }
+    }
+
+    public void Setup()
+    {
+        TemperatureTime = 0;
+        IsParticleStateChanged = false;
+        // Change the temperature state from the beginning
+        SetupTemperatureState(Temperature);
+        // Change the colour of the particle, according to its temperature
+        OriginalColour = ChangeColour(Temperature);
+        OriginalTemperature = Temperature;
+        // Wait for particle's direction to be set before setting the particles velocity
+        StartCoroutine(WaitToSetVelocity());
     }
 
     private IEnumerator WaitToSetVelocity()
@@ -77,17 +91,18 @@ public class GammaParticle : MonoBehaviour
         yield return new WaitForSeconds(0.1f);
         // Set speed multipliers depending on a particle's state
         if (IsHot)
-            speed = temperature * hotSpeedModifier;
+            speed = Temperature * HotSpeedModifier;
         else
         {
-            if (temperature >= 0.85 && temperature < temperatureThreshold)
-                speed = temperature * coldSpeedModifier * 0.85f;
+            if (Temperature >= 0.85 && Temperature < temperatureThreshold)
+                speed = Temperature * ColdSpeedModifier * 0.85f;
             else
-                speed = temperature * coldSpeedModifier;
+                speed = Temperature * ColdSpeedModifier;
         }
 
         // Set particles velocity 
         particleRB.velocity = speed * ParticleDirection;
+        InitialSpeed = speed;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -106,7 +121,7 @@ public class GammaParticle : MonoBehaviour
         particleRB.velocity = direction * Mathf.Max(speed, minSpeed);
     }
 
-    private void CheckTemperatureState(float temperature)
+    private void SetupTemperatureState(float temperature)
     {
         if (temperature < temperatureThreshold)
         {
@@ -120,22 +135,44 @@ public class GammaParticle : MonoBehaviour
         }
     }
 
-    private void ChangeTemperature(bool canTemperatureIncrease)
+    public void CheckTemperatureState(float temperature)
     {
-        if (temperature < maxTemperatureIncrease && temperature > minTemperatureDecrease)
+        if (temperature < temperatureThreshold && !IsParticleStateChanged)
         {
-            if (canTemperatureIncrease)
+            IsParticleStateChanged = true;
+            // If temperature goes below the threshold, the particle is cold
+            IsHot = false;
+            // Inform the gamma level manager that the particle has changed state
+            gammaManager.ParticleStateChange(IsHot);
+        }
+        else if (temperature > temperatureThreshold && !IsParticleStateChanged)
+        {
+            IsParticleStateChanged = true;
+            // If temperature goes above the threshold, the particle it is hot
+            IsHot = true;
+            // Inform the gamma level manager that the particle has changed state
+            gammaManager.ParticleStateChange(IsHot);
+        }
+    }
+
+    public void ChangeTemperature(bool CanTemperatureIncrease)
+    {
+        if (Temperature < maxTemperatureIncrease && Temperature > minTemperatureDecrease)
+        {
+            if (CanTemperatureIncrease)
             {
                 // Increase temperature by the delta
-                temperature += temperatureDelta;
+                Temperature += temperatureDelta;
+                Temperature = Mathf.Clamp(Temperature, minTemp, maxTemperatureIncrease);
             }
             else
             {
                 // Decrease temperature by the delta
-                temperature -= temperatureDelta;
+                Temperature -= temperatureDelta;
+                Temperature = Mathf.Clamp(Temperature, minTemperatureDecrease, maxTemp);
             }
             // Clamp temperature between min and max temperature
-            temperature = Mathf.Clamp(temperature, minTemp, maxTemp);
+            Temperature = Mathf.Clamp(Temperature, minTemp, maxTemp);
         }
     }
 
@@ -145,11 +182,11 @@ public class GammaParticle : MonoBehaviour
         {
             if (IsHot)
             {
-                speed = temperature * hotSpeedModifier;
+                speed = temperature * HotSpeedModifier;
             }
             else
             {
-                speed = temperature * coldSpeedModifier;
+                speed = temperature * ColdSpeedModifier;
             }
 
             Vector3 direction = particleRB.velocity.normalized;
@@ -157,7 +194,7 @@ public class GammaParticle : MonoBehaviour
         }
     }
 
-    private void ChangeColour(float temperature)
+    private Color ChangeColour(float temperature)
     {
         if (temperature < temperatureThreshold)
         {
@@ -167,5 +204,8 @@ public class GammaParticle : MonoBehaviour
         {
             particleMeshRenderer.material.color = Color.Lerp(lightRedColour, redColour, temperature - 1);
         }
+
+        Color colour = particleMeshRenderer.material.color;
+        return colour;
     }
 }

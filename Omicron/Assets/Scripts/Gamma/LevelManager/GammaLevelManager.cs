@@ -8,6 +8,7 @@ public class GammaLevelManager : MonoBehaviour
     public delegate void PlayerEventManagerGamma();
     public event PlayerEventManagerGamma OnPuzzleStart;
     public event PlayerEventManagerGamma OnRestartPuzzle;
+    public event PlayerEventManagerGamma OnPuzzleReset;
 
     public delegate void PlayerTrapDoorEvent(GameObject trapDoor);
     public event PlayerTrapDoorEvent OnTrapDoorSelect;
@@ -15,7 +16,7 @@ public class GammaLevelManager : MonoBehaviour
     public event PlayerTrapDoorEvent OnTrapDoorOver;
     public event PlayerTrapDoorEvent OnTrapDoorEnd;
 
-    public delegate void ParticleEventManagerGamma(GammaParticle particle);
+    public delegate void ParticleEventManagerGamma(bool isHot);
     public event ParticleEventManagerGamma OnParticleStateChange;
     #endregion
 
@@ -52,6 +53,15 @@ public class GammaLevelManager : MonoBehaviour
         if (OnRestartPuzzle != null)
         {
             OnRestartPuzzle();
+        }
+    }
+
+    // Function for running all methods subcribed to the OnFailPuzzle event
+    public void PuzzleReset()
+    {
+        if (OnPuzzleReset != null)
+        {
+            OnPuzzleReset();
         }
     }
 
@@ -92,11 +102,11 @@ public class GammaLevelManager : MonoBehaviour
     }
 
     // Function for running all methods subcribed to the OnParticleStateChange event
-    public void ParticleStateChange()
+    public void ParticleStateChange(bool isHot)
     {
         if (OnParticleStateChange != null)
         {
-            OnParticleStateChange();
+            OnParticleStateChange(isHot);
         }
     }
 }

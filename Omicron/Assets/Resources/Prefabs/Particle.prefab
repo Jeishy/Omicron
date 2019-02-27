@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3039300329857305716}
   - component: {fileID: 4131587249344802503}
   - component: {fileID: 483621585631144030}
+  - component: {fileID: 5215751881266414715}
   m_Layer: 13
   m_Name: Particle
   m_TagString: Untagged
@@ -126,7 +127,13 @@ MonoBehaviour:
   ParticleDirection: {x: 0, y: 0, z: 0}
   IsHot: 0
   LastVelocity: {x: 0, y: 0, z: 0}
-  temperature: 0
+  IsParticleStateChanged: 0
+  InitialSpeed: 0
+  HotSpeedModifier: 8
+  ColdSpeedModifier: 9
+  OriginalColour: {r: 0, g: 0, b: 0, a: 0}
+  OriginalTemperature: 0
+  Temperature: 0
   timeTillTemperatureChange: 2
   canTemperatureChange: 0
   canTemperatureIncrease: 0
@@ -151,6 +158,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   positionDirecitonTrans: {fileID: 1447865956013891910}
+--- !u!114 &5215751881266414715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1086006433504939143}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63fc2df3dc1acb94ab038d49bec972d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spawnPoint: {fileID: 0}
 --- !u!1 &4211425623260630266
 GameObject:
   m_ObjectHideFlags: 0
