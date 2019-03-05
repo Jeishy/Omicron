@@ -1149,7 +1149,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &320155519
 Transform:
   m_ObjectHideFlags: 0
@@ -5681,16 +5681,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: -3.09
       objectReference: {fileID: 0}
-    - target: {fileID: 542458980379497874, guid: 4abf326dda89b97418e3e5c5dc53604d,
-        type: 3}
-      propertyPath: m_Name
-      value: SpawnPoint (1)
-      objectReference: {fileID: 0}
     - target: {fileID: 5215751881266414715, guid: 4abf326dda89b97418e3e5c5dc53604d,
         type: 3}
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 383488}
+    - target: {fileID: 542458980379497874, guid: 4abf326dda89b97418e3e5c5dc53604d,
+        type: 3}
+      propertyPath: m_Name
+      value: SpawnPoint (1)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4abf326dda89b97418e3e5c5dc53604d, type: 3}
 --- !u!4 &1552201887 stripped
@@ -6353,7 +6353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1739311583
 Transform:
   m_ObjectHideFlags: 0
@@ -6398,7 +6398,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1744218687
 Transform:
   m_ObjectHideFlags: 0
@@ -7760,16 +7760,16 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1.6
       objectReference: {fileID: 0}
-    - target: {fileID: 542458980379497874, guid: 4abf326dda89b97418e3e5c5dc53604d,
-        type: 3}
-      propertyPath: m_Name
-      value: SpawnPoint (2)
-      objectReference: {fileID: 0}
     - target: {fileID: 5215751881266414715, guid: 4abf326dda89b97418e3e5c5dc53604d,
         type: 3}
       propertyPath: spawnPoint
       value: 
       objectReference: {fileID: 2142394071}
+    - target: {fileID: 542458980379497874, guid: 4abf326dda89b97418e3e5c5dc53604d,
+        type: 3}
+      propertyPath: m_Name
+      value: SpawnPoint (2)
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4abf326dda89b97418e3e5c5dc53604d, type: 3}
 --- !u!4 &2142394071 stripped

@@ -12,7 +12,6 @@ public class HubWorldInputHandler : MonoBehaviour
     private Collider hitPanelCol;
     private string selectedLevel;
 
-
     private void Start()
     {
         oculusRemote = GameObject.FindGameObjectWithTag("OculusRemote").transform;
@@ -31,8 +30,9 @@ public class HubWorldInputHandler : MonoBehaviour
     private void VRInput()
     {
         RaycastHit hit;
-        if (Physics.Raycast(oculusRemote.position, oculusRemote.forward, out hit, 15f))
+        if (Physics.Raycast(oculusRemote.position, oculusRemote.forward, out hit, Mathf.Infinity))
         {
+            
             if (hit.collider.CompareTag("UIPanel") && isTargetted == false)
             {
                 hitPanelCol = hit.collider;
