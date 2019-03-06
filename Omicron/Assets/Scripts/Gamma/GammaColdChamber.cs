@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class GammaColdChamber : MonoBehaviour
 {
-    private GammaLevelManager gammaManager;
+    private GammaLevelManager _gammaManager;
     [HideInInspector] public int ColdParticlesInChamber;
 
     private void Start()
     {
-        gammaManager = GameObject.Find("GammaLevelManager").GetComponent<GammaLevelManager>();
+        _gammaManager = GameObject.Find("GammaLevelManager").GetComponent<GammaLevelManager>();
     }
 
     private void OnTriggerEnter(Collider col)

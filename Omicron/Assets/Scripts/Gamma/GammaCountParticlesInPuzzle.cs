@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GammaGetParticlesInPuzzle : MonoBehaviour
+public class GammaCountParticlesInPuzzle : MonoBehaviour
 {
     private GammaLevelManager _gammaManager;
 
@@ -33,6 +33,7 @@ public class GammaGetParticlesInPuzzle : MonoBehaviour
         
         foreach (GammaParticle particle in particles)
         {
+            //Debug.Log(particle.gameObject + "'s temperature state is " + particle.IsHot);
             if (particle.IsHot)
             {
                 _gammaManager.HotParticlesInPuzzle++;

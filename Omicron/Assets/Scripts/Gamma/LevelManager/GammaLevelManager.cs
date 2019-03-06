@@ -7,8 +7,7 @@ public class GammaLevelManager : MonoBehaviour
     #region Delegates and Events
     public delegate void PlayerEventManagerGamma();
     public event PlayerEventManagerGamma OnPuzzleStart;
-    public event PlayerEventManagerGamma OnRestartPuzzle;
-    public event PlayerEventManagerGamma OnPuzzleReset;
+    public event PlayerEventManagerGamma OnPuzzleRestart;
 
     public delegate void PlayerTrapDoorEvent(GameObject trapDoor);
     public event PlayerTrapDoorEvent OnTrapDoorSelect;
@@ -48,20 +47,11 @@ public class GammaLevelManager : MonoBehaviour
     }
 
     // Function for running all methods subscribed to the OnRestartPuzzle event
-    public void RestartPuzzle()
+    public void PuzzleRestart()
     {
-        if (OnRestartPuzzle != null)
+        if (OnPuzzleRestart != null)
         {
-            OnRestartPuzzle();
-        }
-    }
-
-    // Function for running all methods subscribed to the OnFailPuzzle event
-    public void PuzzleReset()
-    {
-        if (OnPuzzleReset != null)
-        {
-            OnPuzzleReset();
+            OnPuzzleRestart();
         }
     }
 

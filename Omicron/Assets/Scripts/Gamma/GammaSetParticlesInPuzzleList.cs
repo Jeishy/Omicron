@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GammaParticlesInPuzzleList : MonoBehaviour
+public class GammaSetParticlesInPuzzleList : MonoBehaviour
 {
     private GammaLevelManager _gammaManager;
 

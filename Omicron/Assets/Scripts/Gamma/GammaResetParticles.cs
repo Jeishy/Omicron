@@ -4,40 +4,19 @@ using UnityEngine;
 
 public class GammaResetParticles : MonoBehaviour
 {
-    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private Transform _spawnPoint;
+    private GammaParticle _gammaParticle;
 
-    private GammaLevelManager gammaManager;
-    private GammaParticle gammaParticle;
-
-    private void OnEnable()
+    private void Start()
     {
-        Setup();
-        gammaManager.OnPuzzleReset += ResetParticles;
+        _gammaParticle = GetComponent<GammaParticle>();
     }
 
-    private void OnDisable()
+    public void ResetParticle()
     {
-        gammaManager.OnPuzzleReset -= ResetParticles;
-    }
-
-    private void Setup()
-    {
-        gammaManager = GameObject.Find("GammaLevelManager").GetComponent<GammaLevelManager>();
-        gammaParticle = GetComponent<GammaParticle>();
-    }
-
-    private void ResetParticles()
-    {
-        float speed = gammaParticle.InitialSpeed;
-        MeshRenderer particleMeshRenderer = GetComponent<MeshRenderer>();
         // Resets position of all magnets already in the puzzle (Not placeable magnets)
-        transform.position = spawnPoint.position;                                                   // Set there positions to their respective spawn point positions
-        GetComponent<Rigidbody>().velocity = gammaParticle.ParticleDirection * speed;                             // Set their velocities to their original velocities
-        particleMeshRenderer.material.color = gammaParticle.OriginalColour;
-        gammaParticle.Temperature = gammaParticle.OriginalTemperature;
-        gammaParticle.IsParticleStateChanged = false;
-        gammaParticle.CheckTemperatureState(gammaParticle.Temperature);
-        gammaParticle.ChangeTemperature(gammaParticle.CanTemperatureIncrease);
-        gammaParticle.TemperatureTime = 0;
+        transform.position = _spawnPoint.position;                                                   // Set there positions to their respective spawn point positions
+        _gammaParticle.Temperature = _gammaParticle.OriginalTemperature;
+        _gammaParticle.Setup();
     }
 }
