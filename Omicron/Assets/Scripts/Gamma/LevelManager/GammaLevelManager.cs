@@ -32,13 +32,13 @@ public class GammaLevelManager : MonoBehaviour
         GameManager.Instance.FindAllPuzzles();
         // Call StartPuzzle method at beginning of level
         PuzzleStart();             
-        // Set the bools to false at the begginning of the level
+        // Set the bools to false at the beginning of the level
         IsTrapDoorOver = false;
         IsTrapDoorSelected = false;
     }
 
 
-    // Function for running all methods subcribed to the OnPuzzleStart event
+    // Function for running all methods subscribed to the OnPuzzleStart event
     public void PuzzleStart()
     {
         if (OnPuzzleStart != null)
@@ -47,7 +47,7 @@ public class GammaLevelManager : MonoBehaviour
         }
     }
 
-    // Function for running all methods subcribed to the OnRestartPuzzle event
+    // Function for running all methods subscribed to the OnRestartPuzzle event
     public void RestartPuzzle()
     {
         if (OnRestartPuzzle != null)
@@ -56,7 +56,7 @@ public class GammaLevelManager : MonoBehaviour
         }
     }
 
-    // Function for running all methods subcribed to the OnFailPuzzle event
+    // Function for running all methods subscribed to the OnFailPuzzle event
     public void PuzzleReset()
     {
         if (OnPuzzleReset != null)
@@ -65,7 +65,7 @@ public class GammaLevelManager : MonoBehaviour
         }
     }
 
-    // Function for running all methods subcribed to the OnTrapDoorSelect event
+    // Function for running all methods subscribed to the OnTrapDoorSelect event
     public void TrapDoorSelect(GameObject trapDoor)
     {
         if (OnTrapDoorSelect != null)
@@ -74,7 +74,7 @@ public class GammaLevelManager : MonoBehaviour
         }
     }
 
-    // Function for running all methods subcribed to the OnTrapDoorDeselect event
+    // Function for running all methods subscribed to the OnTrapDoorDeselect event
     public void TrapDoorDeselect(GameObject trapDoor)
     {
         if (OnTrapDoorDeselect != null)
@@ -83,7 +83,7 @@ public class GammaLevelManager : MonoBehaviour
         }
     }
 
-    // Function for running all methods subcribed to the OnTrapDoorOver event
+    // Function for running all methods subscribed to the OnTrapDoorOver event
     public void TrapDoorOver(GameObject trapDoor)
     {
         if (OnTrapDoorOver != null)
@@ -92,7 +92,7 @@ public class GammaLevelManager : MonoBehaviour
         }
     }
 
-    // Function for running all methods subcribed to the OnTrapDoorEnd event
+    // Function for running all methods subscribed to the OnTrapDoorEnd event
     public void TrapDoorEnd(GameObject trapDoor)
     {
         if (OnTrapDoorEnd != null)
@@ -101,7 +101,7 @@ public class GammaLevelManager : MonoBehaviour
         }
     }
 
-    // Function for running all methods subcribed to the OnParticleStateChange event
+    // Function for running all methods subscribed to the OnParticleStateChange event
     public void ParticleStateChange(bool isHot)
     {
         if (OnParticleStateChange != null)

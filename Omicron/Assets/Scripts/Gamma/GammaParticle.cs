@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class GammaParticle : MonoBehaviour
 {
-    public bool CanTemperatureIncrease;                                         // bool for if the temperature will increase or decrease
-
     [HideInInspector] public Vector3 ParticleDirection;                         // The normalized direction of the particle (Set randomly at the beginning of the puzzle)
     [HideInInspector] public bool IsHot;                                        // flag if the temperature is hot or cold
     [HideInInspector] public Vector3 LastVelocity;                              // Last frame's velocity
@@ -20,14 +18,18 @@ public class GammaParticle : MonoBehaviour
 
     [SerializeField] private float timeTillTemperatureChange;                   // Time till the temperature of the particle changes
     [SerializeField] private bool canTemperatureChange;                         // bool for if the temperature of the particle can be changed during the puzzle
+    public bool CanTemperatureIncrease;                                         // bool for if the temperature will increase or decrease
     [SerializeField][Range(minTemp, maxTemp)] private float maxTemperatureIncrease;
     [SerializeField][Range(minTemp, maxTemp)] private float minTemperatureDecrease;
+    [SerializeField] private Transform _positionDirectionTrans;
     [SerializeField] private float temperatureChangeRate;                       // Rate at which the temperature of the particle will change
     [SerializeField] private float temperatureDelta;                            // The change in the temperature of a particle over time
     [SerializeField] private Color blueColour;                                  // Blue particle colour (When its at its coldest)
     [SerializeField] private Color lighBlueColour;                              // Light blue particle colour (When its lukewarm, but isHot is false)
     [SerializeField] private Color lightRedColour;                              // light red particle colour (When its lukewarm, but isHot is true)
     [SerializeField] private Color redColour;                                   // Red particle colour (When its at its hottest)
+    [SerializeField] private GameObject _tempChangeIndicator;
+    [SerializeField] private Animator _tempChangeAnim;
 
     private const float temperatureThreshold = 1f;                              // Temperature threshold of a particle
     private const float minSpeed = 1.0f;                                        // Minimum speed that a particle can travel at
@@ -42,6 +44,7 @@ public class GammaParticle : MonoBehaviour
 
     private void Awake()
     {
+        _tempChangeIndicator.SetActive(false);
         particleRB = GetComponent<Rigidbody>();
         particleMeshRenderer = GetComponent<MeshRenderer>();
     }
@@ -82,13 +85,15 @@ public class GammaParticle : MonoBehaviour
         // Change the colour of the particle, according to its temperature
         OriginalColour = ChangeColour(Temperature);
         OriginalTemperature = Temperature;
-        // Wait for particle's direction to be set before setting the particles velocity
-        StartCoroutine(WaitToSetVelocity());
+        // Set particle's velocity
+        SetVelocity();
     }
 
-    private IEnumerator WaitToSetVelocity()
+    private void SetVelocity()
     {
-        yield return new WaitForSeconds(0.1f);
+        Vector3 positionToMoveTowards = _positionDirectionTrans.position;
+        ParticleDirection = Vector3.Normalize(positionToMoveTowards - transform.position);
+
         // Set speed multipliers depending on a particle's state
         if (IsHot)
             speed = Temperature * HotSpeedModifier;
@@ -128,52 +133,94 @@ public class GammaParticle : MonoBehaviour
             // If temperature goes below the threshold, the particle is cold
             IsHot = false;
         }
-        else if (temperature > temperatureThreshold)
+        else if (temperature >= temperatureThreshold)
         {
             // If temperature goes above the threshold, the particle it is hot
             IsHot = true;
         }
     }
 
+
     public void CheckTemperatureState(float temperature)
     {
-        if (temperature < temperatureThreshold && !IsParticleStateChanged)
+        if (canTemperatureChange && !IsParticleStateChanged)
         {
-            IsParticleStateChanged = true;
-            // If temperature goes below the threshold, the particle is cold
-            IsHot = false;
-            // Inform the gamma level manager that the particle has changed state
-            gammaManager.ParticleStateChange(IsHot);
-        }
-        else if (temperature > temperatureThreshold && !IsParticleStateChanged)
-        {
-            IsParticleStateChanged = true;
-            // If temperature goes above the threshold, the particle it is hot
-            IsHot = true;
-            // Inform the gamma level manager that the particle has changed state
-            gammaManager.ParticleStateChange(IsHot);
+            if (!CanTemperatureIncrease && temperature < temperatureThreshold)
+            {
+                IsParticleStateChanged = true;
+                // If temperature goes below the threshold, the particle is cold
+                IsHot = false;
+                // Inform the gamma level manager that the particle has changed state
+                gammaManager.ParticleStateChange(IsHot);
+                HideTemperatureChangeIndicator();
+            }
+            else if (CanTemperatureIncrease && temperature > temperatureThreshold)
+            {
+                IsParticleStateChanged = true;
+                // If temperature goes above the threshold, the particle it is hot
+                IsHot = true;
+                // Inform the gamma level manager that the particle has changed state
+                gammaManager.ParticleStateChange(IsHot);
+                HideTemperatureChangeIndicator();
+            }
         }
     }
 
     public void ChangeTemperature(bool CanTemperatureIncrease)
     {
-        if (Temperature < maxTemperatureIncrease && Temperature > minTemperatureDecrease)
+        if (Temperature < maxTemperatureIncrease && Temperature > minTemperatureDecrease && !IsParticleStateChanged)
         {
+            // Show temperature change indicator when temperature starts to change
+            ShowTemperatureChangeIndicator(CanTemperatureIncrease);
+
             if (CanTemperatureIncrease)
             {
+
                 // Increase temperature by the delta
                 Temperature += temperatureDelta;
                 Temperature = Mathf.Clamp(Temperature, minTemp, maxTemperatureIncrease);
+                if (Temperature >= 0.8f)
+                    ShowImminentStateChangeAnimation(Temperature);
             }
             else
             {
                 // Decrease temperature by the delta
                 Temperature -= temperatureDelta;
                 Temperature = Mathf.Clamp(Temperature, minTemperatureDecrease, maxTemp);
+                if (Temperature <= 1.2f)
+                    ShowImminentStateChangeAnimation(Temperature);
             }
             // Clamp temperature between min and max temperature
             Temperature = Mathf.Clamp(Temperature, minTemp, maxTemp);
         }
+    }
+
+    private void ShowTemperatureChangeIndicator(bool canTemperatureIncrease)
+    {
+        Debug.Log("Showing temp change indicator");
+        _tempChangeIndicator.SetActive(true);
+        _tempChangeAnim.SetTrigger("TempChange");
+        MeshRenderer meshRenderer = _tempChangeIndicator.GetComponent<MeshRenderer>();
+        meshRenderer.material.color = canTemperatureIncrease ? new Color(1f, 0.38f, 0.35f, 1f) : new Color(0.27f, 0.88f, 1f, 1f);
+    }
+
+    private void HideTemperatureChangeIndicator()
+    {
+        Debug.Log("hiding temperature state change indicator");
+        _tempChangeIndicator.SetActive(false);
+        MeshRenderer meshRenderer = _tempChangeIndicator.GetComponent<MeshRenderer>();
+        _tempChangeAnim.SetTrigger("AnimationOff");
+        _tempChangeAnim.ResetTrigger("TempChange");
+        _tempChangeAnim.ResetTrigger("TempStateChange");
+        _tempChangeAnim.ResetTrigger("AnimationOff");
+
+        meshRenderer.material.color = Color.white;
+    }
+
+    private void ShowImminentStateChangeAnimation(float temperature)
+    {
+        Debug.Log("Playing state imminent state change animation");
+        _tempChangeAnim.SetTrigger("TempStateChange");
     }
 
     private void ChangeSpeed(float temperature)

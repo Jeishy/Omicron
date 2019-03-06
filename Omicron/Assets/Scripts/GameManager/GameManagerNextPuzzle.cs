@@ -5,35 +5,35 @@ using UnityEngine.UI;
 using System;
 using System.Linq;
 
-public class NextPuzzle : MonoBehaviour
+public class GameManagerNextPuzzle : MonoBehaviour
 {
-    private GameManager gameManager;
+    private GameManager _gameManager;
     [SerializeField] private Text debugText; 
 
     private void OnEnable()
     {
         Setup();
-        gameManager.OnNextPuzzle += NextPzzle;
+        _gameManager.OnNextPuzzle += NextPuzzle;
     }
 
     private void OnDisable()
     {
-        gameManager.OnNextPuzzle -= NextPzzle;
+        _gameManager.OnNextPuzzle -= NextPuzzle;
     }
 
     private void Setup()
     {
-        gameManager = GetComponent<GameManager>();
+        _gameManager = GetComponent<GameManager>();
     }
 
-    private void NextPzzle()
+    private void NextPuzzle()
     {
         // Find current active puzzle and set it to false
         // Find the next puzzle and set it to true
         // Note: update later to load with a transition
-        GameObject lastPuzzle = gameManager.FindActivePuzzle();         
+        GameObject lastPuzzle = _gameManager.FindActivePuzzle();         
         lastPuzzle.SetActive(false);
-        GameObject nextPuzzle = gameManager.FindNextPuzzle(lastPuzzle);
+        GameObject nextPuzzle = _gameManager.FindNextPuzzle(lastPuzzle);
         nextPuzzle.SetActive(true);
     }
 }

@@ -2,28 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GammaParticlesInPuzzle : MonoBehaviour
+public class GammaGetParticlesInPuzzle : MonoBehaviour
 {
-    private GammaLevelManager gammaManager;
+    private GammaLevelManager _gammaManager;
 
     private void OnEnable()
     {
         Setup();
-        gammaManager.OnPuzzleStart += GetParticles;
+        _gammaManager.OnPuzzleStart += GetParticles;
     }
 
     private void OnDisable()
     {
-        gammaManager.OnPuzzleStart -= GetParticles;
+        _gammaManager.OnPuzzleStart -= GetParticles;
     }
 
     private void Setup()
     {
-        gammaManager = GetComponent<GammaLevelManager>();
+        _gammaManager = GetComponent<GammaLevelManager>();
     }
 
     private void GetParticles()
     {
+        // Reset the hot and cold particles in puzzle counter
+        _gammaManager.HotParticlesInPuzzle = 0;
+        _gammaManager.ColdParticlesInPuzzle = 0;
+
         GameObject activePuzzle = GameManager.Instance.FindActivePuzzle();
         GammaParticle[] particles = activePuzzle.GetComponentsInChildren<GammaParticle>();
         
@@ -31,11 +35,11 @@ public class GammaParticlesInPuzzle : MonoBehaviour
         {
             if (particle.IsHot)
             {
-                gammaManager.HotParticlesInPuzzle++;
+                _gammaManager.HotParticlesInPuzzle++;
             }
             else
             {
-                gammaManager.ColdParticlesInPuzzle++;
+                _gammaManager.ColdParticlesInPuzzle++;
             }
         }
     }

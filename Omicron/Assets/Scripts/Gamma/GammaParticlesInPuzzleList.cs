@@ -4,34 +4,37 @@ using UnityEngine;
 
 public class GammaParticlesInPuzzleList : MonoBehaviour
 {
-    private GammaLevelManager gammaManager;
+    private GammaLevelManager _gammaManager;
 
     private void OnEnable()
     {
         Setup();
-        gammaManager.OnPuzzleStart += GetParticlesList;
+        _gammaManager.OnPuzzleStart += SetParticleList;
     }
 
     private void OnDisable()
     {
-        gammaManager.OnPuzzleStart -= GetParticlesList;
+        _gammaManager.OnPuzzleStart -= SetParticleList;
     }
 
     private void Setup()
     {
-        gammaManager = GetComponent<GammaLevelManager>();
+        _gammaManager = GetComponent<GammaLevelManager>();
     }
 
-    private void GetParticlesList()
+    private void SetParticleList()
     {
+        // Clear list if anything is in it
+        _gammaManager.ParticlesInPuzzle.Clear();
         // Find the current active puzzle
         GameObject activePuzzle = GameManager.Instance.FindActivePuzzle();
         // Get an array of the particles in the puzzle
         GammaParticle[] particles = activePuzzle.GetComponentsInChildren<GammaParticle>();
         foreach (GammaParticle particle in particles)
         {
+
             // Add them to the ParticlesInPuzzle list in the GammaLevelManager class
-            gammaManager.ParticlesInPuzzle.Add(particle);
+            _gammaManager.ParticlesInPuzzle.Add(particle);
         }
     }
 }

@@ -32,8 +32,8 @@ public class GammaInputHandler : MonoBehaviour
         else
             VRInput();
 
-        CheckIfPuzzleFailed();
-        ResetPuzzle();
+        //CheckIfPuzzleFailed();
+        //ResetPuzzle();
     }
 
     private void PCInput()

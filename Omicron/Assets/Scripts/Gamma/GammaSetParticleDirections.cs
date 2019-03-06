@@ -4,37 +4,34 @@ using UnityEngine;
 
 public class GammaSetParticleDirections : MonoBehaviour
 {
-    [SerializeField] private Transform positionDirecitonTrans;
+    [SerializeField] private Transform _positionDirectionTrans;
 
-
-    private GammaLevelManager gammaManager;
-    private GammaParticle gammaParticle;
-    private Vector3 initialPos;
-    private float randomX;
-    private float randomY;
+    private GammaLevelManager _gammaManager;
+    private GammaParticle _gammaParticle;
+    private Vector3 _initialPos;
 
     private void OnEnable()
     {
         Setup();
-        gammaManager.OnPuzzleStart += SetParticleDirections;
+        _gammaManager.OnPuzzleStart += SetParticleDirections;
     }
 
     private void OnDisable()
     {
-        gammaManager.OnPuzzleStart -= SetParticleDirections;
+        _gammaManager.OnPuzzleStart -= SetParticleDirections;
     }
 
     private void Setup()
     {
-        gammaManager = GameObject.Find("GammaLevelManager").GetComponent<GammaLevelManager>();
-        gammaParticle = GetComponent<GammaParticle>();
-        initialPos = transform.position;
+        _gammaManager = GameObject.Find("GammaLevelManager").GetComponent<GammaLevelManager>();
+        _gammaParticle = GetComponent<GammaParticle>();
+        _initialPos = transform.position;
     }
 
     private void SetParticleDirections()
     {
-        Vector3 positionToMoveTowards = positionDirecitonTrans.position;
-        Vector3 direction = Vector3.Normalize(positionToMoveTowards - initialPos);
-        gammaParticle.ParticleDirection = direction;
+        Vector3 positionToMoveTowards = _positionDirectionTrans.position;
+        Vector3 direction = Vector3.Normalize(positionToMoveTowards - _initialPos);
+        _gammaParticle.ParticleDirection = direction;
     }
 }

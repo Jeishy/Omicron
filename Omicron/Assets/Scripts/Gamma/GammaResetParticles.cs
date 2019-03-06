@@ -28,12 +28,11 @@ public class GammaResetParticles : MonoBehaviour
 
     private void ResetParticles()
     {
-        Vector3 particleDirection = gammaParticle.ParticleDirection;
         float speed = gammaParticle.InitialSpeed;
         MeshRenderer particleMeshRenderer = GetComponent<MeshRenderer>();
         // Resets position of all magnets already in the puzzle (Not placeable magnets)
         transform.position = spawnPoint.position;                                                   // Set there positions to their respective spawn point positions
-        GetComponent<Rigidbody>().velocity = particleDirection * speed;                             // Set their velocities to their original velocities
+        GetComponent<Rigidbody>().velocity = gammaParticle.ParticleDirection * speed;                             // Set their velocities to their original velocities
         particleMeshRenderer.material.color = gammaParticle.OriginalColour;
         gammaParticle.Temperature = gammaParticle.OriginalTemperature;
         gammaParticle.IsParticleStateChanged = false;

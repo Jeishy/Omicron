@@ -4,22 +4,22 @@ using UnityEngine;
 
 public class GammaParticleStateChanged : MonoBehaviour
 {
-    private GammaLevelManager gammaManager;
+    private GammaLevelManager _gammaManager;
 
     private void OnEnable()
     {
         Setup();
-        gammaManager.OnParticleStateChange += ParticleStateChanged;
+        _gammaManager.OnParticleStateChange += ParticleStateChanged;
     }
 
     private void OnDisable()
     {
-        gammaManager.OnParticleStateChange -= ParticleStateChanged;
+        _gammaManager.OnParticleStateChange -= ParticleStateChanged;
     }
 
     private void Setup()
     {
-        gammaManager = GetComponent<GammaLevelManager>();
+        _gammaManager = GetComponent<GammaLevelManager>();
     }
 
     private void ParticleStateChanged(bool isHot)
@@ -27,15 +27,13 @@ public class GammaParticleStateChanged : MonoBehaviour
         // Increase or decrease the number of hot or cold particles in the puzzle according to the new state of the particle
         if (isHot)
         {
-            gammaManager.HotParticlesInPuzzle++;
-            gammaManager.ColdParticlesInPuzzle--;
-            Debug.Log("New hot particles amount: " + gammaManager.HotParticlesInPuzzle + " || New cold particles amount: " + gammaManager.ColdParticlesInPuzzle);
+            _gammaManager.HotParticlesInPuzzle++;
+            _gammaManager.ColdParticlesInPuzzle--;
         }
         else
         {
-            gammaManager.HotParticlesInPuzzle--;
-            gammaManager.ColdParticlesInPuzzle++;
-            Debug.Log("New cold particles amount: " + gammaManager.HotParticlesInPuzzle + " || New hot particles amount: " + gammaManager.ColdParticlesInPuzzle);
+            _gammaManager.HotParticlesInPuzzle--;
+            _gammaManager.ColdParticlesInPuzzle++;
         }
     }
 }

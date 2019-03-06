@@ -94,7 +94,7 @@ public class GameManager : MonoBehaviour {
         return activeLevel;
     }
 
-    // Function for running all methods subcribed to the OnGamePaused event
+    // Function for running all methods subscribed to the OnGamePaused event
     public void GamePaused()
     {
         if (OnGamePaused != null)
@@ -103,7 +103,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    // Function for running all methods subcribed to the OnHubWorld event
+    // Function for running all methods subscribed to the OnHubWorld event
     public void MainMenu()
     {
         if (OnHubWorld != null)
@@ -112,7 +112,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    // Function for running all methods subcribed to the OnGameQuit event
+    // Function for running all methods subscribed to the OnGameQuit event
     public void GameQuit()
     {
         if (OnGameQuit != null)
@@ -121,7 +121,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    // Function for running all methods subcribed to the OnNextPuzzle event
+    // Function for running all methods subscribed to the OnNextPuzzle event
     public void NextPuzzle()
     {
         if (OnNextPuzzle != null)
@@ -130,7 +130,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    // Function for running all methods subcribed to the OnNextLevel event
+    // Function for running all methods subscribed to the OnNextLevel event
     public void NextLevel()
     {
         if (OnNextLevel != null)
@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    // Function for running all methods subcribed to the OnLevelRestart event
+    // Function for running all methods subscribed to the OnLevelRestart event
     public void LevelRestart()
     {
         if (OnLevelRestart != null)

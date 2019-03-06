@@ -4,35 +4,34 @@ using UnityEngine;
 
 public class GammaTrapDoorEnd : MonoBehaviour
 {
-    private GammaLevelManager gammaManager;
-    private GammaTrapDoorOver gammaTrapDoorOver;
+    private GammaLevelManager _gammaManager;
+    private GammaTrapDoorOver _gammaTrapDoorOver;
 
     private void OnEnable()
     {
         Setup();
-        gammaManager.OnTrapDoorEnd += TrapDoorEnd;
+        _gammaManager.OnTrapDoorEnd += TrapDoorEnd;
     }
 
     private void OnDisable()
     {
-        gammaManager.OnTrapDoorEnd -= TrapDoorEnd;
+        _gammaManager.OnTrapDoorEnd -= TrapDoorEnd;
     }
 
     private void Setup()
     {
-        gammaManager = GetComponent<GammaLevelManager>();
-        gammaTrapDoorOver = GetComponent<GammaTrapDoorOver>();
+        _gammaManager = GetComponent<GammaLevelManager>();
+        _gammaTrapDoorOver = GetComponent<GammaTrapDoorOver>();
     }
 
     private void TrapDoorEnd(GameObject trapDoor)
     {
-        if (gammaManager.IsTrapDoorOver)
+        if (_gammaManager.IsTrapDoorOver)
         {
-            Debug.Log("Trap door end!!!!!!!!!!!!!!!!");
-            gammaManager.IsTrapDoorOver = false;
+            _gammaManager.IsTrapDoorOver = false;
             MeshRenderer trapDoorMeshRenderer = trapDoor.GetComponent<MeshRenderer>();
             // Set the trap door's colour to its original colour
-            trapDoorMeshRenderer.material.color = gammaTrapDoorOver.OriginalColour;
+            trapDoorMeshRenderer.material.color = _gammaTrapDoorOver.OriginalColour;
         }
     }
 }
