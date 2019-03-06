@@ -23,8 +23,8 @@ public class GammaNextPuzzle : MonoBehaviour
         // If the number of chambers in the puzzle are more than one then check if particles are in correct chambers
         if (CheckNumberOfChambers() > 1)
         {
-            //Debug.Log("Hot particles in correct chamber: " + CheckNumberOfHotParticles());
-            //Debug.Log("Cold particles in correct chamber: " + CheckNumberOfColdParticles());
+            Debug.Log("Hot particles in correct chamber: " + CheckNumberOfHotParticles());
+            Debug.Log("Cold particles in correct chamber: " + CheckNumberOfColdParticles());
             // If the number of particles in the correct chambers are at the correct amount, go to the next puzzle
             if (_gammaManager.HotParticlesInPuzzle == CheckNumberOfHotParticles() && _gammaManager.ColdParticlesInPuzzle == CheckNumberOfColdParticles())
             {
