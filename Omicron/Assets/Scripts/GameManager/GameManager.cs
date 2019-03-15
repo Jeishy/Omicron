@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour {
     public event GameEventManager OnLevelRestart;
     #endregion 
 
+    // The remote's transform
+    [HideInInspector] public Transform OVRRemote;                           
     // Stores the current level that the game is on
     [HideInInspector] public string currentLevel;
     [HideInInspector] public static GameManager Instance = null;
@@ -32,6 +34,8 @@ public class GameManager : MonoBehaviour {
     #region Singleton
     private void Awake()
     {
+        OVRRemote = GameObject.FindGameObjectWithTag("OculusRemote").GetComponent<Transform>();
+
         if ( Instance == null)
         {
             Instance = this;

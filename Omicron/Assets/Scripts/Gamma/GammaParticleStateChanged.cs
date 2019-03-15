@@ -22,18 +22,19 @@ public class GammaParticleStateChanged : MonoBehaviour
         _gammaManager = GetComponent<GammaLevelManager>();
     }
 
-    private void ParticleStateChanged(bool isHot)
+    private void ParticleStateChanged(GammaParticle particle)
     {
-        // Increase or decrease the number of hot or cold particles in the puzzle according to the new state of the particle
-        if (isHot)
+        // Add particle to the relevant list after change
+        if (particle.IsHot)
         {
-            _gammaManager.HotParticlesInPuzzle++;
-            _gammaManager.ColdParticlesInPuzzle--;
+            _gammaManager.ColdParticlesInPuzzle.Remove(particle);
+            _gammaManager.HotParticlesInPuzzle.Add(particle);
         }
         else
         {
-            _gammaManager.HotParticlesInPuzzle--;
-            _gammaManager.ColdParticlesInPuzzle++;
+            _gammaManager.ColdParticlesInPuzzle.Add(particle);
+            _gammaManager.HotParticlesInPuzzle.Remove(particle);
+
         }
     }
 }

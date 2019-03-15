@@ -82,4 +82,9 @@ public class ArcRaycaster : MonoBehaviour {
 			return worldForward.normalized;
 		}
 	}
+
+	private void Awake()
+	{
+        trackingSpace = GameManager.Instance.OVRRemote;
+    }
 }

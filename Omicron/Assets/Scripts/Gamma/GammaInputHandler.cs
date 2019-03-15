@@ -3,15 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-
 public class GammaInputHandler : MonoBehaviour
 {
     private GammaLevelManager _gammaManager;
-    private Transform _ovrRemote;                        // The ovr remote's transform
     private bool _isTrapDoorTargetted;                   // Flag for it the trap door has been targetted
     private GameObject _trapDoor;                        // Gameobject variable that stores a reference to the trap door interacted with
     private IEnumerator _waitToRestartPuzzleCoroutine;
     private bool _isPuzzleRestarted;
+    private bool _isPlatformVR;
 
 
     [SerializeField] private Text debugText;
@@ -22,24 +21,31 @@ public class GammaInputHandler : MonoBehaviour
     void Start()
     {
         _gammaManager = GetComponent<GammaLevelManager>();
-        _ovrRemote = GameObject.FindGameObjectWithTag("OculusRemote").transform;
         _isTrapDoorTargetted = false;
         _waitToRestartPuzzleCoroutine = WaitToRestartPuzzle();
         _isPuzzleRestarted = false;
+
+        // Checks whether game is being run on PC or VR
+        // changes input methods based ont this
+        if (Application.platform == RuntimePlatform.WindowsEditor)
+            _isPlatformVR = false;
+        else
+            _isPlatformVR = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Checks whether game is being run on PC or VR
-        // changes input methods based ont this
-        if (Application.platform == RuntimePlatform.WindowsEditor)
-            PCInput();
-        else
+        if (_isPlatformVR)
             VRInput();
+        else
+            PCInput();
 
         if (!_isPuzzleRestarted)
-            StartCoroutine(WaitToCheckPuzzleRestart());
+        {
+            CheckIfPuzzleFailed();
+            RestartPuzzle();
+        }
     }
 
     private void PCInput()
@@ -76,9 +82,9 @@ public class GammaInputHandler : MonoBehaviour
     {
         RaycastHit hit;
         // Get the foward direciton of the remote
-        Vector3 remoteDirection = _ovrRemote.forward;     
+        Vector3 remoteDirection = GameManager.Instance.OVRRemote.forward;     
         // Ge the position of the remote
-        Vector3 remotePos = _ovrRemote.position;
+        Vector3 remotePos = GameManager.Instance.OVRRemote.position;
         if (Physics.Raycast(remotePos, remoteDirection, out hit, Mathf.Infinity, layerMask))
         {
             _trapDoor = hit.collider.gameObject;
@@ -109,10 +115,9 @@ public class GammaInputHandler : MonoBehaviour
 
     private void CheckIfPuzzleFailed()
     {
-        if (_gammaManager.ColdParticlesInPuzzle == 0 || _gammaManager.HotParticlesInPuzzle == 0 )
+        if (_gammaManager.ColdParticlesInPuzzle.Count == 0 || _gammaManager.HotParticlesInPuzzle.Count == 0 )
         {
             _isPuzzleRestarted = true;
-            StopCoroutine(_waitToRestartPuzzleCoroutine);
             StartCoroutine(WaitToRestartPuzzle());
         }
     }
@@ -124,13 +129,13 @@ public class GammaInputHandler : MonoBehaviour
             _isPuzzleRestarted = true;
             StopCoroutine(_waitToRestartPuzzleCoroutine);
             // Play Fade out and in animation
-            StartCoroutine(WaitToRestartPuzzle());
+            StartCoroutine(_waitToRestartPuzzleCoroutine);
         }
-            else if (Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetKeyDown(KeyCode.E))
         {
             _isPuzzleRestarted = true;
             StopCoroutine(_waitToRestartPuzzleCoroutine);
-            StartCoroutine(WaitToRestartPuzzle());
+            StartCoroutine(_waitToRestartPuzzleCoroutine);
         }
     }
 
@@ -139,12 +144,5 @@ public class GammaInputHandler : MonoBehaviour
         yield return new WaitForSeconds(_timeToRestartPuzzle);
         _gammaManager.PuzzleRestart();
         _isPuzzleRestarted = false;
-    }
-
-    private IEnumerator WaitToCheckPuzzleRestart()
-    {
-        yield return new WaitForSeconds(1f);
-        CheckIfPuzzleFailed();
-        RestartPuzzle();
     }
 }

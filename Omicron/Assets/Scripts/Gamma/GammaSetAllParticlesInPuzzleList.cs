@@ -2,19 +2,19 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GammaSetParticlesInPuzzleList : MonoBehaviour
+public class GammaSetAllParticlesInPuzzleList : MonoBehaviour
 {
     private GammaLevelManager _gammaManager;
 
     private void OnEnable()
     {
         Setup();
-        _gammaManager.OnPuzzleStart += SetParticleList;
+        _gammaManager.OnPuzzleStart += SetAllParticleList;
     }
 
     private void OnDisable()
     {
-        _gammaManager.OnPuzzleStart -= SetParticleList;
+        _gammaManager.OnPuzzleStart -= SetAllParticleList;
     }
 
     private void Setup()
@@ -22,10 +22,10 @@ public class GammaSetParticlesInPuzzleList : MonoBehaviour
         _gammaManager = GetComponent<GammaLevelManager>();
     }
 
-    private void SetParticleList()
+    private void SetAllParticleList()
     {
         // Clear list if anything is in it
-        _gammaManager.ParticlesInPuzzle.Clear();
+        _gammaManager.AllParticlesInPuzzle.Clear();
         // Find the current active puzzle
         GameObject activePuzzle = GameManager.Instance.FindActivePuzzle();
         // Get an array of the particles in the puzzle
@@ -34,7 +34,7 @@ public class GammaSetParticlesInPuzzleList : MonoBehaviour
         {
 
             // Add them to the ParticlesInPuzzle list in the GammaLevelManager class
-            _gammaManager.ParticlesInPuzzle.Add(particle);
+            _gammaManager.AllParticlesInPuzzle.Add(particle);
         }
     }
 }

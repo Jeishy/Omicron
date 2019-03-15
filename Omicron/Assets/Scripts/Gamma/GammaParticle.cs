@@ -37,27 +37,29 @@ public class GammaParticle : MonoBehaviour
     private const float minTemp = 0.1f;                                         // Minimum particle temperature
 
 
-    private Rigidbody particleRB;                                           
-    private MeshRenderer particleMeshRenderer;                              
-    private float speed;                                                        // Speed of the particle, which can be changed over time
-    private GammaLevelManager gammaManager;
+    private Rigidbody _particleRb;                                           
+    private MeshRenderer _particleMeshRenderer;                              
+    private float _speed;                                                       // Speed of the particle, which can be changed over time
+    private GammaLevelManager _gammaManager;
+    private GammaParticle _gammaParticle;
 
     private void Awake()
     {
         _tempChangeIndicator.SetActive(false);
-        particleRB = GetComponent<Rigidbody>();
-        particleMeshRenderer = GetComponent<MeshRenderer>();
+        _particleRb = GetComponent<Rigidbody>();
+        _particleMeshRenderer = GetComponent<MeshRenderer>();
+        _gammaParticle = GetComponent<GammaParticle>();
     }
 
     private void Start()
     {
-        gammaManager = GameObject.Find("GammaLevelManager").GetComponent<GammaLevelManager>();
+        _gammaManager = GameObject.Find("GammaLevelManager").GetComponent<GammaLevelManager>();
         Setup();
     }
 
     private void FixedUpdate()
     {
-        LastVelocity = particleRB.velocity;
+        LastVelocity = _particleRb.velocity;
         if (canTemperatureChange)
         {
             if (timeTillTemperatureChange < Time.time && TemperatureTime < Time.time)
@@ -96,18 +98,18 @@ public class GammaParticle : MonoBehaviour
 
         // Set speed multipliers depending on a particle's state
         if (IsHot)
-            speed = Temperature * HotSpeedModifier;
+            _speed = Temperature * HotSpeedModifier;
         else
         {
             if (Temperature >= 0.85 && Temperature < temperatureThreshold)
-                speed = Temperature * ColdSpeedModifier * 0.85f;
+                _speed = Temperature * ColdSpeedModifier * 0.85f;
             else
-                speed = Temperature * ColdSpeedModifier;
+                _speed = Temperature * ColdSpeedModifier;
         }
 
         // Set particles velocity 
-        particleRB.velocity = speed * ParticleDirection;
-        InitialSpeed = speed;
+        _particleRb.velocity = _speed * ParticleDirection;
+        InitialSpeed = _speed;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -123,7 +125,7 @@ public class GammaParticle : MonoBehaviour
         // New reflected direction vector, reflected around the normal of the hit gameobject
         Vector3 direction = Vector3.Reflect(LastVelocity.normalized, hitNormal);
         // Get the bigger of the values, between the speed and minSpeed variable
-        particleRB.velocity = direction * Mathf.Max(speed, minSpeed);
+        _particleRb.velocity = direction * Mathf.Max(speed, minSpeed);
     }
 
     private void SetupTemperatureState(float temperature)
@@ -151,7 +153,7 @@ public class GammaParticle : MonoBehaviour
                 // If temperature goes below the threshold, the particle is cold
                 IsHot = false;
                 // Inform the gamma level manager that the particle has changed state
-                gammaManager.ParticleStateChange(IsHot);
+                _gammaManager.ParticleStateChange(_gammaParticle);
                 HideTemperatureChangeIndicator();
             }
             else if (CanTemperatureIncrease && temperature > temperatureThreshold)
@@ -160,7 +162,7 @@ public class GammaParticle : MonoBehaviour
                 // If temperature goes above the threshold, the particle it is hot
                 IsHot = true;
                 // Inform the gamma level manager that the particle has changed state
-                gammaManager.ParticleStateChange(IsHot);
+                _gammaManager.ParticleStateChange(_gammaParticle);
                 HideTemperatureChangeIndicator();
             }
         }
@@ -229,15 +231,15 @@ public class GammaParticle : MonoBehaviour
         {
             if (IsHot)
             {
-                speed = temperature * HotSpeedModifier;
+                _speed = temperature * HotSpeedModifier;
             }
             else
             {
-                speed = temperature * ColdSpeedModifier;
+                _speed = temperature * ColdSpeedModifier;
             }
 
-            Vector3 direction = particleRB.velocity.normalized;
-            particleRB.velocity = speed * direction;
+            Vector3 direction = _particleRb.velocity.normalized;
+            _particleRb.velocity = _speed * direction;
         }
     }
 
@@ -245,14 +247,14 @@ public class GammaParticle : MonoBehaviour
     {
         if (temperature < temperatureThreshold)
         {
-            particleMeshRenderer.material.color = Color.Lerp(blueColour, lighBlueColour, temperature);
+            _particleMeshRenderer.material.color = Color.Lerp(blueColour, lighBlueColour, temperature);
         }
         else if (temperature > temperatureThreshold)
         {
-            particleMeshRenderer.material.color = Color.Lerp(lightRedColour, redColour, temperature - 1);
+            _particleMeshRenderer.material.color = Color.Lerp(lightRedColour, redColour, temperature - 1);
         }
 
-        Color colour = particleMeshRenderer.material.color;
+        Color colour = _particleMeshRenderer.material.color;
         return colour;
     }
 }

@@ -6,42 +6,42 @@ public class GammaTrapDoorDeselect : MonoBehaviour
 {
     [SerializeField] [Range(0.1f, 5.0f)] private float particleXShift;
 
-    private GammaLevelManager gammaManager;
-    private GammaTrapDoorOver gammaTrapDoorOver;
+    private GammaLevelManager _gammaManager;
+    private GammaTrapDoorOver _gammaTrapDoorOver;
     private Collider trapDoorCol;
 
     private void OnEnable()
     {
         Setup();
-        gammaManager.OnTrapDoorDeselect += TrapDoorDeselect;
+        _gammaManager.OnTrapDoorDeselect += TrapDoorDeselect;
     }
 
     private void OnDisable()
     {
-        gammaManager.OnTrapDoorDeselect -= TrapDoorDeselect;
+        _gammaManager.OnTrapDoorDeselect -= TrapDoorDeselect;
     }
 
     private void Setup()
     {
-        gammaManager = GetComponent<GammaLevelManager>();
-        gammaTrapDoorOver = GetComponent<GammaTrapDoorOver>();
+        _gammaManager = GetComponent<GammaLevelManager>();
+        _gammaTrapDoorOver = GetComponent<GammaTrapDoorOver>();
     }
 
     private void TrapDoorDeselect(GameObject trapDoor)
     {
         // Set IsTrapDoorSelected to false
-        gammaManager.IsTrapDoorSelected = false;
+        _gammaManager.IsTrapDoorSelected = false;
         // Get the trap door's mesh renderer component
         MeshRenderer trapDoorMeshRenderer = trapDoor.GetComponent<MeshRenderer>();
-        // Get the original colour stored in the GammaTrapDoorOver class
-        Color originalColour = gammaTrapDoorOver.OriginalColour;
+        // Get the original colour stored in the _gammaTrapDoorOver class
+        Color originalColour = _gammaTrapDoorOver.OriginalColour;
         // Set the trap door's colour to its original colour
         trapDoorMeshRenderer.material.color = originalColour;
         // Get the collider of the trap door
         trapDoorCol = trapDoor.GetComponent<Collider>();
         // Enable the collider of the trap door
         trapDoorCol.enabled = true;
-        List<GammaParticle> particles = gammaManager.ParticlesInPuzzle;
+        List<GammaParticle> particles = _gammaManager.AllParticlesInPuzzle;
         foreach (GammaParticle particle in particles)
         {
             // Cycle through the list, and check if the particle is within the bounds of the collider on deselect

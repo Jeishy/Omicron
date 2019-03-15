@@ -15,15 +15,15 @@ public class GammaLevelManager : MonoBehaviour
     public event PlayerTrapDoorEvent OnTrapDoorOver;
     public event PlayerTrapDoorEvent OnTrapDoorEnd;
 
-    public delegate void ParticleEventManagerGamma(bool isHot);
+    public delegate void ParticleEventManagerGamma(GammaParticle gammaParticle);
     public event ParticleEventManagerGamma OnParticleStateChange;
     #endregion
 
-    [HideInInspector] public int HotParticlesInPuzzle;                      // Number of hot particles in the currently active puzzle                          
-    [HideInInspector] public int ColdParticlesInPuzzle;                     // Number of cold particles in the currently active puzzle 
+    [HideInInspector] public List<GammaParticle> AllParticlesInPuzzle;      // All the particles in the current puzzle
+    [HideInInspector] public List<GammaParticle> HotParticlesInPuzzle;      // List of hot particles in the current puzzle                          
+    [HideInInspector] public List<GammaParticle> ColdParticlesInPuzzle;     // List of cold particles in the current puzzle 
     [HideInInspector] public bool IsTrapDoorOver;                           // Flag for if a trap door is being hovered over
     [HideInInspector] public bool IsTrapDoorSelected;                       // Flag for if a trap door has been selected
-    [HideInInspector] public List<GammaParticle> ParticlesInPuzzle;         // A list of the particles in the currently active puzzle
 
     private void Start()
     {
@@ -36,6 +36,29 @@ public class GammaLevelManager : MonoBehaviour
         IsTrapDoorSelected = false;
     }
 
+    public void SetHotParticlesInPuzzle()
+    {     
+        GameObject activePuzzle = GameManager.Instance.FindActivePuzzle();
+        GammaParticle[] particles = activePuzzle.GetComponentsInChildren<GammaParticle>();
+
+        foreach (GammaParticle particle in particles)
+        {
+            if (particle.IsHot)
+                HotParticlesInPuzzle.Add(particle);
+        }
+    }
+
+    public void SetColdParticlesInPuzzle()
+    {
+        GameObject activePuzzle = GameManager.Instance.FindActivePuzzle();
+        GammaParticle[] particles = activePuzzle.GetComponentsInChildren<GammaParticle>();
+
+        foreach (GammaParticle particle in particles)
+        {
+            if (!particle.IsHot)
+                ColdParticlesInPuzzle.Add(particle);
+        }
+    }
 
     // Function for running all methods subscribed to the OnPuzzleStart event
     public void PuzzleStart()
@@ -92,11 +115,11 @@ public class GammaLevelManager : MonoBehaviour
     }
 
     // Function for running all methods subscribed to the OnParticleStateChange event
-    public void ParticleStateChange(bool isHot)
+    public void ParticleStateChange(GammaParticle gammaParticle)
     {
         if (OnParticleStateChange != null)
         {
-            OnParticleStateChange(isHot);
+            OnParticleStateChange(gammaParticle);
         }
     }
 }
