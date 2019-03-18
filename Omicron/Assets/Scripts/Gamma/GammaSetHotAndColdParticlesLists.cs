@@ -9,12 +9,12 @@ public class GammaSetHotAndColdParticlesLists : MonoBehaviour
     private void OnEnable()
     {
         Setup();
-        _gammaManager.OnPuzzleStart += GetParticles;
+        _gammaManager.OnPuzzleStart += SetParticlesLists;
     }
 
     private void OnDisable()
     {
-        _gammaManager.OnPuzzleStart -= GetParticles;
+        _gammaManager.OnPuzzleStart -= SetParticlesLists;
     }
 
     private void Setup()
@@ -22,7 +22,7 @@ public class GammaSetHotAndColdParticlesLists : MonoBehaviour
         _gammaManager = GetComponent<GammaLevelManager>();
     }
 
-    private void GetParticles()
+    private void SetParticlesLists()
     {
         // If either of the lists are already populated, clear both of them
         if(_gammaManager.HotParticlesInPuzzle.Count > 0 || _gammaManager.ColdParticlesInPuzzle.Count > 0)

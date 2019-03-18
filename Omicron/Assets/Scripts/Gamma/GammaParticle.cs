@@ -4,10 +4,11 @@ using UnityEngine;
 
 public class GammaParticle : MonoBehaviour
 {
-    [HideInInspector] public Vector3 ParticleDirection;                         // The normalized direction of the particle (Set randomly at the beginning of the puzzle)
+    [HideInInspector] public Vector3 ParticleDirection;                         // The normalized direction of the particle
     [HideInInspector] public bool IsHot;                                        // flag if the temperature is hot or cold
     [HideInInspector] public Vector3 LastVelocity;                              // Last frame's velocity
     [HideInInspector] public bool IsParticleStateChanged;
+    [HideInInspector] public bool IsParticleInCorrectChamber;                   // Bool that checks if the particle is in the correct chamber, depending on its state
     [HideInInspector] public float InitialSpeed;
     [HideInInspector] public float HotSpeedModifier = 8.0f;                     // Hot particle speed multiplier, which is used in the calculation of the a hot particle's speed
     [HideInInspector] public float ColdSpeedModifier = 9.0f;                    // Cold particle speed multiplier, which is used in the calculation of the a cold particle's speed
@@ -19,6 +20,7 @@ public class GammaParticle : MonoBehaviour
     [SerializeField] private float timeTillTemperatureChange;                   // Time till the temperature of the particle changes
     [SerializeField] private bool canTemperatureChange;                         // bool for if the temperature of the particle can be changed during the puzzle
     public bool CanTemperatureIncrease;                                         // bool for if the temperature will increase or decrease
+
     [SerializeField][Range(minTemp, maxTemp)] private float maxTemperatureIncrease;
     [SerializeField][Range(minTemp, maxTemp)] private float minTemperatureDecrease;
     [SerializeField] private Transform _positionDirectionTrans;
@@ -35,8 +37,6 @@ public class GammaParticle : MonoBehaviour
     private const float minSpeed = 1.0f;                                        // Minimum speed that a particle can travel at
     private const float maxTemp = 2.0f;                                         // Maximum particle temperature
     private const float minTemp = 0.1f;                                         // Minimum particle temperature
-
-
     private Rigidbody _particleRb;                                           
     private MeshRenderer _particleMeshRenderer;                              
     private float _speed;                                                       // Speed of the particle, which can be changed over time
@@ -256,5 +256,14 @@ public class GammaParticle : MonoBehaviour
 
         Color colour = _particleMeshRenderer.material.color;
         return colour;
+    }
+
+    private void OnTriggerEnter(Collider col)
+    {
+        // Check if particle is in the correct chamber and set particle in correct chamber bool to true
+        if ((col.CompareTag("HotChamber") && IsHot) || (col.CompareTag("ColdChamber") && !IsHot))
+        {
+            IsParticleInCorrectChamber = true;
+        }
     }
 }

@@ -13,6 +13,8 @@ TagManager:
   - BallSpawnPoint
   - UIPanel
   - TrapDoor
+  - HotChamber
+  - ColdChamber
   layers:
   - Default
   - TransparentFX

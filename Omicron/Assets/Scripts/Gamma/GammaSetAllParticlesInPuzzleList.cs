@@ -32,7 +32,6 @@ public class GammaSetAllParticlesInPuzzleList : MonoBehaviour
         GammaParticle[] particles = activePuzzle.GetComponentsInChildren<GammaParticle>();
         foreach (GammaParticle particle in particles)
         {
-
             // Add them to the ParticlesInPuzzle list in the GammaLevelManager class
             _gammaManager.AllParticlesInPuzzle.Add(particle);
         }

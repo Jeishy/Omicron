@@ -24,6 +24,7 @@ public class GammaLevelManager : MonoBehaviour
     [HideInInspector] public List<GammaParticle> ColdParticlesInPuzzle;     // List of cold particles in the current puzzle 
     [HideInInspector] public bool IsTrapDoorOver;                           // Flag for if a trap door is being hovered over
     [HideInInspector] public bool IsTrapDoorSelected;                       // Flag for if a trap door has been selected
+    [HideInInspector] public bool IsPuzzleCompleted;
 
     private void Start()
     {

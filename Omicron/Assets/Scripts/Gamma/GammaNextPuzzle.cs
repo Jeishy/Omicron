@@ -5,10 +5,10 @@ using UnityEngine.UI;
 
 public class GammaNextPuzzle : MonoBehaviour
 {
-    [HideInInspector] public int HotParticlesInCorrectChamber;                       // The number of hot particles in the right chamber
-    [HideInInspector] public int ColdParticlesInCorrectChamber;                      // The number of cold particles in the right chamber
+    [HideInInspector] public int HotParticlesInCorrectChamber;                          // The number of hot particles in the right chamber
+    [HideInInspector] public int ColdParticlesInCorrectChamber;                         // The number of cold particles in the right chamber
 
-    [SerializeField] private float waitTimeTillPuzzleCompletion;    // The time taken till the puzzle is completed
+    [SerializeField] private float waitTimeTillPuzzleCompletion;                        // The time taken till the puzzle is completed
     //[SerializeField] private Text _debugText;
 
     private GammaLevelManager _gammaManager;
@@ -20,35 +20,24 @@ public class GammaNextPuzzle : MonoBehaviour
 
     private void Update()
     {
-        // If the number of chambers in the puzzle are more than one then check if particles are in correct chambers
-        if (CheckNumberOfChambers() > 1)
+        //Debug.Log("Hot particles in correct chamber: " + CheckNumberOfHotParticles());
+        //Debug.Log("Cold particles in correct chamber: " + CheckNumberOfColdParticles());
+        // If the number of particles in the correct chambers are at the correct amount, go to the next puzzle
+    }
+
+    private void CheckParticlesInCorrectChamber()
+    {
+        foreach (GammaParticle particle in _gammaManager.AllParticlesInPuzzle)
         {
-            //Debug.Log("Hot particles in correct chamber: " + CheckNumberOfHotParticles());
-            //Debug.Log("Cold particles in correct chamber: " + CheckNumberOfColdParticles());
-            // If the number of particles in the correct chambers are at the correct amount, go to the next puzzle
-            if (_gammaManager.HotParticlesInPuzzle.Count == CheckNumberOfHotParticles() && _gammaManager.ColdParticlesInPuzzle.Count == CheckNumberOfColdParticles())
+            if (!particle.IsParticleInCorrectChamber)
             {
-                Debug.Log("Current hot particles: " + _gammaManager.HotParticlesInPuzzle.Count);
-                Debug.Log("Current cold  particles: " + _gammaManager.ColdParticlesInPuzzle.Count);
-                StartCoroutine(WaitForNextPuzzle());
+                _gammaManager.IsPuzzleCompleted = false;
+                break;
             }
         }
     }
 
-    private int CheckNumberOfChambers()
-    {
-        // Find the active puzzle
-        GameObject activePuzzle = GameManager.Instance.FindActivePuzzle();
-        // Get the number of hot chambers
-        int numOfHotChambers = activePuzzle.GetComponentsInChildren<GammaHotChamber>().Length;
-        // Get the number of cold chambers
-        int numOfColdChambers = activePuzzle.GetComponentsInChildren<GammaColdChamber>().Length;
-        // Get total number of chambers in puzzle
-        int numOfChambers = numOfHotChambers + numOfColdChambers;
-        return numOfChambers;
-    }
-
-    private int CheckNumberOfHotParticles()
+    /*private int CheckNumberOfHotParticles()
     {
         int hotParticles = 0;
         // Get the current active puzzle
@@ -76,21 +65,10 @@ public class GammaNextPuzzle : MonoBehaviour
             coldParticles += coldChamber.ColdParticlesInChamber;
         }
         return coldParticles;
-    }
+    }*/
 
-    private IEnumerator WaitForNextPuzzle()
+    /*private IEnumerator WaitForNextPuzzle()
     {
-        // Wait specified amount of seconds before checking if all particles are in the right chambers again
-        yield return new WaitForSeconds(waitTimeTillPuzzleCompletion);
-        if (_gammaManager.HotParticlesInPuzzle.Count == CheckNumberOfHotParticles() && _gammaManager.ColdParticlesInPuzzle.Count == CheckNumberOfColdParticles())
-        {
-            Debug.Log("Going to next puzzle");
-            GameManager.Instance.NextPuzzle();
-            // Trigger OnPuzzleStart event
-            _gammaManager.PuzzleStart();
-            // reset the counters for the next puzzle
-            HotParticlesInCorrectChamber = 0;
-            ColdParticlesInCorrectChamber = 0;
-        }
-    }
+        
+    }*/
 }
