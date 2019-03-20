@@ -67,7 +67,7 @@ public class GammaParticle : MonoBehaviour
                 // Set TemperatureTime so that the particle's temperature changes according to regular intervals
                 TemperatureTime = Time.time + temperatureChangeRate;       
                 // Change temperature based on if it is set to increase or not
-                ChangeTemperature(CanTemperatureIncrease);
+                ChangeTemperature();
                 // Check and change state if below or above threshold
                 CheckTemperatureState(Temperature);
                 // Change speed based on temperature
@@ -82,6 +82,8 @@ public class GammaParticle : MonoBehaviour
     {
         TemperatureTime = 0;
         IsParticleStateChanged = false;
+        IsParticleInCorrectChamber = false;
+        Debug.Log(IsParticleStateChanged ? (gameObject.name + " is in the correct chamber") : (gameObject.name + " is in the wrong chamber"));
         // Change the temperature state from the beginning
         SetupTemperatureState(Temperature);
         // Change the colour of the particle, according to its temperature
@@ -122,7 +124,7 @@ public class GammaParticle : MonoBehaviour
     {
         // Set the speed variable to be the magnitude of last frame's velocity
         float speed = LastVelocity.magnitude;
-        // New reflected direction vector, reflected around the normal of the hit gameobject
+        // New reflected direction vector, reflected around the normal of the hit GameObject
         Vector3 direction = Vector3.Reflect(LastVelocity.normalized, hitNormal);
         // Get the bigger of the values, between the speed and minSpeed variable
         _particleRb.velocity = direction * Mathf.Max(speed, minSpeed);
@@ -168,7 +170,7 @@ public class GammaParticle : MonoBehaviour
         }
     }
 
-    public void ChangeTemperature(bool CanTemperatureIncrease)
+    public void ChangeTemperature()
     {
         if (Temperature < maxTemperatureIncrease && Temperature > minTemperatureDecrease && !IsParticleStateChanged)
         {
@@ -199,7 +201,6 @@ public class GammaParticle : MonoBehaviour
 
     private void ShowTemperatureChangeIndicator(bool canTemperatureIncrease)
     {
-        Debug.Log("Showing temp change indicator");
         _tempChangeIndicator.SetActive(true);
         _tempChangeAnim.SetTrigger("TempChange");
         MeshRenderer meshRenderer = _tempChangeIndicator.GetComponent<MeshRenderer>();
@@ -208,7 +209,6 @@ public class GammaParticle : MonoBehaviour
 
     private void HideTemperatureChangeIndicator()
     {
-        Debug.Log("hiding temperature state change indicator");
         _tempChangeIndicator.SetActive(false);
         MeshRenderer meshRenderer = _tempChangeIndicator.GetComponent<MeshRenderer>();
         _tempChangeAnim.SetTrigger("AnimationOff");
@@ -221,7 +221,6 @@ public class GammaParticle : MonoBehaviour
 
     private void ShowImminentStateChangeAnimation(float temperature)
     {
-        Debug.Log("Playing state imminent state change animation");
         _tempChangeAnim.SetTrigger("TempStateChange");
     }
 
@@ -263,6 +262,7 @@ public class GammaParticle : MonoBehaviour
         // Check if particle is in the correct chamber and set particle in correct chamber bool to true
         if ((col.CompareTag("HotChamber") && IsHot) || (col.CompareTag("ColdChamber") && !IsHot))
         {
+            //Debug.Log(gameObject.name + " in correct chamber");
             IsParticleInCorrectChamber = true;
         }
     }

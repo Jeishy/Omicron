@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BetaMagnetPooler : MonoBehaviour
+public class ObjectPooler : MonoBehaviour
 {
     // Class for pooler, with a tag, specific prefab to be in pool
     // and size of the pool

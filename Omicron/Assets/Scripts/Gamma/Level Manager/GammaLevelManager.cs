@@ -35,6 +35,7 @@ public class GammaLevelManager : MonoBehaviour
         // Set the bools to false at the beginning of the level
         IsTrapDoorOver = false;
         IsTrapDoorSelected = false;
+        IsPuzzleCompleted = false;
     }
 
     public void SetHotParticlesInPuzzle()

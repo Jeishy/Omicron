@@ -4,28 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 public class BetaMagnetAttach : MonoBehaviour
 {
-    private BetaLevelManager betaManager;
-    private Transform magnetSpawnPointTrans;
-    private BetaMagnetPooler bMagnetPooler;
+    private BetaLevelManager _betaManager;
+    private Transform _magnetSpawnPointTrans;
+    private BetaMagnetPooler _bMagnetPooler;
     [HideInInspector] public GameObject currentMagnet;  // The current magnet attached to the remote
     [HideInInspector] public bool IsMagnetAttached;     // Flag for case that the magnet is attached
 
     private void OnEnable()
     {
         Setup();
-        betaManager.OnMagnetAttach += MagnetAttach;
+        _betaManager.OnMagnetAttach += MagnetAttach;
     }
 
     private void OnDisable()
     {
-        betaManager.OnMagnetAttach -= MagnetAttach;
+        _betaManager.OnMagnetAttach -= MagnetAttach;
     }
 
     private void Setup()
     {
-        betaManager = GetComponent<BetaLevelManager>();
-        bMagnetPooler = GetComponent<BetaMagnetPooler>();
-        magnetSpawnPointTrans = GameObject.FindGameObjectWithTag("BallSpawnPoint").transform;
+        _betaManager = GetComponent<BetaLevelManager>();
+        _bMagnetPooler = GetComponent<BetaMagnetPooler>();
+        _magnetSpawnPointTrans = GameObject.FindGameObjectWithTag("BallSpawnPoint").transform;
     }
 
     private void MagnetAttach()
@@ -35,9 +35,9 @@ public class BetaMagnetAttach : MonoBehaviour
         if (!IsMagnetAttached)
         {
             IsMagnetAttached = true;
-            Vector3 magnetSpawnPointPos = magnetSpawnPointTrans.position;                                           // Caches spawn point's position (BallSpawnPoint Gameobject)
-            currentMagnet = bMagnetPooler.SpawnMagnetFromPool("Magnet", magnetSpawnPointPos, Quaternion.identity);  // Spawns and caches reference to magnet next in pool
-            currentMagnet.GetComponent<Transform>().SetParent(magnetSpawnPointTrans);
+            Vector3 magnetSpawnPointPos = _magnetSpawnPointTrans.position;                                           // Caches spawn point's position (BallSpawnPoint Gameobject)
+            currentMagnet = _bMagnetPooler.SpawnMagnetFromPool("Magnet", magnetSpawnPointPos, Quaternion.identity);  // Spawns and caches reference to magnet next in pool
+            currentMagnet.GetComponent<Transform>().SetParent(_magnetSpawnPointTrans);
             currentMagnet.GetComponentInChildren<Canvas>().enabled = false;                                         // Turns off canvas for seeing magnet's range
         }
     }

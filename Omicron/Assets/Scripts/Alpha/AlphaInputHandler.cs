@@ -2,20 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AlphaEventHandler : MonoBehaviour
+public class AlphaInputHandler : MonoBehaviour
 {
-    private AlphaLevelManager alphaLevelManager;
+    private AlphaLevelManager _alphaLevelManager;
 
     private void Start()
     {
-        alphaLevelManager = GetComponent<AlphaLevelManager>();
+        _alphaLevelManager = GetComponent<AlphaLevelManager>();
     }
 
     private void Update()
     {
         // Runs every frame to check if ball is dropped
-        alphaLevelManager.BallDropped();
-        // Runs input handling function every fram
+        _alphaLevelManager.BallDropped();
+        // Runs input handling function every frame
         Input();
     }
 
@@ -25,7 +25,7 @@ public class AlphaEventHandler : MonoBehaviour
         // shot the ball
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTrackedRemote))
         {
-            alphaLevelManager.BallShot();
+            _alphaLevelManager.BallShot();
         }
     }
 

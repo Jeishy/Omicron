@@ -8276,6 +8276,7 @@ MonoBehaviour:
   ColdParticlesInPuzzle: []
   IsTrapDoorOver: 0
   IsTrapDoorSelected: 0
+  IsPuzzleCompleted: 0
 --- !u!4 &2072549002
 Transform:
   m_ObjectHideFlags: 0
@@ -8333,7 +8334,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HotParticlesInCorrectChamber: 0
   ColdParticlesInCorrectChamber: 0
-  waitTimeTillPuzzleCompletion: 2
+  _waitTimeTillPuzzleCompletion: 1.5
 --- !u!114 &2072549006
 MonoBehaviour:
   m_ObjectHideFlags: 0
