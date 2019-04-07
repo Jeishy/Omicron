@@ -7,7 +7,7 @@ public class BetaInputHandler : MonoBehaviour
 {
     private BetaLevelManager betaManager;
     private BetaMagnetPlacement betaMagnetPlacement;
-    private Transform ovrRemote;
+    private Transform _ovrRemoteTrans;
     [SerializeField] private Text debugText;
     [SerializeField] private GameObject magnetPlaceVisualizerPrefab;    // Reference to grey magnet placement visualizer prefab
     [SerializeField] private float hitZPos;                             // Z component of position that magnets must be placed in
@@ -16,7 +16,7 @@ public class BetaInputHandler : MonoBehaviour
     {
         betaManager = GetComponent<BetaLevelManager>();
         betaMagnetPlacement = betaManager.GetComponent<BetaMagnetPlacement>();
-        ovrRemote = GameObject.FindGameObjectWithTag("OculusRemote").transform;
+        _ovrRemoteTrans = GameObject.FindGameObjectWithTag("OculusRemote").transform;
         betaMagnetPlacement = betaManager.GetComponent<BetaMagnetPlacement>();
     }
 
@@ -41,8 +41,8 @@ public class BetaInputHandler : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTrackedRemote))
         {
             RaycastHit hit;
-            Vector3 remoteDirection = ovrRemote.forward;
-            Vector3 remotePos = ovrRemote.position;
+            Vector3 remoteDirection = _ovrRemoteTrans.forward;
+            Vector3 remotePos = _ovrRemoteTrans.position;
             int layerMask = 1 << 11;                // bit shifted layer mask of MagnetPlaceable
             if (Physics.Raycast(remotePos, remoteDirection, out hit, Mathf.Infinity, layerMask))
             {
@@ -93,8 +93,8 @@ public class BetaInputHandler : MonoBehaviour
     private void MagnetPlaceVisualizer()
     {
         RaycastHit hit;
-        Vector3 remoteDirection = ovrRemote.forward;
-        Vector3 remotePos = ovrRemote.transform.position;
+        Vector3 remoteDirection = _ovrRemoteTrans.forward;
+        Vector3 remotePos = _ovrRemoteTrans.transform.position;
         float ballsPlaced = betaMagnetPlacement.ballsPlaced;
         float maxPlaceableMagnets = betaManager.MaxPlaceableMagnets;
         int layerMask = 1 << 11;

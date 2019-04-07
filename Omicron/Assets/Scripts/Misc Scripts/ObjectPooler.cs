@@ -15,7 +15,7 @@ public class ObjectPooler : MonoBehaviour
     }
 
     #region MagnetPooler Singleton
-    public static BetaMagnetPooler Instance;
+    public static ObjectPooler Instance;
 
     private void Awake()
     {
