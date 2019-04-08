@@ -13,13 +13,21 @@ public class DeltaLevelManager : MonoBehaviour
     public event PlayerEventManagerDelta OnPhotonAttach;
     #endregion
 
-    [HideInInspector] public bool IsPhotonShot;
-    [HideInInspector] public int MaxPlaceablePhotons;
+    [HideInInspector] public int PhotonsShot;
+    [HideInInspector] public int MaxShootablePhotons;
+    [HideInInspector] public GameObject CurrentPhoton;
+    [HideInInspector] public Transform SpawnPosTrans;
 
     private void Start()
     {
-        IsPhotonShot = false;
+        SpawnPosTrans = GameObject.Find("BallSpawnPoint").transform;
+        // Set photons shot to 0 at the beginning of the level
+        PhotonsShot = 0;
+        // Find all puzzles in the level
         GameManager.Instance.FindAllPuzzles();
+        // Attach a photon to the front of the oculus remote
+        PhotonAttach();
+
     }
 
     public void PhotonShoot()

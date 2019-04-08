@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class DeltaInputHandler : MonoBehaviour
 {
-
     private DeltaLevelManager _deltaManager;
     // Start is called before the first frame update
     private void Start()
@@ -15,14 +14,26 @@ public class DeltaInputHandler : MonoBehaviour
     // Update is called once per frame
     private void Update()
     {
-        
-    }
-
-    private void Input()
-    {
+        // If trigger is squeezed, shoot a photon and attach a new one
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTrackedRemote))
         {
-            _deltaManager.PhotonShoot();
-        }
+            Shoot();
+            StartCoroutine(Attach());
+        }  
+    }
+
+    private void Shoot()
+    {
+        // Shoot a photon
+        _deltaManager.PhotonShoot();
+        // Play photon shot particle effect
+    }
+
+    private IEnumerator Attach()
+    {
+        // Wait x seconds before attaching a new photon
+        yield return new WaitForSeconds(1f);
+        // Play photon attach particle effect
+        _deltaManager.PhotonAttach();
     }
 }

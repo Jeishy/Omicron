@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class GammaPlayerTeleport : MonoBehaviour
 {
-    [SerializeField] private Animator _anim;                    // Fade to black animator
     [SerializeField] private LayerMask _layerMask;              // Layer mask of targettable area
     [SerializeField] private Transform _ovrCameraTrans;         // Parent gameobject of the OVRCameraRig
 
@@ -28,7 +27,6 @@ public class GammaPlayerTeleport : MonoBehaviour
 
     private void Teleport()
     {
-        Debug.Log("LayerMash: " + _layerMask.value);
         RaycastHit hit;
         // Get remotes forward direction and current position
         Vector3 remoteDirection = _ovrRemoteTrans.forward;
