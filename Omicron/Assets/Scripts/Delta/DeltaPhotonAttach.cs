@@ -16,7 +16,7 @@ public class DeltaPhotonAttach : MonoBehaviour
 
     private void OnDisable() 
     {
-        _deltaManager.OnPhotonAttach -= PhotonAttach;
+         _deltaManager.OnPhotonAttach -= PhotonAttach;
     }
 
     private void Setup()
@@ -24,14 +24,18 @@ public class DeltaPhotonAttach : MonoBehaviour
         _deltaManager = GetComponent<DeltaLevelManager>();
     }
 
-    private void PhotonAttach()
+    public void PhotonAttach()
     {
-        if (_deltaManager.PhotonsShot <= _deltaManager.MaxShootablePhotons)
+        if (_deltaManager.PhotonsShot < _deltaManager.MaxShootablePhotons)
         {
             // Instantiate photon 
             GameObject photon = Instantiate(_photon, _deltaManager.SpawnPosTrans.position, Quaternion.identity);
             // Set the photon's parent to the spawn pos' transform
             photon.transform.SetParent(_deltaManager.SpawnPosTrans);
+            // Get trail component
+            TrailRenderer trail = photon.GetComponentInChildren<TrailRenderer>();
+            // Disable trail when attached 
+            trail.enabled = false;
             // Cache attached photon
             _deltaManager.CurrentPhoton = photon;
         }

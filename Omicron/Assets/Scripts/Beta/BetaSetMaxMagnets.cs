@@ -5,11 +5,11 @@ using UnityEngine;
 public class BetaSetMaxMagnets : MonoBehaviour
 {
     public int maxMagnets;
-    private BetaLevelManager betaManager;
+    private BetaLevelManager _betaManager;
     // Start is called before the first frame update
     private void Start()
     {
-        betaManager = GameObject.Find("BetaLevelManager").GetComponent<BetaLevelManager>();
+        _betaManager = GameObject.Find("BetaLevelManager").GetComponent<BetaLevelManager>();
         // Run coroutine to wait for max magnets to be set in each puzzle
         StartCoroutine("SetMaxMagnets");
     }
@@ -18,6 +18,6 @@ public class BetaSetMaxMagnets : MonoBehaviour
     {
         // Note: Find more efficient way of ensuring max magnets is set by first puzzle, PLEASE.
         yield return new WaitForSeconds(0.5f);
-        betaManager.MaxPlaceableMagnets = maxMagnets;
+        _betaManager.MaxPlaceableMagnets = maxMagnets;
     }
 }

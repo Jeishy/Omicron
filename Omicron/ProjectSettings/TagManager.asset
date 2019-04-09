@@ -15,6 +15,7 @@ TagManager:
   - TrapDoor
   - HotChamber
   - ColdChamber
+  - Photon
   layers:
   - Default
   - TransparentFX
@@ -32,7 +33,7 @@ TagManager:
   - BounceableObjects
   - TrapDoors
   - Targettable
-  - 
+  - Photon
   - 
   - 
   - 

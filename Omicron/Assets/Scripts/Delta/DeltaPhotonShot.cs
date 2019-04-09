@@ -28,14 +28,25 @@ public class DeltaPhotonShot : MonoBehaviour
 
     private void PhotonShoot()
     {
-        // Get forward direction of the remote
-        Vector3 shotDir = _ovrRemote.forward;
-        // Get the currently attached photon
-        GameObject photon = _deltaManager.CurrentPhoton;
-        // Dettach photon from its parent transform
-        _deltaManager.SpawnPosTrans.DetachChildren();
-        // Set photon's velocity to the forward direction of the remote * specified shot force
-        Rigidbody photonRB = photon.GetComponent<Rigidbody>();
-        photonRB.velocity = shotDir * _shotForce;
+        // Check if the number of photons shot are less than the number of photons that
+        // can be shot and there is a photon attached
+        if (_deltaManager.PhotonsShot < _deltaManager.MaxShootablePhotons && _deltaManager.CurrentPhoton != null)
+        {
+            // Increment photons shot variable
+            _deltaManager.PhotonsShot++;
+            // Get forward direction of the remote
+            Vector3 shotDir = _ovrRemote.forward;
+            // Get the currently attached photon
+            GameObject photon = _deltaManager.CurrentPhoton;
+            // Get trail component
+            TrailRenderer trail = photon.GetComponentInChildren<TrailRenderer>();
+            // Renable trail when shot
+            trail.enabled = true;
+            // Dettach photon from its parent transform
+            _deltaManager.SpawnPosTrans.DetachChildren();
+            // Set photon's velocity to the forward direction of the remote * specified shot force
+            Rigidbody photonRB = photon.GetComponent<Rigidbody>();
+            photonRB.velocity = shotDir * _shotForce;
+        }
     }
 }

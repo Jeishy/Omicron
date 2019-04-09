@@ -19,14 +19,12 @@ public class BetaLevelManager : MonoBehaviour
 
     // Max placeable magnets; this is overwritten by each puzzle
     [HideInInspector] public int MaxPlaceableMagnets;
-    private GameManager gameManager;
 
     private void Start()
     {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         // Note: Needs to be changed to normal method, FIX HAS BEEN FOUND!
         StartCoroutine("WaitToAttachMagnet");
-        gameManager.FindAllPuzzles();           // Find all puzzles at the beginning of the level, and deactivate all but the first
+        GameManager.Instance.FindAllPuzzles();           // Find all puzzles at the beginning of the level, and deactivate all but the first
     }
 
     private IEnumerator WaitToAttachMagnet()
