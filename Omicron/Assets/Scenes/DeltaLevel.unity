@@ -778,7 +778,7 @@ PrefabInstance:
     - target: {fileID: 1053657235615468729, guid: b48452f227fb35d409dbbbf0adc99d8b,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -22.6
+      value: -22.95
       objectReference: {fileID: 0}
     - target: {fileID: 1053657235615468729, guid: b48452f227fb35d409dbbbf0adc99d8b,
         type: 3}
@@ -851,7 +851,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a782b718594dc6d469f5b8634961945a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _emissionIntenisty: 3
+  _emissionIntenisty: 1.5
 --- !u!1 &580418871 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4880596688951926199, guid: fc7c30b78eea93b4191b22bdde66a37d,
@@ -871,7 +871,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _attractorStrength: 70
-  _range: 4.44
+  _range: 3.55
   _layerMask:
     serializedVersion: 2
     m_Bits: 65536
@@ -881,6 +881,36 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 4880596689514471552}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1506389212
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1506389213}
+  m_Layer: 0
+  m_Name: 3
+  m_TagString: Puzzles
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1506389213
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1506389212}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.2391605, y: 18.586382, z: -2.1273584}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1716834011
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1052,7 +1082,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 900b22bd8123b004d9a8afce0047c275, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxPhotons: 3
+  MaxPhotons: 1
 --- !u!4 &1905060494
 Transform:
   m_ObjectHideFlags: 0
@@ -1254,7 +1284,7 @@ PrefabInstance:
     - target: {fileID: 4880596688951926203, guid: fc7c30b78eea93b4191b22bdde66a37d,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -22.6
+      value: -22.95
       objectReference: {fileID: 0}
     - target: {fileID: 4880596688951926203, guid: fc7c30b78eea93b4191b22bdde66a37d,
         type: 3}

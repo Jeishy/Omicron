@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 5571057867616121552}
   - component: {fileID: 5571057867616121553}
   - component: {fileID: 4498494087328560525}
-  - component: {fileID: 643840715039009774}
   m_Layer: 16
   m_Name: Photon
   m_TagString: Photon
@@ -110,19 +109,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &643840715039009774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5571057867616121582}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d955f9fb9fb1bdc4283cf1ffafb04e87, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _maxSpeed: 10
 --- !u!1 &6419677871305099430
 GameObject:
   m_ObjectHideFlags: 0
