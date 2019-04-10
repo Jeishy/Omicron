@@ -16,6 +16,7 @@ TagManager:
   - HotChamber
   - ColdChamber
   - Photon
+  - DeltaGoal
   layers:
   - Default
   - TransparentFX

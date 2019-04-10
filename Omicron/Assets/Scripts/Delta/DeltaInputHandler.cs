@@ -18,8 +18,23 @@ public class DeltaInputHandler : MonoBehaviour
         if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTrackedRemote))
         {
             Shoot();
-            StartCoroutine(Attach());
-        }  
+            // Only attach a new photon if the number of photons shot are above 0
+            if (_deltaManager.PhotonsShot > 0 && _deltaManager.PhotonsShot != _deltaManager.MaxShootablePhotons)
+            {
+                StopAllCoroutines();
+                StartCoroutine(Attach());
+            }
+        }
+
+        // Reset puzzle if track pad pressed
+        if (OVRInput.Get(OVRInput.Button.PrimaryTouchpad, OVRInput.Controller.RTrackedRemote))
+        {
+            _deltaManager.PuzzleReset();
+        }
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            _deltaManager.PuzzleReset();
+        }
     }
 
     private void Shoot()

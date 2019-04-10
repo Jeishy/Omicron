@@ -25,6 +25,8 @@ public class GameManager : MonoBehaviour {
     [HideInInspector] public static GameManager Instance = null;
     // Store the active puzzle in the level
     [HideInInspector] public GameObject[] activePuzzle;
+    // An array of floats for all times taken to complete a level
+     [HideInInspector] public float[] CompletedLevelTimes = new float[5];
     // Store a reference to all the puzzles in a level
     GameObject[] puzzles;
     // Stores the names of all the puzzles in a level as ints
@@ -65,6 +67,8 @@ public class GameManager : MonoBehaviour {
     }
 
     // Function for finding the active puzzle in a level
+    // Note: This works because there is only ever one puzzle active in the scene at a time
+    // aside from at the very beginning of a level
     public GameObject FindActivePuzzle()
     {
         GameObject activePuzzle = GameObject.FindGameObjectWithTag("Puzzles");
@@ -96,6 +100,29 @@ public class GameManager : MonoBehaviour {
     {
         string activeLevel = SceneManager.GetActiveScene().name;
         return activeLevel;
+    }
+
+    // Function for adding a completed level to the completed levels array
+    public void AddCompletedLevelTime(string levelName, float timeTaken)
+    {
+        switch (levelName)
+        {
+            case "Alpha":
+                CompletedLevelTimes[0] = timeTaken;
+                break;
+            case "Beta":
+                CompletedLevelTimes[1] = timeTaken;
+                break;
+            case "Gamma":
+                CompletedLevelTimes[2] = timeTaken;
+                break;
+            case "Delta":
+                CompletedLevelTimes[3] = timeTaken;
+                break;
+            case "Epsilon":
+                CompletedLevelTimes[4] = timeTaken;
+                break;
+        }
     }
 
     // Function for running all methods subscribed to the OnGamePaused event

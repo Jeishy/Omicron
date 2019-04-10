@@ -4,24 +4,21 @@ using UnityEngine;
 
 public class DeltaPhotonLimitSpeed : MonoBehaviour
 {
-    [SerializeField] private float _maxSpeed;
-
+    private DeltaLevelManager _deltaManager;
     private Rigidbody _rb;
 
     // Start is called before the first frame update
     void Start()
     {
         _rb = GetComponent<Rigidbody>();
+        _deltaManager = GameObject.Find("DeltaLevelManager").GetComponent<DeltaLevelManager>();
     }
 
     // Update is called once per frame
     void FixedUpdate()
     {
-        // Get the speed of the photon
-        float speed = _rb.velocity.magnitude;
-        Debug.Log(speed);
-        // Limit speed if it goes above the specified max speed
-        if (_rb.velocity.magnitude > _maxSpeed)
-            _rb.velocity = _rb.velocity.normalized * _maxSpeed;
+        // Limit speed if it goes above the speed of the photon when it was first shot
+        if (_rb.velocity.magnitude > _deltaManager.MaxPhotonSpeed)
+            _rb.velocity = _rb.velocity.normalized * _deltaManager.MaxPhotonSpeed;
     }
 }

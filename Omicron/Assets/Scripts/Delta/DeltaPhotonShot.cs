@@ -30,8 +30,10 @@ public class DeltaPhotonShot : MonoBehaviour
     {
         // Check if the number of photons shot are less than the number of photons that
         // can be shot and there is a photon attached
-        if (_deltaManager.PhotonsShot < _deltaManager.MaxShootablePhotons && _deltaManager.CurrentPhoton != null)
+        if (_deltaManager.PhotonsShot < _deltaManager.MaxShootablePhotons && _deltaManager.IsPhotonAttached)
         {
+            //
+            _deltaManager.IsPhotonAttached = false;
             // Increment photons shot variable
             _deltaManager.PhotonsShot++;
             // Get forward direction of the remote
@@ -47,6 +49,10 @@ public class DeltaPhotonShot : MonoBehaviour
             // Set photon's velocity to the forward direction of the remote * specified shot force
             Rigidbody photonRB = photon.GetComponent<Rigidbody>();
             photonRB.velocity = shotDir * _shotForce;
+            // Cache the speed of the photon as its shot
+            _deltaManager.MaxPhotonSpeed = photonRB.velocity.magnitude;
+            // Set photon timer is shot bool to true, so the timer starts
+            photon.GetComponent<DeltaPhotonTimer>().IsPhotonShot = true;
         }
     }
 }

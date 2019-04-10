@@ -7,6 +7,7 @@ public class DeltaForceAttractor : MonoBehaviour
     [SerializeField] private float _attractorStrength;
     [SerializeField] private float _range;
     [SerializeField] private LayerMask _layerMask;
+    [SerializeField] private float _photonAddTime;
 
     private Rigidbody _rb;
     private const float _maxStrength = 500.0f;
@@ -29,6 +30,23 @@ public class DeltaForceAttractor : MonoBehaviour
             {
                 Rigidbody photonRB = photon.GetComponent<Rigidbody>();
                 Attraction(photonRB);
+                DeltaPhotonTimer photonTimer = photon.GetComponent<DeltaPhotonTimer>();
+                
+                // If the photon has never been in range, and therefore, had its max time increased, increase the max photon time
+                if (!photonTimer.HasMaxPhotonTimeIncreased)
+                {
+                    photonTimer.HasMaxPhotonTimeIncreased = true;
+                    photonTimer.AddTime(_photonAddTime);
+                }
+
+                // If the photon is within a certain distance of the force attractor, destroy it >:)
+                float distance = Vector3.Distance(transform.position, photon.transform.position);
+                if (distance <= 0.7f)
+                {
+                    // Play a particle effect
+                    //
+                    Destroy(photon.gameObject);
+                }
             }
         }
     }

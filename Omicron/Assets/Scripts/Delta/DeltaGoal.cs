@@ -4,27 +4,32 @@ using UnityEngine;
 
 public class DeltaGoal : MonoBehaviour
 {
+    [HideInInspector] public Color OriginalColour;
+    [HideInInspector] public bool HasPhotonHit;
+
     [SerializeField] private float _emissionIntenisty;
+    [SerializeField][Range(0.01f, 3.0f)] private float _nextPuzzleWaitTime;
+
     private DeltaLevelManager _deltaManager;
     private MeshRenderer _meshRenderer;
-    private bool _hasPhotonHit;
 
     private void Start() 
     {
         _deltaManager = GameObject.Find("DeltaLevelManager").GetComponent<DeltaLevelManager>();
         _meshRenderer = GetComponent<MeshRenderer>();
-        _hasPhotonHit = false;
+        HasPhotonHit = false;
+        // Get the original emission colour
+        OriginalColour = _meshRenderer.material.GetColor("_EmissionColor");
     }
 
     private void OnTriggerEnter(Collider other) 
     {
-        if (other.CompareTag("Photon") && !_hasPhotonHit)
+        if (other.CompareTag("Photon") && !HasPhotonHit)
         {
             // Set has hit bool to true, so no other photon can hit it
-            _hasPhotonHit = true;
+            HasPhotonHit = true;
             // Increase goal material's emission intensity
-            Color emissionColour = _meshRenderer.material.GetColor("_EmissionColor");
-            _meshRenderer.material.SetColor("_EmissionColor", emissionColour * _emissionIntenisty);
+            _meshRenderer.material.SetColor("_EmissionColor", OriginalColour * _emissionIntenisty);
             _deltaManager.PhotonsInGoal++;
             // Play particle effect here
             //
@@ -33,14 +38,23 @@ public class DeltaGoal : MonoBehaviour
             // that have reached the goal
             if (_deltaManager.PhotonsInGoal == _deltaManager.MaxShootablePhotons)
             {
-                _hasPhotonHit = false;
+                HasPhotonHit = false;
                 // Set the material's colour back to normal
-                _meshRenderer.material.SetColor("_EmissionColor", emissionColour);
-                // Go to the next puzzle
-                GameManager.Instance.NextPuzzle();
-                // Set photons shot back to 0
-                _deltaManager.PhotonsShot = 0;
+                _meshRenderer.material.SetColor("_EmissionColor", OriginalColour);
+                StartCoroutine(NextPuzzleDelay());
             }
         }   
+    }
+
+    private IEnumerator NextPuzzleDelay()
+    {
+        // Wait a few sonds before going to the next puzzle
+        yield return new WaitForSeconds(_nextPuzzleWaitTime);
+        // Set photons shot back to 0
+        _deltaManager.PhotonsShot = 0;
+        // Attach a new photon
+        _deltaManager.PhotonAttach();
+        // Go to the next puzzle
+        GameManager.Instance.NextPuzzle();
     }
 }

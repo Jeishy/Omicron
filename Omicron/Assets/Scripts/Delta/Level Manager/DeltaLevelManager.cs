@@ -9,8 +9,8 @@ public class DeltaLevelManager : MonoBehaviour
     public delegate void PlayerEventManagerDelta();
     public event PlayerEventManagerDelta OnPhotonShoot;
     public event PlayerEventManagerDelta OnPhotonLost;
-    public event PlayerEventManagerDelta OnPhotonReset;
     public event PlayerEventManagerDelta OnPhotonAttach;
+    public event PlayerEventManagerDelta OnPuzzleReset;
     #endregion
 
     [HideInInspector] public int PhotonsShot;
@@ -18,6 +18,8 @@ public class DeltaLevelManager : MonoBehaviour
     [HideInInspector] public int MaxShootablePhotons;
     [HideInInspector] public GameObject CurrentPhoton;
     [HideInInspector] public Transform SpawnPosTrans;
+    [HideInInspector] public float MaxPhotonSpeed;
+    [HideInInspector] public bool IsPhotonAttached;
 
     private void Start()
     {
@@ -48,11 +50,11 @@ public class DeltaLevelManager : MonoBehaviour
         }
     }
 
-    public void PhotonReset()
+    public void PuzzleReset()
     {
-        if (OnPhotonReset != null)
+        if (OnPuzzleReset != null)
         {
-            OnPhotonReset();
+            OnPuzzleReset();
         }
     }
 
