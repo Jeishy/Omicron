@@ -5,48 +5,59 @@ using UnityEngine.SceneManagement;
 
 public class GameManagerNextLevel : MonoBehaviour
 {
-    private GameManager gameManager;
+    private GameManager _gameManager;
+    private string _currentLevel;
 
     private void OnEnable()
     {
         Setup();
-        gameManager.OnNextLevel += LevelNext;
+        _gameManager.OnNextLevel += LevelNext;
+        _gameManager.OnNextLevel += LevelCompleted;
     }
 
     private void OnDisable()
     {
-        gameManager.OnNextLevel += LevelNext;
+        _gameManager.OnNextLevel -= LevelNext;
+        _gameManager.OnNextLevel -= LevelCompleted;
     }
 
     private void Setup()
     {
-        gameManager = GetComponent<GameManager>();
+        _gameManager = GetComponent<GameManager>();
     }
 
     private void LevelNext()
     {
         // Change to going giving an option to go back to
         // hub world or next puzzle
-        string currentLevel = gameManager.FindActiveLevel();
-        switch (currentLevel)
+        _currentLevel = _gameManager.FindActiveLevel();
+        switch (_currentLevel)
         {
             case "AlphaLevel":
-                currentLevel = "BetaLevel";
+                _currentLevel = "BetaLevel";
                 break;
             case "BetaLevel":
-                currentLevel = "GammaLevel";
+                _currentLevel = "GammaLevel";
                 break;
             case "GammaLevel":
-                currentLevel = "DeltaLevel";
+                _currentLevel = "DeltaLevel";
                 break;
             case "DeltaLevel":
-                currentLevel = "EpsilonLevel";
+                _currentLevel = "EpsilonLevel";
                 break;
             case "EpsilonLevel":
                 // Finished the game!
                 break;
         }
 
-        SceneManager.LoadScene(currentLevel);
+        SceneManager.LoadScene(_currentLevel);
+    }
+
+    private void LevelCompleted()
+    {
+        _currentLevel = _gameManager.FindActiveLevel();
+        Level completedLevel = _gameManager.LevelStringToLevelType(_currentLevel);
+        _gameManager.AddCompletedLevelAndTime(completedLevel, _gameManager.LevelTimer);
+        _gameManager.LevelTimer = 0f;
     }
 }

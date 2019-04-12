@@ -6,6 +6,11 @@ using System;
 using System.Linq;
 using UnityEngine.SceneManagement;
 
+public enum Level
+{
+    Alpha ,Beta,Gamma ,Delta ,Epsilon, None
+};
+
 public class GameManager : MonoBehaviour {
 
     #region Delegates and Events
@@ -15,6 +20,8 @@ public class GameManager : MonoBehaviour {
     public event GameEventManager OnGameQuit;
     public event GameEventManager OnNextPuzzle;
     public event GameEventManager OnNextLevel;
+    public event GameEventManager OnLevelStart;
+    public event GameEventManager OnLevelCompleted;
     public event GameEventManager OnLevelRestart;
     #endregion 
 
@@ -25,9 +32,16 @@ public class GameManager : MonoBehaviour {
     [HideInInspector] public static GameManager Instance = null;
     // Store the active puzzle in the level
     [HideInInspector] public GameObject[] activePuzzle;
+
     // An array of floats for all times taken to complete a level
-     [HideInInspector] public float[] CompletedLevelTimes = new float[5];
+    [HideInInspector] public float[] CompletedLevelTimes = new float[5];
+    // Array of booleans for checking if a level is completed
+    [HideInInspector] public bool[] CompletedLevels = new bool[5];
     // Store a reference to all the puzzles in a level
+
+    [HideInInspector] public float LevelTimer;
+    [HideInInspector] public bool IsLevelStarted;
+
     GameObject[] puzzles;
     // Stores the names of all the puzzles in a level as ints
     int[] puzzleInts;
@@ -46,6 +60,9 @@ public class GameManager : MonoBehaviour {
         {
             Destroy(gameObject);
         }
+
+        // Set level timer to 0 at the beginning of the game
+        LevelTimer = 0;
     }
     #endregion
 
@@ -102,27 +119,75 @@ public class GameManager : MonoBehaviour {
         return activeLevel;
     }
 
-    // Function for adding a completed level to the completed levels array
-    public void AddCompletedLevelTime(string levelName, float timeTaken)
+    // Function from converting from string to level type
+    public Level LevelStringToLevelType(string levelStr)
     {
-        switch (levelName)
+        Level level = Level.None;
+        switch (levelStr)
         {
-            case "Alpha":
+            case "AlphaLevel":
+                level = Level.Alpha;
+                break;
+            case "BetaLevel":
+                level = Level.Beta;
+                break;
+            case "GammaLevel":
+                level = Level.Gamma;
+                break;
+            case "DeltaLevel":
+                level = Level.Delta;
+                break;
+            case "EpsilonLevel":
+                level = Level.Epsilon;
+                break;
+        }
+
+        return level;
+    }
+
+    // Function for checking a level as completed and 
+    // for adding a completed level time to the completed levels array
+    public void AddCompletedLevelAndTime(Level level, float timeTaken)
+    {
+        switch (level)
+        {
+            case Level.Alpha:
+                // Check alpha level as completed
+                CompletedLevels[0] = true;
+                // Add alpha level completion time
                 CompletedLevelTimes[0] = timeTaken;
                 break;
-            case "Beta":
+            case Level.Beta:
+                // Check beta level as completed
+                CompletedLevels[1] = true;
+                // Add beta level completion time
                 CompletedLevelTimes[1] = timeTaken;
                 break;
-            case "Gamma":
+            case Level.Gamma:
+                // Check gamma level as completed
+                CompletedLevels[2] = true;
+                // Add gamma level completion time
                 CompletedLevelTimes[2] = timeTaken;
                 break;
-            case "Delta":
+            case Level.Delta:
+                // Check delta level as completed
+                CompletedLevels[3] = true;
+                // Add delta level completion time
                 CompletedLevelTimes[3] = timeTaken;
                 break;
-            case "Epsilon":
+            case Level.Epsilon:
+                // Check epsilon level as completed
+                CompletedLevels[4] = true;
+                // Add epsilon level completion time            
                 CompletedLevelTimes[4] = timeTaken;
                 break;
         }
+    }
+
+    // Method for adding a completed puzzle
+    public void AddCompletedPuzzleAndTime(int puzzleNummber, float timeTaken)
+    {
+
     }
 
     // Function for running all methods subscribed to the OnGamePaused event
@@ -167,6 +232,24 @@ public class GameManager : MonoBehaviour {
         if (OnNextLevel != null)
         {
             OnNextLevel();
+        }
+    }
+
+    // Function for running all methods subscribed to the OnLevelStart event
+    public void LevelStart()
+    {
+        if (OnLevelStart != null)
+        {
+            OnLevelStart();
+        }
+    }
+
+    // Function for running all methods subscribed to the OnLevelCompleted event
+    public void LevelCompleted()
+    {
+        if (OnLevelCompleted != null)
+        {
+            OnLevelCompleted();
         }
     }
 

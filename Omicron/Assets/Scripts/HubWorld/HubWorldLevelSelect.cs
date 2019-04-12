@@ -24,6 +24,8 @@ public class HubWorldLevelSelect : MonoBehaviour
 
     private void LevelSelect(string selectedLevel)
     {
+        // Call all methods subscribed to the OnLevelStart event
+        GameManager.Instance.LevelStart();
         // Open the scene that is selected from the hub world
         // Scene transitions here, perhaps use a coroutine
         SceneManager.LoadScene(selectedLevel);

@@ -16,10 +16,8 @@ public class AlphaNextPuzzle : MonoBehaviour
             // If the next calculated puzzle return as null go to the next level
             if (GameManager.Instance.FindNextPuzzle(GameManager.Instance.FindActivePuzzle()) == null)
             {
-                // Note: Open puzzle finished window
-                // allow player to go to next level or back to main menu here
-                debugText.text = "Going to next level";
-                GameManager.Instance.NextLevel();
+                // Call level completed method in the game manager
+                GameManager.Instance.LevelCompleted();
             }
             else
             {
