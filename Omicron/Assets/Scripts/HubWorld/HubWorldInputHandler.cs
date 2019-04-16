@@ -62,7 +62,7 @@ public class HubWorldInputHandler : MonoBehaviour
             {
                 hitPanelCol = hit.collider;
                 isTargetted = true;
-                //hubManager.Over(hitPanelCol);
+                hubManager.Over(hitPanelCol);
                 selectedLevel = hit.collider.name;
             }
             else if (isTargetted && Input.GetMouseButtonDown(0))
@@ -71,10 +71,10 @@ public class HubWorldInputHandler : MonoBehaviour
                 hubManager.LevelSelect(selectedLevel);
             }
         }
-        /*else if (isTargetted)
+        else if (isTargetted)
         {
             isTargetted = false;
             hubManager.Exit(hitPanelCol);
-        }*/
+        }
     }
 }

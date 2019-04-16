@@ -63,6 +63,11 @@ public class GameManager : MonoBehaviour {
 
         // Set level timer to 0 at the beginning of the game
         LevelTimer = 0;
+        // Set bools in the CompletedLevels array to false
+        for (int i = 0; i < CompletedLevels.Length; i++)
+        {
+            CompletedLevels[i] = false;
+        }
     }
     #endregion
 
