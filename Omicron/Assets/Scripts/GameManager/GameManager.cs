@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour {
     [HideInInspector] public float LevelTimer;
     [HideInInspector] public bool IsLevelStarted;
 
-    GameObject[] puzzles;
+    [HideInInspector] public GameObject[] puzzles;
     // Stores the names of all the puzzles in a level as ints
     int[] puzzleInts;
     //[SerializeField] private Text debugText;

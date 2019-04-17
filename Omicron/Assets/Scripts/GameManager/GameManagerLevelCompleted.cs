@@ -20,12 +20,13 @@ public class GameManagerLevelCompleted : MonoBehaviour
 
     private void Setup()
     {
-        //_levelCompletedPanels.SetActive(false);
         _gameManager = GetComponent<GameManager>();
     }
 
     private void LevelCompleted()
     {
+        // Deactivate all puzzle gameobjects
+        DeactivateAllPuzzles();
         // Pause the game
         Time.timeScale = 0f;
         // Show level completed canvas
@@ -37,5 +38,16 @@ public class GameManagerLevelCompleted : MonoBehaviour
         // Reset level timer
         _gameManager.IsLevelStarted = false;
         _gameManager.LevelTimer = 0f;
+    }
+
+    private void DeactivateAllPuzzles()
+    {
+        // Get all puzzles in the level
+        GameObject[] puzzles = _gameManager.puzzles;
+        // Set all puzzles to false in the puzzles array
+        for (int i = 0; i < puzzles.Length; i++)
+        {
+            puzzles[i].SetActive(false);
+        }
     }
 }
