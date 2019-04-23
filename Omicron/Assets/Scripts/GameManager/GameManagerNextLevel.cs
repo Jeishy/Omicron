@@ -12,13 +12,11 @@ public class GameManagerNextLevel : MonoBehaviour
     {
         Setup();
         _gameManager.OnNextLevel += LevelNext;
-        _gameManager.OnNextLevel += LevelCompleted;
     }
 
     private void OnDisable()
     {
         _gameManager.OnNextLevel -= LevelNext;
-        _gameManager.OnNextLevel -= LevelCompleted;
     }
 
     private void Setup()
@@ -51,13 +49,5 @@ public class GameManagerNextLevel : MonoBehaviour
         }
 
         SceneManager.LoadScene(_currentLevel);
-    }
-
-    private void LevelCompleted()
-    {
-        _currentLevel = _gameManager.FindActiveLevel();
-        Level completedLevel = _gameManager.LevelStringToLevelType(_currentLevel);
-        _gameManager.AddCompletedLevelAndTime(completedLevel, _gameManager.LevelTimer);
-        _gameManager.LevelTimer = 0f;
     }
 }

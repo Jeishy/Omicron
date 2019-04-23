@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.9526369, g: 0.9526369, b: 0.9526369, a: 1}
+  m_IndirectSpecularColor: {r: 0.8793945, g: 0.8793945, b: 0.8793945, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1106,6 +1106,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SelectionVisualizerDelta
+      objectReference: {fileID: 0}
+    - target: {fileID: 9162713434612674784, guid: b437d65a263da9d41a020dd9c9ae909e,
+        type: 3}
+      propertyPath: m_TagString
+      value: SelectionVisualizer
       objectReference: {fileID: 0}
     - target: {fileID: 9162713434612674813, guid: b437d65a263da9d41a020dd9c9ae909e,
         type: 3}

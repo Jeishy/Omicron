@@ -31,10 +31,10 @@ public class HubWorldOver : MonoBehaviour
         // Increase the size of the panel that was selected
         Animator anim = uiElement.GetComponent<Animator>();
         anim.SetTrigger("Increase");
-   }
+    }
 
-   private void ShowStats(Collider uiElement)
-   {
+    private void ShowStats(Collider uiElement)
+    {
        // Get the stats panel gameobject and set active to true
        GameObject statsPanel = uiElement.transform.GetChild(2).gameObject;
        // Get panel name
@@ -46,7 +46,7 @@ public class HubWorldOver : MonoBehaviour
        {
             statsPanel.SetActive(true);
        }
-   }
+    }
 
     private bool CheckIfLevelIsCompleted(string panelName)
     {

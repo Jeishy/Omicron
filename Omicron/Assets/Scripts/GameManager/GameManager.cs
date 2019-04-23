@@ -37,11 +37,12 @@ public class GameManager : MonoBehaviour {
     [HideInInspector] public float[] CompletedLevelTimes = new float[5];
     // Array of booleans for checking if a level is completed
     [HideInInspector] public bool[] CompletedLevels = new bool[5];
-    // Store a reference to all the puzzles in a level
 
+    // The timer variable used for each level
     [HideInInspector] public float LevelTimer;
     [HideInInspector] public bool IsLevelStarted;
 
+    // Store a reference to all the puzzles in a level
     [HideInInspector] public GameObject[] puzzles;
     // Stores the names of all the puzzles in a level as ints
     int[] puzzleInts;

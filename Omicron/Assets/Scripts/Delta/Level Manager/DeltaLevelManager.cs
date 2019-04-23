@@ -34,6 +34,7 @@ public class DeltaLevelManager : MonoBehaviour
         PhotonAttach();
     }
 
+    // Function for running all functions subscribed to the OnPhotonShoot event
     public void PhotonShoot()
     {
         if (OnPhotonShoot != null)
@@ -42,6 +43,7 @@ public class DeltaLevelManager : MonoBehaviour
         }
     }
 
+    // Function for running all functions subscribed to the OnPhotonLost event
     public void PhotonLost()
     {
         if (OnPhotonLost != null)
@@ -50,6 +52,7 @@ public class DeltaLevelManager : MonoBehaviour
         }
     }
 
+    // Function for running all functions subscribed to the OnPuzzleReset event
     public void PuzzleReset()
     {
         if (OnPuzzleReset != null)
@@ -58,6 +61,7 @@ public class DeltaLevelManager : MonoBehaviour
         }
     }
 
+    // Function for running all functions subscribed to the OnPhotonAttach event
     public void PhotonAttach()
     {
         if (OnPhotonAttach != null)

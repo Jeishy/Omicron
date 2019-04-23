@@ -1174,6 +1174,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: SelectionVisualizerHW
       objectReference: {fileID: 0}
+    - target: {fileID: 1841402709606825066, guid: 233b46f3417e0d644ab2b1db4ca7b7f0,
+        type: 3}
+      propertyPath: m_TagString
+      value: SelectionVisualizer
+      objectReference: {fileID: 0}
     - target: {fileID: 1300544638502695802, guid: 233b46f3417e0d644ab2b1db4ca7b7f0,
         type: 3}
       propertyPath: m_LocalPosition.x
