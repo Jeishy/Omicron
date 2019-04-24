@@ -5,31 +5,68 @@ using UnityEngine;
 public class EpsilonNucleus : MonoBehaviour
 {
     [SerializeField] private LayerMask _particleLayerMask;
+    [SerializeField] private EpsilonBaryon _desiredBaryon;
 
-    private List<GameObject> _epsilonQuarks;
-    private List<GameObject> _epsilonNucleiParticles;
+    private List<EpsilonQuark> _epsilonQuarksInNucleus;
+    private List<EpsilonBaryon> _epsilonBaryonsInNucleus;
+    private float _chargeInNucleus;
+    private EpsilonLevelManager _epsilonManager;
 
     private void Start() 
     {
         // Clear the lists
-        _epsilonNucleiParticles.Clear();
-        _epsilonQuarks.Clear();
+        _epsilonBaryonsInNucleus.Clear();
+        _epsilonQuarksInNucleus.Clear();
+        // Set charge in nucleus to be neutral (to 0)
+        _chargeInNucleus = 0f;
+        // Get reference to the epsilon level manager
+        _epsilonManager = GameObject.FindGameObjectWithTag("EpsiloLevelManager").GetComponent<EpsilonLevelManager>();
     }
 
     private void OnTriggerEnter(Collider col)
     {
-        // Check if particle has entered the nucleus
+        // Check if a particle has entered the nucleus
         if (col.gameObject.layer == _particleLayerMask.value)
         {
+            // Get reference to the particles epsilon particle component
+            EpsilonParticle _epsilonParticle = col.gameObject.GetComponent<EpsilonParticle>();
+
             if (col.CompareTag("Quark"))
             {
                 // Add the quark to the list of quarks in the nucleus
-                _epsilonQuarks.Add(col.gameObject);
+                EpsilonQuark epsilonQuark = col.gameObject.GetComponent<EpsilonQuark>();
+                _epsilonQuarksInNucleus.Add(epsilonQuark);
+                CheckQuarksInNucleus();
             }
-            // else if (col.CompareTag("NucleiParticle"))
-            // {
-
-            // }
+            else if (col.CompareTag("Baryon"))
+            {
+                // Add the quark to the list of quarks in the nucleus
+                EpsilonBaryon epsilonBaryon = col.gameObject.GetComponent<EpsilonBaryon>();
+                _epsilonBaryonsInNucleus.Add(epsilonBaryon);
+            }
+            
+            // Set Nucleus centre trans to transform of nucleus
+            _epsilonParticle.NucleusCentreTrans = transform;
+            // Set CanOrbit bool to true
+            _epsilonParticle.CanOrbit = true;
         }
     }
+
+    private void CheckQuarksInNucleus()
+    {
+        _chargeInNucleus = 0f;
+        foreach (EpsilonQuark quark in _epsilonQuarksInNucleus)
+        {
+            // Get the sum charge of the nucleus
+            _chargeInNucleus += quark.Charge;
+        }
+
+        if (_chargeInNucleus == _desiredBaryon.Charge)
+        {
+            // Clear the epsilon quarks in nucles list when the puzzle has been completed
+            _epsilonQuarksInNucleus.Clear();
+            // Trigger the OnPuzzleComplete event
+            _epsilonManager.PuzzleComplete();
+        }
+    } 
 }

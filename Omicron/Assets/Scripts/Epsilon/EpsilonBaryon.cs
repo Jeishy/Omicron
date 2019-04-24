@@ -2,18 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EpsilonQuark : EpsilonParticle
+public class EpsilonBaryon : EpsilonParticle
 {
-    [SerializeField] private Quark _quark;
+    [SerializeField] private Baryon _baryon;
     // Start is called before the first frame update
-    private void Start()
+    void Start()
     {
         CanOrbit = false;
-        SetParticleCharge(_quark);
+        SetParticleCharge(_baryon);
     }
 
     // Update is called once per frame
-    private void Update()
+    void Update()
     {
         if (CanOrbit)
         {
