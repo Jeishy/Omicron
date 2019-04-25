@@ -11,11 +11,12 @@ GameObject:
   - component: {fileID: 2110730151955735074}
   - component: {fileID: 2110730151955735075}
   - component: {fileID: 2110730151955735072}
+  - component: {fileID: 3647175037975912366}
   - component: {fileID: 2110730151955735073}
   - component: {fileID: 2110730151955735133}
   m_Layer: 17
   m_Name: UpQuark
-  m_TagString: Untagged
+  m_TagString: ShelfQuark
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -79,6 +80,22 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!54 &3647175037975912366
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2110730151955735078}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!135 &2110730151955735073
 SphereCollider:
   m_ObjectHideFlags: 0
@@ -107,5 +124,5 @@ MonoBehaviour:
   NucleusCentreTrans: {fileID: 0}
   Charge: 0
   CanOrbit: 0
-  OrbitSpeed: 0
+  OrbitSpeed: 100
   _quark: 0

@@ -4,35 +4,32 @@ using UnityEngine;
 
 public class EpsilonNucleus : MonoBehaviour
 {
-    [SerializeField] private LayerMask _particleLayerMask;
     [SerializeField] private EpsilonBaryon _desiredBaryon;
 
-    private List<EpsilonQuark> _epsilonQuarksInNucleus;
-    private List<EpsilonBaryon> _epsilonBaryonsInNucleus;
+    private List<EpsilonQuark> _epsilonQuarksInNucleus = new List<EpsilonQuark>();
+    private List<EpsilonBaryon> _epsilonBaryonsInNucleus = new List<EpsilonBaryon>();
     private float _chargeInNucleus;
     private EpsilonLevelManager _epsilonManager;
 
     private void Start() 
     {
-        // Clear the lists
-        _epsilonBaryonsInNucleus.Clear();
-        _epsilonQuarksInNucleus.Clear();
         // Set charge in nucleus to be neutral (to 0)
         _chargeInNucleus = 0f;
         // Get reference to the epsilon level manager
-        _epsilonManager = GameObject.FindGameObjectWithTag("EpsiloLevelManager").GetComponent<EpsilonLevelManager>();
+        _epsilonManager = GameObject.Find("EpsilonLevelManager").GetComponent<EpsilonLevelManager>();
     }
 
     private void OnTriggerEnter(Collider col)
     {
         // Check if a particle has entered the nucleus
-        if (col.gameObject.layer == _particleLayerMask.value)
+        if (col.gameObject.layer == 17)
         {
             // Get reference to the particles epsilon particle component
             EpsilonParticle _epsilonParticle = col.gameObject.GetComponent<EpsilonParticle>();
 
-            if (col.CompareTag("Quark"))
+            if (col.CompareTag("ShelfQuark"))
             {
+                Debug.Log("Shelf quark in range");
                 // Add the quark to the list of quarks in the nucleus
                 EpsilonQuark epsilonQuark = col.gameObject.GetComponent<EpsilonQuark>();
                 _epsilonQuarksInNucleus.Add(epsilonQuark);
@@ -61,12 +58,12 @@ public class EpsilonNucleus : MonoBehaviour
             _chargeInNucleus += quark.Charge;
         }
 
-        if (_chargeInNucleus == _desiredBaryon.Charge)
-        {
-            // Clear the epsilon quarks in nucles list when the puzzle has been completed
-            _epsilonQuarksInNucleus.Clear();
-            // Trigger the OnPuzzleComplete event
-            _epsilonManager.PuzzleComplete();
-        }
+        // if (_chargeInNucleus == _desiredBaryon.Charge)
+        // {
+        //     // Clear the epsilon quarks in nucles list when the puzzle has been completed
+        //     _epsilonQuarksInNucleus.Clear();
+        //     // Trigger the OnPuzzleComplete event
+        //     _epsilonManager.PuzzleComplete();
+        // }
     } 
 }

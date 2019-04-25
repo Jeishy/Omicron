@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour {
     #region Singleton
     private void Awake()
     {
-        OVRRemote = GameObject.FindGameObjectWithTag("OculusRemote").GetComponent<Transform>();
+        OVRRemote = GameObject.FindGameObjectWithTag("OculusRemote").transform;
         RemoteSpawnTrans = GameObject.Find("BallSpawnPoint").transform;
 
         if ( Instance == null)

@@ -5,6 +5,9 @@ using UnityEngine;
 public class EpsilonBaryon : EpsilonParticle
 {
     [SerializeField] private Baryon _baryon;
+
+    private Rigidbody _rb;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -17,8 +20,15 @@ public class EpsilonBaryon : EpsilonParticle
     {
         if (CanOrbit)
         {
-            // Orbit around the nuclues
-            SetOrbit(transform, NucleusCentreTrans);
+            if (!IsSpeedZero)
+                DampSpeed(_rb);
+                
+            // Orbit around the nuclues if speed is 0
+            if (_rb.velocity.magnitude <= 0f)
+            {
+                IsSpeedZero = true;
+                SetOrbit(transform, NucleusCentreTrans, _rb);
+            }
         }
     }
 }

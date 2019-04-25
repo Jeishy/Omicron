@@ -19,13 +19,23 @@ public class EpsilonLevelManager : MonoBehaviour
 
     #endregion
 
+    [HideInInspector] public Transform OVRRemote;                   // The remote's transform
+    [HideInInspector] public Transform ParticleSpawnTrans;          // The spawn point's transform
     [HideInInspector] public bool IsParticleAttached;               // Bool for if a photon is attached to the remote
-    [HideInInspector] public GameObject CurrentAttachedParticle;     // The currently attached particle
+    [HideInInspector] public GameObject CurrentAttachedParticle;    // The currently attached particle
+    [HideInInspector] public int MaxQuarks;                         // The max quarks that can be used in a puzzle
+    [HideInInspector] public int NumQuarksUsed;                     // The number of quarks used in a puzzle
 
     private void Start()
     {
+        // Get a reference to the remote's transform
+        OVRRemote = GameObject.FindGameObjectWithTag("OculusRemote").transform;
+        // Get reference to the transform of the spawn point for particles
+        ParticleSpawnTrans = GameObject.FindGameObjectWithTag("BallSpawnPoint").transform;
         // Set is particle attached bool to false by default
         IsParticleAttached = false;
+        // Set number of quarks used to 0 by default
+        NumQuarksUsed = 0;
         // Find all puzzles in the level
         GameManager.Instance.FindAllPuzzles();
     }

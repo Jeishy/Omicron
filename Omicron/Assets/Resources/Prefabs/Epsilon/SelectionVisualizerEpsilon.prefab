@@ -48,7 +48,7 @@ MonoBehaviour:
   trackingSpace: {fileID: 0}
   linePointer: {fileID: 5935944757009265253}
   gazePointer: {fileID: 4191080110644120093}
-  rayDrawDistance: 500
+  rayDrawDistance: 5
   gazeDrawDistance: 3
   activeController: 0
 --- !u!120 &5935944757009265253
