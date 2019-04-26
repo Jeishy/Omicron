@@ -34,14 +34,9 @@ public class EpsilonInputHandler : MonoBehaviour
             Vector3 remoteDirection = _ovrRemoteTrans.forward;
             Vector3 remotePos = _ovrRemoteTrans.position;
 
-            if (_epsilonManager.IsParticleAttached)
-            {
-                Debug.Log("Firing particle");
-                // If a particle is already attached, trigger the OnParticleShoot event
-                _epsilonManager.ParticleShoot();   
-            }
+            
             // Check if remote is aiming at a particle
-            else if (Physics.Raycast(remotePos, remoteDirection, out hit, Mathf.Infinity, _layerMask))
+            if (Physics.Raycast(remotePos, remoteDirection, out hit, Mathf.Infinity, _layerMask))
             {
                 // Get the collider component of the hit gameobject for a tag comparison check
                 Collider particleCol = hit.collider;
@@ -55,6 +50,12 @@ public class EpsilonInputHandler : MonoBehaviour
                     _epsilonManager.ParticleAttach(particleGO);
                 }
             }
+            else
+            {
+                Debug.Log("Firing particle");
+                // If a particle is already attached, trigger the OnParticleShoot event
+                _epsilonManager.ParticleShoot();   
+            }
 
         }
     }
@@ -67,12 +68,6 @@ public class EpsilonInputHandler : MonoBehaviour
             RaycastHit hit;
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
-            if (_epsilonManager.IsParticleAttached)
-            {
-                Debug.Log("Firing particle");
-                // If a particle is already attached, trigger the OnParticleShoot event
-                _epsilonManager.ParticleShoot();   
-            }
             if (Physics.Raycast(ray, out hit, Mathf.Infinity, _layerMask))
             {
                 // Get the collider component of the hit gameobject for a tag comparison check
@@ -83,6 +78,12 @@ public class EpsilonInputHandler : MonoBehaviour
                 {
                     _epsilonManager.ParticleAttach(particleGO);
                 }
+            }
+            else
+            {
+                Debug.Log("Firing particle");
+                // If a particle is already attached, trigger the OnParticleShoot event
+                _epsilonManager.ParticleShoot();   
             }
         }
     }

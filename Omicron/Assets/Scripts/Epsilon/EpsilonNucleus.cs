@@ -4,17 +4,17 @@ using UnityEngine;
 
 public class EpsilonNucleus : MonoBehaviour
 {
-    [SerializeField] private EpsilonBaryon _desiredBaryon;
+    [SerializeField] private Baryon _desiredBaryon;
 
     private List<EpsilonQuark> _epsilonQuarksInNucleus = new List<EpsilonQuark>();
     private List<EpsilonBaryon> _epsilonBaryonsInNucleus = new List<EpsilonBaryon>();
-    private float _chargeInNucleus;
+    private int _chargeInNucleus;
     private EpsilonLevelManager _epsilonManager;
 
     private void Start() 
     {
         // Set charge in nucleus to be neutral (to 0)
-        _chargeInNucleus = 0f;
+        _chargeInNucleus = 0;
         // Get reference to the epsilon level manager
         _epsilonManager = GameObject.Find("EpsilonLevelManager").GetComponent<EpsilonLevelManager>();
     }
@@ -51,19 +51,36 @@ public class EpsilonNucleus : MonoBehaviour
 
     private void CheckQuarksInNucleus()
     {
-        _chargeInNucleus = 0f;
+        _chargeInNucleus = 0;
         foreach (EpsilonQuark quark in _epsilonQuarksInNucleus)
         {
             // Get the sum charge of the nucleus
             _chargeInNucleus += quark.Charge;
         }
 
-        // if (_chargeInNucleus == _desiredBaryon.Charge)
-        // {
-        //     // Clear the epsilon quarks in nucles list when the puzzle has been completed
-        //     _epsilonQuarksInNucleus.Clear();
-        //     // Trigger the OnPuzzleComplete event
-        //     _epsilonManager.PuzzleComplete();
-        // }
+        // Get the charge of the baryon
+        int bayronCharge = GetBaryonCharge();
+
+        if (_chargeInNucleus == bayronCharge)
+        {
+            // Clear the epsilon quarks in nucles list when the puzzle has been completed
+            _epsilonQuarksInNucleus.Clear();
+            // Trigger the OnPuzzleComplete event
+            _epsilonManager.PuzzleComplete();
+        }
+    }
+
+    private int GetBaryonCharge()
+    {
+        switch (_desiredBaryon)
+        {
+            case Baryon.Proton:
+                return 9;
+            case Baryon.Neutron:
+                return 0;
+            default:
+                Debug.LogError("Baryon invalid or not specified");
+                return -1;
+        }
     } 
 }

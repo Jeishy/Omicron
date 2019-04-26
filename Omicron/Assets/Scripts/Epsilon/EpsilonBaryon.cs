@@ -13,6 +13,8 @@ public class EpsilonBaryon : EpsilonParticle
     {
         CanOrbit = false;
         SetParticleCharge(_baryon);
+        Debug.Log(Charge);
+        _rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
@@ -23,12 +25,12 @@ public class EpsilonBaryon : EpsilonParticle
             if (!IsSpeedZero)
                 DampSpeed(_rb);
                 
-            // Orbit around the nuclues if speed is 0
-            if (_rb.velocity.magnitude <= 0f)
-            {
-                IsSpeedZero = true;
-                SetOrbit(transform, NucleusCentreTrans, _rb);
-            }
+            // // Orbit around the nuclues if speed is 0
+            // if (_rb.velocity.magnitude <= 0f)
+            // {
+            //     IsSpeedZero = true;
+            //     SetOrbit(transform, NucleusCentreTrans, _rb);
+            // }
         }
     }
 }

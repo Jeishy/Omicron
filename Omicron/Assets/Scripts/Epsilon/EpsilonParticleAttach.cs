@@ -24,12 +24,18 @@ public class EpsilonParticleAttach : MonoBehaviour
 
     private void ParticleAttach(GameObject particle)
     {
-        if (!_epsilonManager.IsParticleAttached && _epsilonManager.NumQuarksUsed < _epsilonManager.MaxQuarks)
+        if (_epsilonManager.NumQuarksUsed < _epsilonManager.MaxQuarks)
         {
+            // If a particle is already attached, destroy it
+            if (_epsilonManager.IsParticleAttached)
+            {
+                GameObject oldParticle = GameManager.Instance.RemoteSpawnTrans.GetChild(0).gameObject;
+                Destroy(oldParticle);
+            }
+
             // Set is particle attached boolean to true
             _epsilonManager.IsParticleAttached = true;
-            // Increment number of quarks used variable
-            _epsilonManager.NumQuarksUsed++;
+            Debug.Log("Number quarks used: " + _epsilonManager.NumQuarksUsed);
             // Instantiate the particle
             GameObject p = Instantiate(particle, GameManager.Instance.RemoteSpawnTrans.position, Quaternion.identity);
             // Sets its parent transform to be the spawn point transform on the front of the remote

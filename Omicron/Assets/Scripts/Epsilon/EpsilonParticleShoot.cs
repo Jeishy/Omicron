@@ -26,10 +26,11 @@ public class EpsilonParticleShoot : MonoBehaviour
 
     private void ParticleShoot()
     {
+        // Attach particle to current puzzle transform
+        Transform particleTrans = _epsilonManager.CurrentAttachedParticle.transform;
+        particleTrans.SetParent(GameManager.Instance.FindActivePuzzle().transform);
         // Set is particle attached boolean to false
         _epsilonManager.IsParticleAttached = false;
-        // Increment quarks used variable
-        _epsilonManager.NumQuarksUsed++;
         Rigidbody particleRB = _epsilonManager.CurrentAttachedParticle.GetComponent<Rigidbody>();
         // Get the remote's transform
         Transform ovrRemote = _epsilonManager.OVRRemote;
@@ -37,5 +38,7 @@ public class EpsilonParticleShoot : MonoBehaviour
         _epsilonManager.ParticleSpawnTrans.DetachChildren();
         // Shoot particle in direction the remote is aimed towards
         particleRB.velocity = ovrRemote.forward * _shotSpeed;
+        // Increment number of quarks used variable
+        _epsilonManager.NumQuarksUsed++;
     }
 }

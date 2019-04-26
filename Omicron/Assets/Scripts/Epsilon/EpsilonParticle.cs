@@ -15,12 +15,12 @@ public enum Baryon
 public class EpsilonParticle : MonoBehaviour
 {
     [HideInInspector] public Transform NucleusCentreTrans;
-    [HideInInspector] public float Charge;
+    [HideInInspector] public int Charge;
     [HideInInspector] public bool CanOrbit;
-    [HideInInspector][Range(0.01f, 1.0f)] public float DampenTime;
     [HideInInspector] public bool IsSpeedZero;
 
     public float OrbitSpeed;
+    [Range(0.01f, 1.0f)] public float DampenTime;
 
     private Vector3 _vel;
     private float _rotateAngle;
@@ -37,10 +37,10 @@ public class EpsilonParticle : MonoBehaviour
         switch (quark)
         {
             case Quark.Up:
-                Charge = 0.65f;
+                Charge = 6;
                 break;
             case Quark.Down:
-                Charge = -0.35f;
+                Charge = -3;
                 break;
         }
     }
@@ -51,10 +51,10 @@ public class EpsilonParticle : MonoBehaviour
         switch (baryon)
         {
             case Baryon.Proton:
-                Charge = 1f;
+                Charge = 9;
                 break;
             case Baryon.Neutron:
-                Charge = 0f;
+                Charge = 0;
                 break;
         }
     }
@@ -64,7 +64,7 @@ public class EpsilonParticle : MonoBehaviour
     {
         // Set velocity of particle to 0
         particleRB.velocity = Vector3.zero;
-        // Set particle to rotatae around nucleus' centre
+        // Set particle to rotate around nucleus' centre
         particle.RotateAround(nucleusCentreTrans.position, Vector3.up, OrbitSpeed * Time.deltaTime);
     }
 

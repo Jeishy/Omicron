@@ -124,5 +124,7 @@ MonoBehaviour:
   NucleusCentreTrans: {fileID: 0}
   Charge: 0
   CanOrbit: 0
-  OrbitSpeed: 100
+  IsSpeedZero: 0
+  OrbitSpeed: 40
+  DampenTime: 0.3
   _quark: 0
