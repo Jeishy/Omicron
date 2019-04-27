@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 5215751881266414715}
   m_Layer: 13
   m_Name: Particle
-  m_TagString: Untagged
+  m_TagString: GammaParticle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,6 +142,7 @@ MonoBehaviour:
   IsHot: 0
   LastVelocity: {x: 0, y: 0, z: 0}
   IsParticleStateChanged: 0
+  IsParticleInCorrectChamber: 0
   InitialSpeed: 0
   HotSpeedModifier: 8
   ColdSpeedModifier: 9
@@ -149,7 +150,6 @@ MonoBehaviour:
   OriginalTemperature: 0
   Temperature: 0
   TemperatureTime: 0
-  IsParticleInCorrectChamber: 0
   timeTillTemperatureChange: 2
   canTemperatureChange: 0
   CanTemperatureIncrease: 0

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5293551851995065737}
   - component: {fileID: 5293551851995065738}
   - component: {fileID: 5293551851995065739}
+  - component: {fileID: 7429734545780532530}
   m_Layer: 0
   m_Name: HotChamber
   m_TagString: HotChamber
@@ -91,3 +92,16 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 10, y: 1.0069166, z: 10.000005}
   m_Center: {x: 0.00000033769194, y: 0.14323509, z: -0.00000095034125}
+--- !u!114 &7429734545780532530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5293551851995065742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c9e6c3d9d2a778f43b66f0c59b0d9aa1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HotParticlesInChamber: 0

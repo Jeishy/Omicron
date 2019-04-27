@@ -20,6 +20,7 @@ TagManager:
   - SelectionVisualizer
   - ShelfQuark
   - Quark
+  - GammaParticle
   layers:
   - Default
   - TransparentFX

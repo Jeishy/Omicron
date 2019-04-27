@@ -127,21 +127,24 @@ public class GammaInputHandler : MonoBehaviour
         if (OVRInput.Get(OVRInput.Button.PrimaryTouchpad, OVRInput.Controller.RTrackedRemote))
         {
             _isPuzzleRestarted = true;
-            StopCoroutine(_waitToRestartPuzzleCoroutine);
-            // Play Fade out and in animation
-            StartCoroutine(_waitToRestartPuzzleCoroutine);
+            NormalRestartPuzzle();
         }
-        else if (Input.GetKeyDown(KeyCode.E))
+        else if (Input.GetKeyDown(KeyCode.F))
         {
             _isPuzzleRestarted = true;
-            StopCoroutine(_waitToRestartPuzzleCoroutine);
-            StartCoroutine(_waitToRestartPuzzleCoroutine);
+            NormalRestartPuzzle();
         }
     }
 
     private IEnumerator WaitToRestartPuzzle()
     {
         yield return new WaitForSeconds(_timeToRestartPuzzle);
+        _gammaManager.PuzzleRestart();
+        _isPuzzleRestarted = false;
+    }
+
+    private void NormalRestartPuzzle()
+    {
         _gammaManager.PuzzleRestart();
         _isPuzzleRestarted = false;
     }

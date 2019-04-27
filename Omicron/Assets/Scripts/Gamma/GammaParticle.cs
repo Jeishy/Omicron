@@ -256,14 +256,4 @@ public class GammaParticle : MonoBehaviour
         Color colour = _particleMeshRenderer.material.color;
         return colour;
     }
-
-    private void OnTriggerEnter(Collider col)
-    {
-        // Check if particle is in the correct chamber and set particle in correct chamber bool to true
-        if ((col.CompareTag("HotChamber") && IsHot) || (col.CompareTag("ColdChamber") && !IsHot))
-        {
-            //Debug.Log(gameObject.name + " in correct chamber");
-            IsParticleInCorrectChamber = true;
-        }
-    }
 }

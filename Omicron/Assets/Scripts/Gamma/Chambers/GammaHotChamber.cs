@@ -6,28 +6,31 @@ public class GammaHotChamber : MonoBehaviour
 {
     private GammaLevelManager _gammaManager;
     [HideInInspector] public int HotParticlesInChamber;
-    private int count;
 
     private void Start()
     {
         _gammaManager = GameObject.Find("GammaLevelManager").GetComponent<GammaLevelManager>();
     }
-
-    private void OnTriggerEnter(Collider col)
+    
+    private void OnTriggerEnter(Collider col) 
     {
-        bool isParticleHot = col.GetComponent<GammaParticle>().IsHot;
-        if (isParticleHot)
+        GammaParticle gammaParticle = col.gameObject.GetComponent<GammaParticle>();
+        // Set is particle in correct chambebr bool to true if it is hot
+        if (gammaParticle.IsHot)
         {
-            HotParticlesInChamber++;
+            Debug.Log("Hot particle entered");
+            gammaParticle.IsParticleInCorrectChamber = true;
         }
     }
 
     private void OnTriggerExit(Collider col)
     {
-        bool isParticleHot = col.GetComponent<GammaParticle>().IsHot;
-        if (isParticleHot)
+        //Debug.Log(gameObject.name + " in correct chamber");
+        GammaParticle gammaParticle = col.gameObject.GetComponent<GammaParticle>();
+        // Set is particle in correct chambebr bool to false if it has left the chamber
+        if (gammaParticle.IsHot)
         {
-            HotParticlesInChamber--;
+            gammaParticle.IsParticleInCorrectChamber = false;
         }
     }
 }
