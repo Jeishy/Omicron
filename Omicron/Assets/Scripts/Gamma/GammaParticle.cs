@@ -7,7 +7,7 @@ public class GammaParticle : MonoBehaviour
     [HideInInspector] public Vector3 ParticleDirection;                         // The normalized direction of the particle
     [HideInInspector] public bool IsHot;                                        // flag if the temperature is hot or cold
     [HideInInspector] public Vector3 LastVelocity;                              // Last frame's velocity
-    [HideInInspector] public bool IsParticleStateChanged;
+    [HideInInspector] public bool IsParticleStateChanged;                       // Bool that states if the particle's state has changed
     [HideInInspector] public bool IsParticleInCorrectChamber;                   // Bool that checks if the particle is in the correct chamber, depending on its state
     [HideInInspector] public float InitialSpeed;
     [HideInInspector] public float HotSpeedModifier = 8.0f;                     // Hot particle speed multiplier, which is used in the calculation of the a hot particle's speed
@@ -83,7 +83,7 @@ public class GammaParticle : MonoBehaviour
         TemperatureTime = 0;
         IsParticleStateChanged = false;
         IsParticleInCorrectChamber = false;
-        Debug.Log(IsParticleStateChanged ? (gameObject.name + " is in the correct chamber") : (gameObject.name + " is in the wrong chamber"));
+        // Debug.Log(IsParticleStateChanged ? (gameObject.name + " is in the correct chamber") : (gameObject.name + " is in the wrong chamber"));
         // Change the temperature state from the beginning
         SetupTemperatureState(Temperature);
         // Change the colour of the particle, according to its temperature

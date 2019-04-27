@@ -8,6 +8,7 @@ public class GammaLevelManager : MonoBehaviour
     public delegate void PlayerEventManagerGamma();
     public event PlayerEventManagerGamma OnPuzzleStart;
     public event PlayerEventManagerGamma OnPuzzleRestart;
+    public event PlayerEventManagerGamma OnPuzzleComplete;
 
     public delegate void PlayerTrapDoorEvent(GameObject trapDoor);
     public event PlayerTrapDoorEvent OnTrapDoorSelect;
@@ -77,6 +78,15 @@ public class GammaLevelManager : MonoBehaviour
         if (OnPuzzleRestart != null)
         {
             OnPuzzleRestart();
+        }
+    }
+
+    // Function for running all methods subscribed to the OnPuzzleComplete event
+    public void PuzzleComplete()
+    {
+        if (OnPuzzleComplete != null)
+        {
+            OnPuzzleComplete();
         }
     }
 

@@ -34,7 +34,9 @@ public class EpsilonPuzzleComplete : MonoBehaviour
     private IEnumerator WaitToNextPuzzle()
     {
         // Wait specified number of seconds to go to the next puzzle
-        yield return new WaitForSeconds(_timeTillPuzzleComplete);        
+        yield return new WaitForSeconds(_timeTillPuzzleComplete);       
+        // Reset num quarks used to 0
+        _epsilonManager.NumQuarksUsed = 0; 
         GameManager.Instance.NextPuzzle();
     }
 }

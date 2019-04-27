@@ -18,8 +18,8 @@ TagManager:
   - Photon
   - DeltaGoal
   - SelectionVisualizer
-  - ShelfParticle
   - ShelfQuark
+  - Quark
   layers:
   - Default
   - TransparentFX

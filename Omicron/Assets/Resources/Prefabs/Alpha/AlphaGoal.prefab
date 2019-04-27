@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 6945956225201116952}
   - component: {fileID: 6945956225201116951}
   - component: {fileID: 4511931902037178245}
-  - component: {fileID: 6945956225201116950}
+  - component: {fileID: 2359831881465655336}
   m_Layer: 0
-  m_Name: Goal
+  m_Name: AlphaGoal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -91,8 +91,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ddc678c8fc050c43bcbaedb18eb6139, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
---- !u!65 &6945956225201116950
+  alphaLevelManager: {fileID: 0}
+  debugText: {fileID: 0}
+--- !u!65 &2359831881465655336
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

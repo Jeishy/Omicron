@@ -34,7 +34,7 @@ public class EpsilonInputHandler : MonoBehaviour
             Vector3 remoteDirection = _ovrRemoteTrans.forward;
             Vector3 remotePos = _ovrRemoteTrans.position;
 
-            
+   
             // Check if remote is aiming at a particle
             if (Physics.Raycast(remotePos, remoteDirection, out hit, Mathf.Infinity, _layerMask))
             {
@@ -52,11 +52,9 @@ public class EpsilonInputHandler : MonoBehaviour
             }
             else
             {
-                Debug.Log("Firing particle");
                 // If a particle is already attached, trigger the OnParticleShoot event
                 _epsilonManager.ParticleShoot();   
             }
-
         }
     }
 
@@ -81,7 +79,6 @@ public class EpsilonInputHandler : MonoBehaviour
             }
             else
             {
-                Debug.Log("Firing particle");
                 // If a particle is already attached, trigger the OnParticleShoot event
                 _epsilonManager.ParticleShoot();   
             }

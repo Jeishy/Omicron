@@ -26,6 +26,10 @@ public class EpsilonParticleShoot : MonoBehaviour
 
     private void ParticleShoot()
     {
+        Debug.Log("Shooting a particle");
+        // Renable collider on particle
+        Collider particleCol = _epsilonManager.CurrentAttachedParticle.GetComponent<Collider>();
+        particleCol.enabled = true;
         // Attach particle to current puzzle transform
         Transform particleTrans = _epsilonManager.CurrentAttachedParticle.transform;
         particleTrans.SetParent(GameManager.Instance.FindActivePuzzle().transform);

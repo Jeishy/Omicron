@@ -12,19 +12,22 @@ public class GammaNextPuzzle : MonoBehaviour
     //[SerializeField] private Text _debugText;
 
     private GammaLevelManager _gammaManager;
+    private bool _isNextPuzzle;
 
     private void Start()
     {
         _gammaManager = GetComponent<GammaLevelManager>();
+        _isNextPuzzle = false;
     }
 
     private void Update()
     {
         CheckIfParticlesInCorrectChamber();
-        if (_gammaManager.IsPuzzleCompleted)
+        if (_gammaManager.IsPuzzleCompleted && !_isNextPuzzle)
         {
-            StartCoroutine(NextPuzzle());
-            Debug.Log("Going to next puzzle");
+            _isNextPuzzle = true;
+            StartCoroutine(PuzzleComplete());
+            Debug.Log(_gammaManager.IsPuzzleCompleted);
         }
     }
 
@@ -46,11 +49,17 @@ public class GammaNextPuzzle : MonoBehaviour
         }
     }
 
-    private IEnumerator NextPuzzle()
+    private IEnumerator PuzzleComplete()
     {
         yield return new WaitForSeconds(_waitTimeTillPuzzleCompletion);
-        if (!_gammaManager.IsPuzzleCompleted) yield break;
+        CheckIfParticlesInCorrectChamber();
+        if (!_gammaManager.IsPuzzleCompleted) 
+        {
+            _isNextPuzzle = false;
+            yield break;
+        }
+        _isNextPuzzle = false;
+        _gammaManager.PuzzleComplete();
         _gammaManager.IsPuzzleCompleted = false;
-        GameManager.Instance.NextPuzzle();
     }
 }

@@ -4,14 +4,21 @@ using UnityEngine;
 
 public class GravityShield : MonoBehaviour
 {
-    [SerializeField] private AlphaLevelManager alphaLevelManager;
     [SerializeField] private Vector3 gravityChange;
+
+    private AlphaLevelManager _alphaLevelManager;
+
+    private void Start()
+    {
+        _alphaLevelManager = GameObject.Find("AlphaLevelManager").GetComponent<AlphaLevelManager>();
+    }
+
     private void OnTriggerEnter(Collider col)
     {
         if (col.CompareTag("Ball"))
         {
             // If ball enters the gravity shield trigger, change gravity by specified Vector3
-            alphaLevelManager.GravityChange(gravityChange);
+            _alphaLevelManager.GravityChange(gravityChange);
         }
     }
 }

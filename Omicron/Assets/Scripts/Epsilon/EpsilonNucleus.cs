@@ -5,6 +5,7 @@ using UnityEngine;
 public class EpsilonNucleus : MonoBehaviour
 {
     [SerializeField] private Baryon _desiredBaryon;
+    [SerializeField] private Animator _nucluesBaryonAnimator;
 
     private List<EpsilonQuark> _epsilonQuarksInNucleus = new List<EpsilonQuark>();
     private List<EpsilonBaryon> _epsilonBaryonsInNucleus = new List<EpsilonBaryon>();
@@ -29,7 +30,6 @@ public class EpsilonNucleus : MonoBehaviour
 
             if (col.CompareTag("ShelfQuark"))
             {
-                Debug.Log("Shelf quark in range");
                 // Add the quark to the list of quarks in the nucleus
                 EpsilonQuark epsilonQuark = col.gameObject.GetComponent<EpsilonQuark>();
                 _epsilonQuarksInNucleus.Add(epsilonQuark);
@@ -63,8 +63,12 @@ public class EpsilonNucleus : MonoBehaviour
 
         if (_chargeInNucleus == bayronCharge)
         {
+            // Destroy all quarks in nucleus
+            DestroyParticlesInNucleus(_epsilonQuarksInNucleus);
             // Clear the epsilon quarks in nucles list when the puzzle has been completed
             _epsilonQuarksInNucleus.Clear();
+            // Play baryon appear animation
+            _nucluesBaryonAnimator.SetTrigger("Spawn");
             // Trigger the OnPuzzleComplete event
             _epsilonManager.PuzzleComplete();
         }
@@ -83,4 +87,24 @@ public class EpsilonNucleus : MonoBehaviour
                 return -1;
         }
     } 
+
+    private void DestroyParticlesInNucleus(List<EpsilonBaryon> baryons)
+    {
+        // Destroy all baryons in the baryons in nucleus list
+        foreach (EpsilonBaryon baryon in baryons)
+        {
+            GameObject baryonGO = baryon.gameObject;
+            Destroy(baryonGO);
+        }
+    }
+
+    private void DestroyParticlesInNucleus(List<EpsilonQuark> quarks)
+    {
+        // Destroy all quarks in the quarks in nucleus list
+        foreach (EpsilonQuark quark in quarks)
+        {            
+            GameObject quarkGO = quark.gameObject;
+            Destroy(quarkGO);
+        }
+    }
 }
