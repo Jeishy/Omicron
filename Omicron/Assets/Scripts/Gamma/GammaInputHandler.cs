@@ -138,6 +138,7 @@ public class GammaInputHandler : MonoBehaviour
 
     private IEnumerator WaitToRestartPuzzle()
     {
+        // Puzzle has been failed, so restart the puzzle
         yield return new WaitForSeconds(_timeToRestartPuzzle);
         _gammaManager.PuzzleRestart();
         _isPuzzleRestarted = false;
