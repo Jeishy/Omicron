@@ -4,20 +4,19 @@ using UnityEngine;
 
 public class EpsilonNucleus : MonoBehaviour
 {
+    [HideInInspector] public bool IsQuarkCreated;
+
     [SerializeField] private Baryon _desiredBaryon;
     [SerializeField] private Animator _nucluesBaryonAnimator;
 
     private List<EpsilonQuark> _epsilonQuarksInNucleus = new List<EpsilonQuark>();
     private List<EpsilonBaryon> _epsilonBaryonsInNucleus = new List<EpsilonBaryon>();
     private int _chargeInNucleus;
-    private EpsilonLevelManager _epsilonManager;
 
     private void Start() 
     {
         // Set charge in nucleus to be neutral (to 0)
         _chargeInNucleus = 0;
-        // Get reference to the epsilon level manager
-        _epsilonManager = GameObject.Find("EpsilonLevelManager").GetComponent<EpsilonLevelManager>();
     }
 
     private void OnTriggerEnter(Collider col)
@@ -69,8 +68,8 @@ public class EpsilonNucleus : MonoBehaviour
             _epsilonQuarksInNucleus.Clear();
             // Play baryon appear animation
             _nucluesBaryonAnimator.SetTrigger("Spawn");
-            // Trigger the OnPuzzleComplete event
-            _epsilonManager.PuzzleComplete();
+            // Set is quark created bool to true
+            IsQuarkCreated = true;
         }
     }
 

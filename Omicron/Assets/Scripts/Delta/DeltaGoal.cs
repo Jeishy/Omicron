@@ -36,11 +36,9 @@ public class DeltaGoal : MonoBehaviour
             Destroy(other.gameObject);
             // Go to the next puzzle if the number of shootable photons equal the number of photons
             // that have reached the goal
-            if (_deltaManager.PhotonsInGoal == _deltaManager.MaxShootablePhotons)
+            if (_deltaManager.PhotonsInGoal >= _deltaManager.MaxShootablePhotons)
             {
-                HasPhotonHit = false;
-                // Set the material's colour back to normal
-                _meshRenderer.material.SetColor("_EmissionColor", OriginalColour);
+                HasPhotonHit = false;         
                 StartCoroutine(NextPuzzleDelay());
             }
         }   
@@ -52,9 +50,9 @@ public class DeltaGoal : MonoBehaviour
         yield return new WaitForSeconds(_nextPuzzleWaitTime);
         // Set photons shot back to 0
         _deltaManager.PhotonsShot = 0;
-        // Attach a new photon
-        _deltaManager.PhotonAttach();
         // Go to the next puzzle
         GameManager.Instance.NextPuzzle();
+        // Attach a new photon
+        _deltaManager.PhotonAttach();
     }
 }

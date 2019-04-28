@@ -18,7 +18,7 @@ public class DeltaSetMaxPhotons : MonoBehaviour
 
     private IEnumerator SetNewMaxPhotons()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
         // Set new max shootable photons amount when going to this puzzle
         _deltaManager.MaxShootablePhotons = MaxPhotons;
     }

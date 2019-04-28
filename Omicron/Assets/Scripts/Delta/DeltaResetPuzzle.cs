@@ -50,7 +50,7 @@ public class DeltaResetPuzzle : MonoBehaviour
         {
             // Resetting colour
             Color origColour = goal.GetComponent<DeltaGoal>().OriginalColour;
-            goal.GetComponent<MeshRenderer>().material.SetColor("_EmissionColour", origColour);
+            goal.GetComponent<MeshRenderer>().material.SetColor("_EmissionColor", origColour);
             // Resetting has photon hit goal bool
             DeltaGoal deltaGoal = goal.GetComponent<DeltaGoal>();
             deltaGoal.HasPhotonHit = false;

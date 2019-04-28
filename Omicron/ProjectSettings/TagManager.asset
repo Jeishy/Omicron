@@ -21,6 +21,7 @@ TagManager:
   - ShelfQuark
   - Quark
   - GammaParticle
+  - Nucleus
   layers:
   - Default
   - TransparentFX

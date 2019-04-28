@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class DeltaPhotonShot : MonoBehaviour
 {
-    [SerializeField] [Range(0.1f, 10.0f)] private float _shotForce;
+    [Range(0.1f, 10.0f)] public float ShotForce;
 
     private Transform _ovrRemote;
     private DeltaLevelManager _deltaManager;
@@ -48,7 +48,7 @@ public class DeltaPhotonShot : MonoBehaviour
             _deltaManager.SpawnPosTrans.DetachChildren();
             // Set photon's velocity to the forward direction of the remote * specified shot force
             Rigidbody photonRB = photon.GetComponent<Rigidbody>();
-            photonRB.velocity = shotDir * _shotForce;
+            photonRB.velocity = shotDir * ShotForce;
             // Cache the speed of the photon as its shot
             _deltaManager.MaxPhotonSpeed = photonRB.velocity.magnitude;
             // Set photon timer is shot bool to true, so the timer starts
