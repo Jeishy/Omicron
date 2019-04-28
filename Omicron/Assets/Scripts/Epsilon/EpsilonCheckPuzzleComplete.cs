@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class EpsilonCheckPuzzleComplete : MonoBehaviour
 {
+    [HideInInspector] public bool IsPuzzleCompleted;
+
     [SerializeField] private float _timeTillNextPuzzle;
 
-    private bool _isPuzzleCompleted;
+    private bool _isNextPuzzle;
     private GameObject[] nuclei;
     private EpsilonLevelManager _epsilonManager;
 
@@ -14,8 +16,8 @@ public class EpsilonCheckPuzzleComplete : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        _isPuzzleCompleted = false;
-        // Get reference to the epsilon level manager
+        IsPuzzleCompleted = false;
+        _isNextPuzzle = false;
         _epsilonManager = GameObject.Find("EpsilonLevelManager").GetComponent<EpsilonLevelManager>();
     }
 
@@ -26,9 +28,9 @@ public class EpsilonCheckPuzzleComplete : MonoBehaviour
         CheckIfPuzzleComplete();
 
         // If puzzle is complete run wait for puzzle coroutine
-        if (_isPuzzleCompleted)
+        if (IsPuzzleCompleted && !_isNextPuzzle)
         {
-            _isPuzzleCompleted = false;
+            _isNextPuzzle = true;
             StopAllCoroutines();
             StartCoroutine(WaitForNextPuzzle());
         }
@@ -43,13 +45,13 @@ public class EpsilonCheckPuzzleComplete : MonoBehaviour
         {
             // Check if all nuclei in puzzle are 
             EpsilonNucleus deltaNucleus = nucleus.GetComponent<EpsilonNucleus>();
-            if (deltaNucleus.IsQuarkCreated)
+            if (deltaNucleus.IsParticleCreated)
             {
-                _isPuzzleCompleted = true;
+                IsPuzzleCompleted = true;
             }
             else
             {
-                _isPuzzleCompleted = false;
+                IsPuzzleCompleted = false;
                 break;
             }
         }
@@ -57,6 +59,7 @@ public class EpsilonCheckPuzzleComplete : MonoBehaviour
 
     private IEnumerator WaitForNextPuzzle()
     {
+        Debug.Log("Puzzle completed");
         yield return new WaitForSeconds(_timeTillNextPuzzle);
         GameObject nextPuzzle = GameManager.Instance.FindNextPuzzle(GameManager.Instance.FindActivePuzzle());
 
@@ -66,5 +69,10 @@ public class EpsilonCheckPuzzleComplete : MonoBehaviour
         // Else load the next puzzle
         else 
             GameManager.Instance.NextPuzzle();
+        
+        // Set number of quarks used back to 0
+        _epsilonManager.NumQuarksUsed = 0;
+        _isNextPuzzle = false;
+        IsPuzzleCompleted = false;
     }
 }

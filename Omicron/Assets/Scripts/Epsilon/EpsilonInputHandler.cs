@@ -55,6 +55,11 @@ public class EpsilonInputHandler : MonoBehaviour
                 // If a particle is already attached, trigger the OnParticleShoot event
                 _epsilonManager.ParticleShoot();   
             }
+
+            if (OVRInput.Get(OVRInput.Button.PrimaryTouchpad, OVRInput.Controller.RTrackedRemote))
+            {
+                _epsilonManager.PuzzleRestart();
+            }
         }
     }
 
@@ -82,6 +87,11 @@ public class EpsilonInputHandler : MonoBehaviour
                 // If a particle is already attached, trigger the OnParticleShoot event
                 _epsilonManager.ParticleShoot();   
             }
+        }
+        // Restart puzzle if F key is pressed; used for debugging in editor
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            _epsilonManager.PuzzleRestart();
         }
     }
 }

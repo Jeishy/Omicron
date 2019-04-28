@@ -26,7 +26,6 @@ public class EpsilonParticleShoot : MonoBehaviour
 
     private void ParticleShoot()
     {
-        Debug.Log("Shooting a particle");
         // Renable collider on particle
         Collider particleCol = _epsilonManager.CurrentAttachedParticle.GetComponent<Collider>();
         particleCol.enabled = true;

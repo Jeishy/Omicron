@@ -4,19 +4,21 @@ using UnityEngine;
 
 public class EpsilonNucleus : MonoBehaviour
 {
-    [HideInInspector] public bool IsQuarkCreated;
-
-    [SerializeField] private Baryon _desiredBaryon;
+    [HideInInspector] public bool IsParticleCreated;                                                                // A bool for flagging if  the desured particle in this nucleus has been created
+    [HideInInspector] public List<EpsilonQuark> EpsilonQuarksInNucleus = new List<EpsilonQuark>();                 // A list of all quarks in the nucleus
+    [HideInInspector] public List<EpsilonBaryon> EpsilonBaryonsInNucleus = new List<EpsilonBaryon>();              // A list of all baryons in the nuclues
+ 
+    [SerializeField] private Baryon _desiredBaryon;                                                                 // The baryon that must be created in this nucleus
     [SerializeField] private Animator _nucluesBaryonAnimator;
 
-    private List<EpsilonQuark> _epsilonQuarksInNucleus = new List<EpsilonQuark>();
-    private List<EpsilonBaryon> _epsilonBaryonsInNucleus = new List<EpsilonBaryon>();
-    private int _chargeInNucleus;
+   private int _chargeInNucleus;
+    private EpsilonLevelManager _epsilonManager;
 
     private void Start() 
     {
         // Set charge in nucleus to be neutral (to 0)
         _chargeInNucleus = 0;
+        _epsilonManager = GameObject.Find("EpsilonLevelManager").GetComponent<EpsilonLevelManager>();
     }
 
     private void OnTriggerEnter(Collider col)
@@ -31,14 +33,14 @@ public class EpsilonNucleus : MonoBehaviour
             {
                 // Add the quark to the list of quarks in the nucleus
                 EpsilonQuark epsilonQuark = col.gameObject.GetComponent<EpsilonQuark>();
-                _epsilonQuarksInNucleus.Add(epsilonQuark);
+                EpsilonQuarksInNucleus.Add(epsilonQuark);
                 CheckQuarksInNucleus();
             }
             else if (col.CompareTag("Baryon"))
             {
                 // Add the quark to the list of quarks in the nucleus
                 EpsilonBaryon epsilonBaryon = col.gameObject.GetComponent<EpsilonBaryon>();
-                _epsilonBaryonsInNucleus.Add(epsilonBaryon);
+                EpsilonBaryonsInNucleus.Add(epsilonBaryon);
             }
             
             // Set Nucleus centre trans to transform of nucleus
@@ -51,7 +53,7 @@ public class EpsilonNucleus : MonoBehaviour
     private void CheckQuarksInNucleus()
     {
         _chargeInNucleus = 0;
-        foreach (EpsilonQuark quark in _epsilonQuarksInNucleus)
+        foreach (EpsilonQuark quark in EpsilonQuarksInNucleus)
         {
             // Get the sum charge of the nucleus
             _chargeInNucleus += quark.Charge;
@@ -63,13 +65,11 @@ public class EpsilonNucleus : MonoBehaviour
         if (_chargeInNucleus == bayronCharge)
         {
             // Destroy all quarks in nucleus
-            DestroyParticlesInNucleus(_epsilonQuarksInNucleus);
-            // Clear the epsilon quarks in nucles list when the puzzle has been completed
-            _epsilonQuarksInNucleus.Clear();
+            StartCoroutine(WaitToDestroyParticlesInNucleus(EpsilonQuarksInNucleus));
             // Play baryon appear animation
             _nucluesBaryonAnimator.SetTrigger("Spawn");
-            // Set is quark created bool to true
-            IsQuarkCreated = true;
+            // Set is particle created bool to true
+            IsParticleCreated = true;
         }
     }
 
@@ -87,8 +87,9 @@ public class EpsilonNucleus : MonoBehaviour
         }
     } 
 
-    private void DestroyParticlesInNucleus(List<EpsilonBaryon> baryons)
+    public IEnumerator WaitToDestroyParticlesInNucleus(List<EpsilonBaryon> baryons)
     {
+        yield return new WaitForSeconds(_epsilonManager.TimeTillParticlesDestroyed);
         // Destroy all baryons in the baryons in nucleus list
         foreach (EpsilonBaryon baryon in baryons)
         {
@@ -97,7 +98,21 @@ public class EpsilonNucleus : MonoBehaviour
         }
     }
 
-    private void DestroyParticlesInNucleus(List<EpsilonQuark> quarks)
+    public IEnumerator WaitToDestroyParticlesInNucleus(List<EpsilonQuark> quarks)
+    {
+        yield return new WaitForSeconds(_epsilonManager.TimeTillParticlesDestroyed);
+        // Destroy all quarks in the quarks in nucleus list
+        foreach (EpsilonQuark quark in quarks)
+        {            
+            GameObject quarkGO = quark.gameObject;
+            Destroy(quarkGO);
+        }
+
+        // Clear the epsilon quarks in nucles list when the puzzle has been completed
+        EpsilonQuarksInNucleus.Clear();
+    }
+
+    public void DestroyParticlesInNucleus(List<EpsilonQuark> quarks)
     {
         // Destroy all quarks in the quarks in nucleus list
         foreach (EpsilonQuark quark in quarks)
@@ -105,5 +120,21 @@ public class EpsilonNucleus : MonoBehaviour
             GameObject quarkGO = quark.gameObject;
             Destroy(quarkGO);
         }
+
+        // Clear the epsilon quarks in nucles list when the puzzle has been completed
+        EpsilonQuarksInNucleus.Clear();
+    }
+
+    public void DestroyParticlesInNucleus(List<EpsilonBaryon> baryons)
+    {
+        // Destroy all baryons in the baryons in nucleus list
+        foreach (EpsilonBaryon baryon in baryons)
+        {
+            GameObject baryonGO = baryon.gameObject;
+            Destroy(baryonGO);
+        }
+
+        // Clear the epsilon quarks in nucles list when the puzzle has been completed
+        EpsilonBaryonsInNucleus.Clear();
     }
 }

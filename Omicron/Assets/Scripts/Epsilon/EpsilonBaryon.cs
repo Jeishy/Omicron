@@ -13,7 +13,6 @@ public class EpsilonBaryon : EpsilonParticle
     {
         CanOrbit = false;
         SetParticleCharge(_baryon);
-        Debug.Log(Charge);
         _rb = GetComponent<Rigidbody>();
     }
 

@@ -8,7 +8,6 @@ public class EpsilonLevelManager : MonoBehaviour
     // Delegate and events for epsilon level
     public delegate void PlayerEventManagerEpsilon();
     public event PlayerEventManagerEpsilon OnParticleShoot;
-    public event PlayerEventManagerEpsilon OnPuzzleComplete;
     public event PlayerEventManagerEpsilon OnPuzzleRestart;
 
     public delegate void ParticleEventManagerEpsilon(GameObject particle);
@@ -18,6 +17,9 @@ public class EpsilonLevelManager : MonoBehaviour
     public event ParticleCreateEventEpsilon OnParticleCreate;
 
     #endregion
+
+    public float TimeTillParticlesDestroyed;                           // The time till particles in a nucleus are destroyed, upon puzzle completion
+
 
     [HideInInspector] public Transform OVRRemote;                   // The remote's transform
     [HideInInspector] public Transform ParticleSpawnTrans;          // The spawn point's transform
@@ -46,15 +48,6 @@ public class EpsilonLevelManager : MonoBehaviour
         if (OnParticleShoot != null)
         {
             OnParticleShoot();
-        }
-    }
-
-    // Function for running all the functions subscribed to the OnPuzzleComplete event
-    public void PuzzleComplete()
-    {
-        if (OnPuzzleComplete != null)
-        {
-            OnPuzzleComplete();
         }
     }
 
