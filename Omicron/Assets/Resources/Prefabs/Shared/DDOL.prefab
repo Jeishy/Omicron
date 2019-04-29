@@ -20,7 +20,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &605312503372857525
 Transform:
   m_ObjectHideFlags: 0
@@ -76,6 +76,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 995e04a54289fe34fa21c34e9a16155a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _debugText: {fileID: 0}
 --- !u!114 &5236917362020396881
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1059,6 +1060,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: SelectionVisualizerHW
+      objectReference: {fileID: 0}
+    - target: {fileID: 1841402709606825066, guid: 233b46f3417e0d644ab2b1db4ca7b7f0,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1300544638502695802, guid: 233b46f3417e0d644ab2b1db4ca7b7f0,
         type: 3}
