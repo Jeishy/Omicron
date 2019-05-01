@@ -11,12 +11,12 @@ public class AlphaBallDropped : MonoBehaviour
     private void OnEnable()
     {
         Setup();
-        alphaLevelManager.OnBallDropped += Dropped;
+        alphaLevelManager.OnBallDropped += BallDropped;
     }
 
     private void OnDisable()
     {
-        alphaLevelManager.OnBallDropped -= Dropped;
+        alphaLevelManager.OnBallDropped -= BallDropped;
     }
 
     private void Setup()
@@ -24,7 +24,7 @@ public class AlphaBallDropped : MonoBehaviour
         alphaLevelManager = GetComponent<AlphaLevelManager>();
     }
 
-    private void Dropped()
+    private void BallDropped()
     {
         // Run some shader code and wait till finished
         // Spawn ball at position of remote

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Orbit : MonoBehaviour
 {
-    [SerializeField] private Transform _testSphereTrans;
+    [SerializeField] private Transform _originPointTrans;
     [SerializeField] private float _orbitSpeed;
 
     private Transform _trans;
@@ -17,6 +17,6 @@ public class Orbit : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        _trans.RotateAround(_testSphereTrans.position, Vector3.up, _orbitSpeed * Time.deltaTime);
+        _trans.RotateAround(_originPointTrans.position, Vector3.up, _orbitSpeed * Time.deltaTime);
     }
 }

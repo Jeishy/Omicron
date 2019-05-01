@@ -20,7 +20,6 @@ public class NoGravityShield : MonoBehaviour
     {
         if (col.CompareTag("Ball"))
         {
-            Rigidbody ballRB = col.gameObject.GetComponent<Rigidbody>();
             if (!_isGravityChanged)
             {
                 // Toggle bool if gravity can change back by passing through this shield
@@ -36,7 +35,6 @@ public class NoGravityShield : MonoBehaviour
                 // Turn pn gravity if ball has already passed through the shield
                 _alphaManager.GravityChange(_originalGravity);
             }
-
         }
     }
 }

@@ -28,5 +28,4 @@ public class AlphaInputHandler : MonoBehaviour
             _alphaLevelManager.BallShot();
         }
     }
-
 }
