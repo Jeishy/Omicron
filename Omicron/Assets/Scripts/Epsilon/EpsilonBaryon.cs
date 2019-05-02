@@ -11,7 +11,7 @@ public class EpsilonBaryon : EpsilonParticle
     // Start is called before the first frame update
     void Start()
     {
-        CanOrbit = false;
+        HasEnteredNucleus = false;
         SetParticleCharge(_baryon);
         _rb = GetComponent<Rigidbody>();
     }
@@ -19,7 +19,7 @@ public class EpsilonBaryon : EpsilonParticle
     // Update is called once per frame
     void Update()
     {
-        if (CanOrbit)
+        if (HasEnteredNucleus)
         {
             if (!IsSpeedZero)
                 DampSpeed(_rb);

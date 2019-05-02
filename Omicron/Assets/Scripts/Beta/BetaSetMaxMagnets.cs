@@ -17,7 +17,7 @@ public class BetaSetMaxMagnets : MonoBehaviour
     private IEnumerator SetMaxMagnets()
     {
         // Note: Find more efficient way of ensuring max magnets is set by first puzzle, PLEASE.
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
         _betaManager.MaxPlaceableMagnets = maxMagnets;
     }
 }

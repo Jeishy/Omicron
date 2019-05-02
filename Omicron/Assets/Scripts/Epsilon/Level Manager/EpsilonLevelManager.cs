@@ -12,13 +12,9 @@ public class EpsilonLevelManager : MonoBehaviour
 
     public delegate void ParticleEventManagerEpsilon(GameObject particle);
     public event ParticleEventManagerEpsilon OnParticleAttach;
-
-    public delegate void ParticleCreateEventEpsilon(GameObject particleOne, GameObject particleTwo);
-    public event ParticleCreateEventEpsilon OnParticleCreate;
-
     #endregion
 
-    public float TimeTillParticlesDestroyed;                           // The time till particles in a nucleus are destroyed, upon puzzle completion
+    public float TimeTillParticlesDestroyed;                        // The time till particles in a nucleus are destroyed, upon puzzle completion
 
 
     [HideInInspector] public Transform OVRRemote;                   // The remote's transform
@@ -66,15 +62,6 @@ public class EpsilonLevelManager : MonoBehaviour
         if (OnParticleAttach != null)
         {
             OnParticleAttach(particle);
-        }
-    }
-
-    // Function for running all functions subscribed to the OnParticleCreate event
-    public void ParticleCreate(GameObject particleOne, GameObject particleTwo)
-    {
-        if (OnParticleCreate != null)
-        {
-            OnParticleCreate(particleOne, particleTwo);
         }
     }
 }

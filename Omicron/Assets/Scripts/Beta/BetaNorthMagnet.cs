@@ -25,7 +25,7 @@ public class BetaNorthMagnet : BetaMagnet
         }
     }
 
-     private void NorthMagnet()
+    private void NorthMagnet()
     {
         // For every magnet in magnetsInRange array
         // Cache their stats and check if they are a North or South magnet

@@ -6,31 +6,31 @@ public class GammaTrapDoorSelect : MonoBehaviour
 {
     [SerializeField][Range(0.0f, 1.0f)] private float alphaValue;
 
-    private GammaLevelManager gammaManager;
-    private GammaTrapDoorOver gammaTrapDoorOver;
+    private GammaLevelManager _gammaManager;
+    private GammaTrapDoorOver _gammaTrapDoorOver;
 
     private void OnEnable()
     {
         Setup();
-        gammaManager.OnTrapDoorSelect += TrapDoorSelect;
+        _gammaManager.OnTrapDoorSelect += TrapDoorSelect;
     }
 
     private void OnDisable()
     {
-        gammaManager.OnTrapDoorSelect -= TrapDoorSelect;
+        _gammaManager.OnTrapDoorSelect -= TrapDoorSelect;
     }
 
     private void Setup()
     {
-        gammaManager = GetComponent<GammaLevelManager>();
-        gammaTrapDoorOver = GetComponent<GammaTrapDoorOver>();
+        _gammaManager = GetComponent<GammaLevelManager>();
+        _gammaTrapDoorOver = GetComponent<GammaTrapDoorOver>();
     }
 
     private void TrapDoorSelect(GameObject trapDoor)
     {
-        gammaManager.IsTrapDoorSelected = true;
+        _gammaManager.IsTrapDoorSelected = true;
         MeshRenderer trapDoorMeshRenderer = trapDoor.GetComponent<MeshRenderer>();
-        Color originalColour = gammaTrapDoorOver.OriginalColour;
+        Color originalColour = _gammaTrapDoorOver.OriginalColour;
         trapDoorMeshRenderer.material.color = new Color(originalColour.r, originalColour.g, originalColour.b, alphaValue);
         trapDoor.GetComponent<Collider>().enabled = false;
     }

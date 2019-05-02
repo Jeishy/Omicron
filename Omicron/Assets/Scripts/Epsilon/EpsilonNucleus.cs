@@ -45,8 +45,8 @@ public class EpsilonNucleus : MonoBehaviour
             
             // Set Nucleus centre trans to transform of nucleus
             _epsilonParticle.NucleusCentreTrans = transform;
-            // Set CanOrbit bool to true
-            _epsilonParticle.CanOrbit = true;
+            // Set HasEnteredNucleus bool to true
+            _epsilonParticle.HasEnteredNucleus = true;
         }
     }
 

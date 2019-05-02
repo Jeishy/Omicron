@@ -11,7 +11,7 @@ public class EpsilonQuark : EpsilonParticle
     // Start is called before the first frame update
     private void Start()
     {
-        CanOrbit = false;
+        HasEnteredNucleus = false;
         // Set the charge of the quark
         SetParticleCharge(_quark);
         _rb = GetComponent<Rigidbody>();
@@ -20,7 +20,7 @@ public class EpsilonQuark : EpsilonParticle
     // Update is called once per frame
     private void Update()
     {
-        if (CanOrbit)
+        if (HasEnteredNucleus)
         {
             if (!IsSpeedZero)
             {
@@ -31,11 +31,6 @@ public class EpsilonQuark : EpsilonParticle
                     _rb.velocity = Vector3.zero;
                 }
             }             
-            // Orbit around the nucleus if speed is 0
-            // else
-            // {
-            //     SetOrbit(transform, NucleusCentreTrans, _rb);
-            // }
         }
     }
 }

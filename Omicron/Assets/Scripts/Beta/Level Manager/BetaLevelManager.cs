@@ -11,7 +11,6 @@ public class BetaLevelManager : MonoBehaviour
 
     // Delegate and events for beta level
     public delegate void PlayerEventManagerBeta();
-    public event PlayerEventManagerBeta OnRestartPuzzle;
     public event PlayerEventManagerBeta OnMagnetAttach;
     public event PlayerEventManagerBeta OnReset;
     public event PlayerEventManagerBeta OnResetMagnets;
@@ -22,15 +21,10 @@ public class BetaLevelManager : MonoBehaviour
 
     private void Start()
     {
-        // Note: Needs to be changed to normal method, FIX HAS BEEN FOUND!
-        StartCoroutine("WaitToAttachMagnet");
-        GameManager.Instance.FindAllPuzzles();           // Find all puzzles at the beginning of the level, and deactivate all but the first
-    }
-
-    private IEnumerator WaitToAttachMagnet()
-    {
-        yield return new WaitForSeconds(0.5f);
+        // Attach a new magnet at the start of the level
         MagnetAttach();
+        // Find all puzzles at the beginning of the level, and deactivate all but the first
+        GameManager.Instance.FindAllPuzzles();
     }
 
     // Function for running all methods subscribed to OnMagnetPlaced event
@@ -48,15 +42,6 @@ public class BetaLevelManager : MonoBehaviour
         if (OnMagnetAttach != null)
         {
             OnMagnetAttach();
-        }
-    }
-
-    // Function for running all methods subscribed to OnRestartPuzzle event
-    public void RestartPuzzle()
-    {
-        if (OnRestartPuzzle != null)
-        {
-            OnRestartPuzzle();
         }
     }
 

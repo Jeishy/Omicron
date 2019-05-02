@@ -9,18 +9,14 @@ public class GammaParticle : MonoBehaviour
     [HideInInspector] public Vector3 LastVelocity;                              // Last frame's velocity
     [HideInInspector] public bool IsParticleStateChanged;                       // Bool that states if the particle's state has changed
     [HideInInspector] public bool IsParticleInCorrectChamber;                   // Bool that checks if the particle is in the correct chamber, depending on its state
-    [HideInInspector] public float InitialSpeed;
-    [HideInInspector] public float HotSpeedModifier = 8.0f;                     // Hot particle speed multiplier, which is used in the calculation of the a hot particle's speed
-    [HideInInspector] public float ColdSpeedModifier = 9.0f;                    // Cold particle speed multiplier, which is used in the calculation of the a cold particle's speed
-    [HideInInspector] public Color OriginalColour;
     [HideInInspector] public float OriginalTemperature;
+
     [Range(minTemp, maxTemp)] public float Temperature;                         // Initial temperature of the particle, which can be changed over time
     [HideInInspector] public float TemperatureTime;                             // The temperature time, which ensures the particles temperature changes during regular intervals
 
     [SerializeField] private float timeTillTemperatureChange;                   // Time till the temperature of the particle changes
     [SerializeField] private bool canTemperatureChange;                         // bool for if the temperature of the particle can be changed during the puzzle
     public bool CanTemperatureIncrease;                                         // bool for if the temperature will increase or decrease
-
     [SerializeField][Range(minTemp, maxTemp)] private float maxTemperatureIncrease;
     [SerializeField][Range(minTemp, maxTemp)] private float minTemperatureDecrease;
     [SerializeField] private Transform _positionDirectionTrans;
@@ -42,6 +38,10 @@ public class GammaParticle : MonoBehaviour
     private float _speed;                                                       // Speed of the particle, which can be changed over time
     private GammaLevelManager _gammaManager;
     private GammaParticle _gammaParticle;
+    private Color _originalColour;
+    private float _hotSpeedModifier = 8.0f;                                     // Hot particle speed multiplier, which is used in the calculation of the a hot particle's speed
+    private float _coldSpeedModifier = 9.0f;                                    // Cold particle speed multiplier, which is used in the calculation of the a cold particle's speed
+    private float _initialSpeed;
 
     private void Awake()
     {
@@ -87,7 +87,7 @@ public class GammaParticle : MonoBehaviour
         // Change the temperature state from the beginning
         SetupTemperatureState(Temperature);
         // Change the colour of the particle, according to its temperature
-        OriginalColour = ChangeColour(Temperature);
+        _originalColour = ChangeColour(Temperature);
         OriginalTemperature = Temperature;
         // Set particle's velocity
         SetVelocity();
@@ -100,18 +100,18 @@ public class GammaParticle : MonoBehaviour
 
         // Set speed multipliers depending on a particle's state
         if (IsHot)
-            _speed = Temperature * HotSpeedModifier;
+            _speed = Temperature * _hotSpeedModifier;
         else
         {
             if (Temperature >= 0.85 && Temperature < temperatureThreshold)
-                _speed = Temperature * ColdSpeedModifier * 0.85f;
+                _speed = Temperature * _coldSpeedModifier * 0.85f;
             else
-                _speed = Temperature * ColdSpeedModifier;
+                _speed = Temperature * _coldSpeedModifier;
         }
 
         // Set particles velocity 
         _particleRb.velocity = _speed * ParticleDirection;
-        InitialSpeed = _speed;
+        _initialSpeed = _speed;
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -230,11 +230,11 @@ public class GammaParticle : MonoBehaviour
         {
             if (IsHot)
             {
-                _speed = temperature * HotSpeedModifier;
+                _speed = temperature * _hotSpeedModifier;
             }
             else
             {
-                _speed = temperature * ColdSpeedModifier;
+                _speed = temperature * _coldSpeedModifier;
             }
 
             Vector3 direction = _particleRb.velocity.normalized;
