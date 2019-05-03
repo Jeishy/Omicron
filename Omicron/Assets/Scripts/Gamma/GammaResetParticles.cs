@@ -17,6 +17,7 @@ public class GammaResetParticles : MonoBehaviour
         // Resets position of all magnets already in the puzzle (Not placeable magnets)
         transform.position = _spawnPoint.position;                                                   // Set there positions to their respective spawn point positions
         _gammaParticle.Temperature = _gammaParticle.OriginalTemperature;
+        _gammaParticle.SetupTemperatureState(_gammaParticle.Temperature);
         _gammaParticle.Setup();
     }
 }

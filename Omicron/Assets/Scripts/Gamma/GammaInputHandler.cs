@@ -8,7 +8,6 @@ public class GammaInputHandler : MonoBehaviour
     private GammaLevelManager _gammaManager;
     private bool _isTrapDoorTargetted;                   // Flag for it the trap door has been targetted
     private GameObject _trapDoor;                        // Gameobject variable that stores a reference to the trap door interacted with
-    private IEnumerator _waitToRestartPuzzleCoroutine;
     private bool _isPuzzleRestarted;
     private bool _isPlatformVR;
     private bool _canPuzzleStateBeChecked;
@@ -23,7 +22,6 @@ public class GammaInputHandler : MonoBehaviour
     {
         _gammaManager = GetComponent<GammaLevelManager>();
         _isTrapDoorTargetted = false;
-        _waitToRestartPuzzleCoroutine = WaitToRestartPuzzle();
         _isPuzzleRestarted = false;
         _canPuzzleStateBeChecked = false;
         StartCoroutine(WaitToCheckPuzzleState());
@@ -118,10 +116,8 @@ public class GammaInputHandler : MonoBehaviour
 
     private void CheckIfPuzzleFailed()
     {
-        _debugText.text = "Cold particles: " + _gammaManager.ColdParticlesInPuzzle.Count + " == Hot particles: " + _gammaManager.HotParticlesInPuzzle.Count;
         if (_gammaManager.ColdParticlesInPuzzle.Count == 0 || _gammaManager.HotParticlesInPuzzle.Count == 0 )
         {
-            Debug.Log("Restarting puzzle");
             _isPuzzleRestarted = true;
             StartCoroutine(WaitToRestartPuzzle());
         }

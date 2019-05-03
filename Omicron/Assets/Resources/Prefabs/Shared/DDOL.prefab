@@ -623,11 +623,6 @@ MonoBehaviour:
     Volume: 0.7
     Pitch: 1
     Source: {fileID: 0}
-  - Name: TempChangeImminent
-    Clip: {fileID: 8300000, guid: 293b9b66a8114274fb1736ec7d56e14c, type: 3}
-    Volume: 0.7
-    Pitch: 1
-    Source: {fileID: 0}
 --- !u!65 &7983354142783050478
 BoxCollider:
   m_ObjectHideFlags: 0

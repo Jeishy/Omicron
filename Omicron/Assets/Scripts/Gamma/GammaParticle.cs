@@ -42,6 +42,7 @@ public class GammaParticle : MonoBehaviour
     private float _hotSpeedModifier = 8.0f;                                     // Hot particle speed multiplier, which is used in the calculation of the a hot particle's speed
     private float _coldSpeedModifier = 9.0f;                                    // Cold particle speed multiplier, which is used in the calculation of the a cold particle's speed
     private float _initialSpeed;
+    private float _timeCounter;
 
     private void Awake()
     {
@@ -64,7 +65,7 @@ public class GammaParticle : MonoBehaviour
         LastVelocity = _particleRb.velocity;
         if (canTemperatureChange)
         {
-            if (timeTillTemperatureChange < Time.time && TemperatureTime < Time.time)
+            if (_timeCounter < Time.time && TemperatureTime < Time.time)
             {
                 // Set TemperatureTime so that the particle's temperature changes according to regular intervals
                 TemperatureTime = Time.time + temperatureChangeRate;       
@@ -82,6 +83,7 @@ public class GammaParticle : MonoBehaviour
 
     public void Setup()
     {
+        _timeCounter = timeTillTemperatureChange + Time.time;
         TemperatureTime = 0;
         IsParticleStateChanged = false;
         IsParticleInCorrectChamber = false;
@@ -130,7 +132,7 @@ public class GammaParticle : MonoBehaviour
         _particleRb.velocity = direction * Mathf.Max(speed, minSpeed);
     }
 
-    private void SetupTemperatureState(float temperature)
+    public void SetupTemperatureState(float temperature)
     {
         if (temperature < temperatureThreshold)
         {
@@ -203,6 +205,7 @@ public class GammaParticle : MonoBehaviour
     {
         // Play particle temp change start sound
         AudioManager.Instance.Play("TempChangeStart");
+
         _tempChangeIndicator.SetActive(true);
         _tempChangeAnim.SetTrigger("TempChange");
         MeshRenderer meshRenderer = _tempChangeIndicator.GetComponent<MeshRenderer>();
