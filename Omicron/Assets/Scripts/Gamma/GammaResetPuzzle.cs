@@ -24,6 +24,8 @@ public class GammaResetPuzzle : MonoBehaviour
 
     private void Reset()
     {
+        // Play puzzle failed sound
+        AudioManager.Instance.Play("PuzzleFail");
         // Find all active particles and reset them
         foreach (GammaParticle particles in _gammaManager.AllParticlesInPuzzle)
         {

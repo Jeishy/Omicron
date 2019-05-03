@@ -50,6 +50,22 @@ public class GameManager : MonoBehaviour {
     int[] puzzleInts;
     //[SerializeField] private Text debugText;
 
+    // Used for debugging; to cycle through puzzles in the game
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (GameManager.Instance.FindNextPuzzle(GameManager.Instance.FindActivePuzzle()) == null)
+            {
+                GameManager.Instance.LevelCompleted();
+            }
+            else
+            {
+                GameManager.Instance.NextPuzzle();
+            }
+        }
+    }
+
     #region Singleton
     private void Awake()
     {
@@ -193,10 +209,34 @@ public class GameManager : MonoBehaviour {
         }
     }
 
-    // Method for adding a completed puzzle
-    public void AddCompletedPuzzleAndTime(int puzzleNummber, float timeTaken)
+    // Method for getting the time taken to complete a level
+    public float GetCompleteLevelTime(Level level)
     {
-
+        float timeTaken = 0f;
+        switch (level)
+        {
+            case Level.Alpha:
+                // Get alpha level completion time
+                timeTaken = CompletedLevelTimes[0];
+                break;
+            case Level.Beta:
+                // Get beta level completion time
+                timeTaken = CompletedLevelTimes[1];
+                break;
+            case Level.Gamma:
+                // Get gamma level completion time
+                timeTaken = CompletedLevelTimes[2];
+                break;
+            case Level.Delta:
+                // Get delta level completion time
+                timeTaken = CompletedLevelTimes[3];
+                break;
+            case Level.Epsilon:
+                // Get epsilon level completion time            
+                timeTaken = CompletedLevelTimes[4];
+                break;
+        }
+        return timeTaken;
     }
 
     // Function for running all methods subscribed to the OnGamePaused event

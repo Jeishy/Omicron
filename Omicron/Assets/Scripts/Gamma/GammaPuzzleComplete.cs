@@ -24,8 +24,17 @@ public class GammaPuzzleComplete : MonoBehaviour
 
     private void PuzzleComplete()
     {
-        // Go to the next puzzle
-        GameManager.Instance.NextPuzzle();
+        if (GameManager.Instance.FindNextPuzzle(GameManager.Instance.FindActivePuzzle()) == null)
+        {
+            // Call level completed method in the game manager
+            GameManager.Instance.LevelCompleted();
+        }
+        else
+        {
+            // Go to the next puzzle if there is one
+            GameManager.Instance.NextPuzzle();
+        }
+
         // Set the new particles list
         SetAllParticleList();
     }

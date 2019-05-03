@@ -30,22 +30,4 @@ public class AlphaNextPuzzle : MonoBehaviour
             }
         }
     }
-
-    // Used for debugging; to cycle through puzzles in the game
-    /*private void Update()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            if (gameManager.FindNextPuzzle(gameManager.FindActivePuzzle()) == null)
-            {
-                debugText.text = "Going to next level";
-                gameManager.NextLevel();
-            }
-            else
-            {
-                gameManager.NextPuzzle();
-                alphaLevelManager.ResetBallPosition();
-            }
-        }
-    }*/
 }

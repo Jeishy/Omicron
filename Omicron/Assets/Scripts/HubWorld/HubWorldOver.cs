@@ -23,7 +23,6 @@ public class HubWorldOver : MonoBehaviour
     private void Setup()
     {
         _hubManager = GetComponent<HubWorldManager>();
-        _gameManager = GameManager.Instance;
     }
 
     private void Over(Collider uiElement)
@@ -37,17 +36,19 @@ public class HubWorldOver : MonoBehaviour
 
     private void ShowStats(Collider uiElement)
     {
-       // Get the stats panel gameobject and set active to true
-       GameObject statsPanel = uiElement.transform.GetChild(2).gameObject;
+        // Get the stats panel gameobject and set active to true
+        HubWorldStatsPanelHide statPanelHide = uiElement.gameObject.GetComponent<HubWorldStatsPanelHide>();
+        GameObject statsPanel = statPanelHide.StatsPanel;
        // Get panel name
        string panelName = statsPanel.transform.parent.gameObject.name;
-       // Check if level is completed
-       // If its been completed, show the stats panel
-       // else hide the stats panel
-    //    if (CheckIfLevelIsCompleted(panelName))
-    //    {
-    //         statsPanel.SetActive(true);
-    //    }
+        // Check if level is completed
+        // If its been completed, show the stats panel
+        // else hide the stats panel
+        Debug.Log(panelName);
+        if (CheckIfLevelIsCompleted(panelName))
+       {
+            statsPanel.SetActive(true);
+       }
     }
 
     private bool CheckIfLevelIsCompleted(string panelName)
@@ -58,19 +59,19 @@ public class HubWorldOver : MonoBehaviour
         switch (panelName)
         {
             case "AlphaLevel":
-                isCompleted = _gameManager.CompletedLevels[0];
+                isCompleted = GameManager.Instance.CompletedLevels[0];
                 break;
             case "BetaLevel":
-                isCompleted = _gameManager.CompletedLevels[1];
+                isCompleted = GameManager.Instance.CompletedLevels[1];
                 break;
             case "GammaaLevel":
-                isCompleted = _gameManager.CompletedLevels[2];
+                isCompleted = GameManager.Instance.CompletedLevels[2];
                 break;
             case "DeltaLevel":
-                isCompleted = _gameManager.CompletedLevels[3];
+                isCompleted = GameManager.Instance.CompletedLevels[3];
                 break;
             case "EpsilonLevel":
-                isCompleted = _gameManager.CompletedLevels[4];
+                isCompleted = GameManager.Instance.CompletedLevels[4];
                 break;                                
         }
         // Return the boolean result

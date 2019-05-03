@@ -5,9 +5,8 @@ using UnityEngine.UI;
 
 public class LevelCompletedInputHandler : MonoBehaviour
 {
-    [SerializeField] private Text _debugText;
+    [SerializeField] private LevelCompletedManager _levelCompletedManager;
 
-    private LevelCompletedManager _levelCompletedManager;
     private Transform _oculusRemote;
     private Ray _ray;
     private bool _isTargetted;
@@ -16,7 +15,6 @@ public class LevelCompletedInputHandler : MonoBehaviour
     private void Start()
     {
         _oculusRemote = GameObject.FindGameObjectWithTag("OculusRemote").transform;
-        _levelCompletedManager = GetComponent<LevelCompletedManager>();
         _isTargetted = false;
     }
 

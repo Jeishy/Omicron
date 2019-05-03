@@ -48,11 +48,20 @@ public class DeltaGoal : MonoBehaviour
     {
         // Wait a few sonds before going to the next puzzle
         yield return new WaitForSeconds(_nextPuzzleWaitTime);
-        // Set photons shot back to 0
-        _deltaManager.PhotonsShot = 0;
-        // Go to the next puzzle
-        GameManager.Instance.NextPuzzle();
-        // Attach a new photon
-        _deltaManager.PhotonAttach();
+        if (GameManager.Instance.FindNextPuzzle(GameManager.Instance.FindActivePuzzle()) == null)
+        {
+            // Call level completed method in the game manager
+            GameManager.Instance.LevelCompleted();
+        }
+        else
+        {
+            // Set photons shot back to 0
+            _deltaManager.PhotonsShot = 0;
+            // Go to the next puzzle
+            GameManager.Instance.NextPuzzle();
+            // Attach a new photon
+            _deltaManager.PhotonAttach();
+        }
+
     }
 }

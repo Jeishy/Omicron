@@ -18,7 +18,6 @@ public class EpsilonParticle : MonoBehaviour
     [HideInInspector] public bool HasEnteredNucleus;
     [HideInInspector] public bool IsSpeedZero;
 
-    public float OrbitSpeed;
     [Range(0.01f, 1.0f)] public float DampenTime;
 
     private Vector3 _vel;
@@ -56,15 +55,6 @@ public class EpsilonParticle : MonoBehaviour
                 Charge = 0;
                 break;
         }
-    }
-
-    // Function for causing a particle to orbit the centre of a nucleus
-    public virtual void SetOrbit(Transform particle,Transform nucleusCentreTrans, Rigidbody particleRB)
-    {
-        // Set velocity of particle to 0
-        particleRB.velocity = Vector3.zero;
-        // Set particle to rotate around nucleus' centre
-        particle.RotateAround(nucleusCentreTrans.position, Vector3.up, OrbitSpeed * Time.deltaTime);
     }
 
     // Function for dampening a particle's speed to 0

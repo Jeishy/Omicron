@@ -30,6 +30,9 @@ public class EpsilonPuzzleRestart : MonoBehaviour
         // If puzzle hasnt been completed already, restart puzzle
         if (!_epsilonCheckPuzzle.IsPuzzleCompleted)
         {
+            // Play puzzle failed sound
+            AudioManager.Instance.Play("PuzzleFail");
+            
             if (nuclei.Length > 0)
             {
                 // Delete all quarks ons in nuclei in puzzle

@@ -6,8 +6,18 @@ using UnityEngine;
 // All children GOs are not destroyed on load
 public class DDOL : MonoBehaviour {
 
-	private void Awake()
+    public static DDOL Instance = null;
+    private void Awake()
     {
+        if ( Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+
         DontDestroyOnLoad(gameObject);
     }
 }

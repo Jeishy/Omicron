@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class LevelCompletedPanelOver : MonoBehaviour
 {
-    [SerializeField] private Text _debugText;
-
     private LevelCompletedManager _levelCompletedManager;
 
     private void OnEnable() 
@@ -29,7 +27,6 @@ public class LevelCompletedPanelOver : MonoBehaviour
     {
         // Increase the size of the panel that was selected
         Animator anim = panel.GetComponent<Animator>();
-        _debugText.text = panel.gameObject.name + " panel increasing";
         anim.SetTrigger("Increase");
     }
 }

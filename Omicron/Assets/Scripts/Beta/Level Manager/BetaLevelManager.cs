@@ -21,9 +21,14 @@ public class BetaLevelManager : MonoBehaviour
 
     private void Start()
     {
+        StartCoroutine(WaitToFindPuzzles());
         // Attach a new magnet at the start of the level
         MagnetAttach();
-        // Find all puzzles at the beginning of the level, and deactivate all but the first
+    }
+
+    private IEnumerator WaitToFindPuzzles()
+    {
+        yield return new WaitForSeconds(0.05f);
         GameManager.Instance.FindAllPuzzles();
     }
 

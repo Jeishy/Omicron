@@ -24,6 +24,8 @@ public class DeltaResetPuzzle : MonoBehaviour
 
     private void ResetPuzzle()
     {
+        // Play puzzle failed sound
+        AudioManager.Instance.Play("PuzzleFail");
         
         // Destroy all photons in the puzzle, if there are any
         GameObject[] photonsInPuzzle = GameObject.FindGameObjectsWithTag("Photon");

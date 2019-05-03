@@ -33,8 +33,9 @@ public class HubWorldExit : MonoBehaviour
 
     private void HideStatsPanel(Collider uiElement)
     {
-       // Get the stats panel gameobject and set active to true
-       GameObject statsPanel = uiElement.transform.GetChild(2).gameObject;
+        // Get the stats panel and deactive it
+       HubWorldStatsPanelHide statPanelHide = uiElement.gameObject.GetComponent<HubWorldStatsPanelHide>();
+       GameObject statsPanel = statPanelHide.StatsPanel;
        statsPanel.SetActive(false);
     }
 }

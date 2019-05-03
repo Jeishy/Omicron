@@ -81,6 +81,8 @@ public class BetaInputHandler : MonoBehaviour
         {
             if (OVRInput.Get(OVRInput.Button.PrimaryTouchpad, OVRInput.Controller.RTrackedRemote))
             {
+                // Play puzzle failed sound
+                AudioManager.Instance.Play("PuzzleFail");
                 betaManager.ResetMagnets();
             }
             else if (Input.GetKeyDown(KeyCode.F))

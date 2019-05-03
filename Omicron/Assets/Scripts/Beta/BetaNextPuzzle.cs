@@ -54,6 +54,8 @@ public class BetaNextPuzzle : MonoBehaviour
         {
             // Call level completed method in the game manager
             GameManager.Instance.LevelCompleted();
+            // Find and disable magnet counter
+            GameObject.Find("Magnet Counter Canvas").SetActive(false);
         }
         else
         {

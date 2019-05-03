@@ -37,8 +37,7 @@ public class GameManagerLevelCompleted : MonoBehaviour
         _selectionVisualizer.SetActive(true);
         // Deactivate all puzzle gameobjects
         DeactivateAllPuzzles();
-        // Pause the game
-        Time.timeScale = 0f;
+
         // Show level completed canvas
         _levelCompletedPanels.SetActive(true);
         // Add level completed and level completed timer
@@ -61,7 +60,7 @@ public class GameManagerLevelCompleted : MonoBehaviour
         }
     }
 
-    private void DeactivateSelectionVisualizer( )
+    private void DeactivateSelectionVisualizer()
     {
         // Find the current level
         string levelName = _gameManager.FindActiveLevel();
