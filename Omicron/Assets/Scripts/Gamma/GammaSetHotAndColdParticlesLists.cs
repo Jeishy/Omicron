@@ -30,11 +30,9 @@ public class GammaSetHotAndColdParticlesLists : MonoBehaviour
             _gammaManager.HotParticlesInPuzzle.Clear();
             _gammaManager.ColdParticlesInPuzzle.Clear();
         }
-        else
-        {
-            // Populate the hot and cold particles lists
-            _gammaManager.SetHotParticlesInPuzzle();
-            _gammaManager.SetColdParticlesInPuzzle();
-        }
+        
+        // Populate the hot and cold particles lists
+        _gammaManager.SetHotParticlesInPuzzle();
+        _gammaManager.SetColdParticlesInPuzzle();
     }
 }

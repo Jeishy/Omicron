@@ -49,6 +49,8 @@ public class GammaParticle : MonoBehaviour
         _particleRb = GetComponent<Rigidbody>();
         _particleMeshRenderer = GetComponent<MeshRenderer>();
         _gammaParticle = GetComponent<GammaParticle>();
+        // Change the temperature state from the beginning
+        SetupTemperatureState(Temperature);
     }
 
     private void Start()
@@ -84,8 +86,6 @@ public class GammaParticle : MonoBehaviour
         IsParticleStateChanged = false;
         IsParticleInCorrectChamber = false;
         // Debug.Log(IsParticleStateChanged ? (gameObject.name + " is in the correct chamber") : (gameObject.name + " is in the wrong chamber"));
-        // Change the temperature state from the beginning
-        SetupTemperatureState(Temperature);
         // Change the colour of the particle, according to its temperature
         _originalColour = ChangeColour(Temperature);
         OriginalTemperature = Temperature;

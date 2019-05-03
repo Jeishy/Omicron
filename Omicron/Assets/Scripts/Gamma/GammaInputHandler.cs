@@ -14,7 +14,7 @@ public class GammaInputHandler : MonoBehaviour
     private bool _canPuzzleStateBeChecked;
 
 
-    [SerializeField] private Text debugText;
+    [SerializeField] private Text _debugText;
     [SerializeField] private LayerMask layerMask;
     [SerializeField] private float _timeToRestartPuzzle;
 
@@ -118,8 +118,7 @@ public class GammaInputHandler : MonoBehaviour
 
     private void CheckIfPuzzleFailed()
     {
-        Debug.Log("Size of hot particles list is " + _gammaManager.HotParticlesInPuzzle.Count);
-        Debug.Log("Size of cold particles list is " + _gammaManager.ColdParticlesInPuzzle.Count);
+        _debugText.text = "Cold particles: " + _gammaManager.ColdParticlesInPuzzle.Count + " == Hot particles: " + _gammaManager.HotParticlesInPuzzle.Count;
         if (_gammaManager.ColdParticlesInPuzzle.Count == 0 || _gammaManager.HotParticlesInPuzzle.Count == 0 )
         {
             Debug.Log("Restarting puzzle");
