@@ -8,7 +8,7 @@ public class EpsilonAtomNucleus : MonoBehaviour
     [HideInInspector] public List<EpsilonBaryon> EpsilonBaryonsInNucleus = new List<EpsilonBaryon>();              // A list of all baryons in the nuclues
     [HideInInspector] public List<EpsilonQuark> EpsilonQuarksInNucleus = new List<EpsilonQuark>();                 // A list of all quarks in the nucleus
 
-    [SerializeField] private Animator _heAtomAnim;                                                                  // Animator of the desired atom
+    [SerializeField] private Animator _heAtomAnim;                                                                 // Animator of the desired atom
 
     private int _massNumberInNucleus;
     private EpsilonLevelManager _epsilonManager;

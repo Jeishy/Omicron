@@ -15842,7 +15842,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &964943598
 Transform:
   m_ObjectHideFlags: 0
@@ -16288,7 +16288,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1333397087
 Transform:
   m_ObjectHideFlags: 0
@@ -21893,7 +21893,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1976963268
 Transform:
   m_ObjectHideFlags: 0
@@ -22612,11 +22612,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2131968105132182606, guid: f80c32e5054ec3049b249023d0c2ec8f,
-        type: 3}
-      propertyPath: m_Materials.Array.data[0]
-      value: 
-      objectReference: {fileID: 2100000, guid: 9073addd5b775be4d9128fd2a77b5e78, type: 2}
     - target: {fileID: 199735327437235678, guid: f80c32e5054ec3049b249023d0c2ec8f,
         type: 3}
       propertyPath: _epsilonNucleus
@@ -22627,6 +22622,11 @@ PrefabInstance:
       propertyPath: _spawnPoint
       value: 
       objectReference: {fileID: 625472744}
+    - target: {fileID: 2131968105132182606, guid: f80c32e5054ec3049b249023d0c2ec8f,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 9073addd5b775be4d9128fd2a77b5e78, type: 2}
     - target: {fileID: 5105195673298574284, guid: f80c32e5054ec3049b249023d0c2ec8f,
         type: 3}
       propertyPath: m_LocalPosition.y

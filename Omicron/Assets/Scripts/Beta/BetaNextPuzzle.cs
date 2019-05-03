@@ -52,6 +52,8 @@ public class BetaNextPuzzle : MonoBehaviour
         // If the next calculated puzzle return as null go to the next level
         if (GameManager.Instance.FindNextPuzzle(GameManager.Instance.FindActivePuzzle()) == null)
         {
+            // Play photon shoot sound
+            AudioManager.Instance.Play("PhotonShoot");
             // Call level completed method in the game manager
             GameManager.Instance.LevelCompleted();
             // Find and disable magnet counter
@@ -59,6 +61,8 @@ public class BetaNextPuzzle : MonoBehaviour
         }
         else
         {
+            // Play photon shoot sound
+            AudioManager.Instance.Play("PhotonShoot");
             // Go to the next puzzle if there is one
             GameManager.Instance.NextPuzzle();
             betaSetMaxMagnets = GameObject.Find(GameManager.Instance.FindActivePuzzle().name).GetComponent<BetaSetMaxMagnets>(); 

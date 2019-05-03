@@ -26,6 +26,7 @@ public class AlphaBallDropped : MonoBehaviour
 
     private void BallDropped()
     {
+        
         // Run some shader code and wait till finished
         // Spawn ball at position of remote
         Vector3 ballPos = ball.position;                                        // Cache balls position
@@ -36,6 +37,8 @@ public class AlphaBallDropped : MonoBehaviour
         // reset the balls position
         if (distanceFromPlayerToBall > maxBallDistance)
         {
+            // Play puzzle failed sound
+            AudioManager.Instance.Play("PuzzleFail");
             alphaLevelManager.ResetBallPosition();
         }
     }

@@ -50,11 +50,15 @@ public class DeltaGoal : MonoBehaviour
         yield return new WaitForSeconds(_nextPuzzleWaitTime);
         if (GameManager.Instance.FindNextPuzzle(GameManager.Instance.FindActivePuzzle()) == null)
         {
+            // Play photon shoot sound
+            AudioManager.Instance.Play("PhotonShoot");
             // Call level completed method in the game manager
             GameManager.Instance.LevelCompleted();
         }
         else
         {
+            // Play photon shoot sound
+            AudioManager.Instance.Play("PhotonShoot");
             // Set photons shot back to 0
             _deltaManager.PhotonsShot = 0;
             // Go to the next puzzle

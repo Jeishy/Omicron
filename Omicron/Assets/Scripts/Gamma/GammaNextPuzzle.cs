@@ -26,8 +26,9 @@ public class GammaNextPuzzle : MonoBehaviour
         if (_gammaManager.IsPuzzleCompleted && !_isNextPuzzle)
         {
             _isNextPuzzle = true;
+            // Play photon shoot sound
+            AudioManager.Instance.Play("PhotonShoot");
             StartCoroutine(PuzzleComplete());
-            Debug.Log(_gammaManager.IsPuzzleCompleted);
         }
     }
 

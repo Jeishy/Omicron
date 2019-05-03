@@ -16,6 +16,8 @@ public class AlphaNextPuzzle : MonoBehaviour
             // If the next calculated puzzle return as null go to the next level
             if (GameManager.Instance.FindNextPuzzle(GameManager.Instance.FindActivePuzzle()) == null)
             {
+                // Play photon shoot sound
+                AudioManager.Instance.Play("PhotonShoot");
                 // Set the ball GO to false
                 col.gameObject.SetActive(false);
                 // Call level completed method in the game manager
@@ -27,6 +29,8 @@ public class AlphaNextPuzzle : MonoBehaviour
                 // and reset the balls position
                 GameManager.Instance.NextPuzzle();
                 alphaLevelManager.ResetBallPosition();
+                // Play photon shoot sound
+                AudioManager.Instance.Play("PhotonShoot");
             }
         }
     }

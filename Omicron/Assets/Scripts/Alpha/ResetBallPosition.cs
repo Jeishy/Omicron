@@ -29,8 +29,6 @@ public class ResetBallPosition: MonoBehaviour
 
     private void Reset()
     {
-        // Play puzzle failed sound
-        AudioManager.Instance.Play("PuzzleFail");
         alphaLevelManager.IsGravityChanged = false;                          // Sets IsGravityChanged back to false, so that standard gravity can be used
         alphaLevelManager.IsBallShot = false;                                // Sets IsBallShot to false, so that the ball can be shot again
         Vector3 ballSpawnPointPos = ballSpawnPoint.position;                 // Cache the ball spawn point's position
