@@ -31,6 +31,8 @@ public class HubWorldOver : MonoBehaviour
         // Increase the size of the panel that was selected
         Animator anim = uiElement.GetComponent<Animator>();
         anim.SetTrigger("Increase");
+        // Play over sound
+        AudioManager.Instance.Play("UIOver");
     }
 
     private void ShowStats(Collider uiElement)

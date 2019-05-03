@@ -573,10 +573,55 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - Name: Test
-    Clip: {fileID: 8300000, guid: 6056d6934654970418f45c4e7e78516a, type: 3}
+  - Name: UIOver
+    Clip: {fileID: 8300000, guid: 1fe25bf5da9a3114d9760ae09c07ee93, type: 3}
     Volume: 1
-    Pitch: 0
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: UISelect
+    Clip: {fileID: 8300000, guid: c830010c6bccdc1429b29d96434cfeec, type: 3}
+    Volume: 1
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: PuzzleFail
+    Clip: {fileID: 8300000, guid: b3f2285f5be53d046a0637c1294cafea, type: 3}
+    Volume: 1
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: AlphaShoot
+    Clip: {fileID: 8300000, guid: 6a40cfc1bb6a1d54cae2304c2c105bbf, type: 3}
+    Volume: 1
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: ShieldEnter
+    Clip: {fileID: 8300000, guid: d1f8a6ad8d4de0543b542bbd9a2422a7, type: 3}
+    Volume: 1
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: AlphaBounce
+    Clip: {fileID: 8300000, guid: 1a8b15a951148a042967493c824f881d, type: 3}
+    Volume: 1
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: AlphaShoot
+    Clip: {fileID: 8300000, guid: 6a40cfc1bb6a1d54cae2304c2c105bbf, type: 3}
+    Volume: 1
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: AlphaShoot
+    Clip: {fileID: 8300000, guid: 6a40cfc1bb6a1d54cae2304c2c105bbf, type: 3}
+    Volume: 1
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: AlphaShoot
+    Clip: {fileID: 8300000, guid: 6a40cfc1bb6a1d54cae2304c2c105bbf, type: 3}
+    Volume: 1
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: AlphaShoot
+    Clip: {fileID: 8300000, guid: 6a40cfc1bb6a1d54cae2304c2c105bbf, type: 3}
+    Volume: 1
+    Pitch: 1
     Source: {fileID: 0}
 --- !u!65 &7983354142783050478
 BoxCollider:

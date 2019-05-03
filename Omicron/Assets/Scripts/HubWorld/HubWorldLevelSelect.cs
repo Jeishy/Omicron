@@ -24,6 +24,8 @@ public class HubWorldLevelSelect : MonoBehaviour
 
     private void LevelSelect(string selectedLevel)
     {
+        // Play UI select sound
+        AudioManager.Instance.Play("UISelect");
         // Call all methods subscribed to the OnLevelStart event
         GameManager.Instance.LevelStart();
         // Open the scene that is selected from the hub world

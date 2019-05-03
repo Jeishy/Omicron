@@ -7,9 +7,20 @@ using System;
 public class AudioManager : MonoBehaviour
 {
     public Sound[] sounds;
-
+    public static AudioManager Instance = null;
+    
     private void Awake() 
     {
+        // Singleton pattern
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else if (Instance != this)
+        {
+            Destroy(gameObject);
+        }
+
         foreach (Sound s in sounds)
         {
             // Set clip, volume and pitch variables the sound's clip, volume and pitch
@@ -21,7 +32,7 @@ public class AudioManager : MonoBehaviour
     }
 
     private void Start() {
-        Play("Test");
+        //Play("Test");
     }
 
     public void Play (string name)
