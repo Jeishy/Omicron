@@ -11,6 +11,7 @@ public class GammaInputHandler : MonoBehaviour
     private IEnumerator _waitToRestartPuzzleCoroutine;
     private bool _isPuzzleRestarted;
     private bool _isPlatformVR;
+    private bool _canPuzzleStateBeChecked;
 
 
     [SerializeField] private Text debugText;
@@ -24,7 +25,8 @@ public class GammaInputHandler : MonoBehaviour
         _isTrapDoorTargetted = false;
         _waitToRestartPuzzleCoroutine = WaitToRestartPuzzle();
         _isPuzzleRestarted = false;
-
+        _canPuzzleStateBeChecked = false;
+        StartCoroutine(WaitToCheckPuzzleState());
         // Checks whether game is being run on PC or VR
         // changes input methods based ont this
         if (Application.platform == RuntimePlatform.WindowsEditor)
@@ -43,7 +45,8 @@ public class GammaInputHandler : MonoBehaviour
 
         if (!_isPuzzleRestarted)
         {
-            CheckIfPuzzleFailed();
+            if (_canPuzzleStateBeChecked)
+                CheckIfPuzzleFailed();
             RestartPuzzle();
         }
     }
@@ -115,8 +118,11 @@ public class GammaInputHandler : MonoBehaviour
 
     private void CheckIfPuzzleFailed()
     {
+        Debug.Log("Size of hot particles list is " + _gammaManager.HotParticlesInPuzzle.Count);
+        Debug.Log("Size of cold particles list is " + _gammaManager.ColdParticlesInPuzzle.Count);
         if (_gammaManager.ColdParticlesInPuzzle.Count == 0 || _gammaManager.HotParticlesInPuzzle.Count == 0 )
         {
+            Debug.Log("Restarting puzzle");
             _isPuzzleRestarted = true;
             StartCoroutine(WaitToRestartPuzzle());
         }
@@ -148,5 +154,11 @@ public class GammaInputHandler : MonoBehaviour
     {
         _gammaManager.PuzzleRestart();
         _isPuzzleRestarted = false;
+    }
+
+    private IEnumerator WaitToCheckPuzzleState()
+    {
+        yield return new WaitForSeconds(2f);
+        _canPuzzleStateBeChecked = true;
     }
 }

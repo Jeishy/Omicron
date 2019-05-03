@@ -201,6 +201,8 @@ public class GammaParticle : MonoBehaviour
 
     private void ShowTemperatureChangeIndicator(bool canTemperatureIncrease)
     {
+        // Play particle temp change start sound
+        AudioManager.Instance.Play("TempChangeStart");
         _tempChangeIndicator.SetActive(true);
         _tempChangeAnim.SetTrigger("TempChange");
         MeshRenderer meshRenderer = _tempChangeIndicator.GetComponent<MeshRenderer>();

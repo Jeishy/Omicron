@@ -618,9 +618,14 @@ MonoBehaviour:
     Volume: 1
     Pitch: 1
     Source: {fileID: 0}
-  - Name: AlphaShoot
-    Clip: {fileID: 8300000, guid: 6a40cfc1bb6a1d54cae2304c2c105bbf, type: 3}
-    Volume: 1
+  - Name: TempChangeStart
+    Clip: {fileID: 8300000, guid: 071c09906d7f9954e987ca51b279594b, type: 3}
+    Volume: 0.7
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: TempChangeImminent
+    Clip: {fileID: 8300000, guid: 293b9b66a8114274fb1736ec7d56e14c, type: 3}
+    Volume: 0.7
     Pitch: 1
     Source: {fileID: 0}
 --- !u!65 &7983354142783050478
