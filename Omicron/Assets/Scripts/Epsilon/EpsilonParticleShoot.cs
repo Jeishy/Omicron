@@ -41,7 +41,11 @@ public class EpsilonParticleShoot : MonoBehaviour
         _epsilonManager.ParticleSpawnTrans.DetachChildren();
         // Shoot particle in direction the remote is aimed towards
         particleRB.velocity = ovrRemote.forward * _shotSpeed;
+
+        if (particleCol.CompareTag("ShelfQuark"))
         // Increment number of quarks used variable
-        _epsilonManager.NumQuarksUsed++;
+            _epsilonManager.NumQuarksUsed++;
+        else if (particleCol.CompareTag("ShelfBaryon"))
+            _epsilonManager.NumBaryonsUsed++;
     }
 }

@@ -12,7 +12,7 @@ public class DeltaSetMaxPhotons : MonoBehaviour
     private void Start()
     {
         _deltaManager = GameObject.Find("DeltaLevelManager").GetComponent<DeltaLevelManager>();
-        // Set new max photons after 0.5 seconds
+        // Set new max photons after 0.1 seconds
         StartCoroutine(SetNewMaxPhotons());
     }
 

@@ -22,7 +22,9 @@ public class EpsilonLevelManager : MonoBehaviour
     [HideInInspector] public bool IsParticleAttached;               // Bool for if a photon is attached to the remote
     [HideInInspector] public GameObject CurrentAttachedParticle;    // The currently attached particle
     [HideInInspector] public int MaxQuarks;                         // The max quarks that can be used in a puzzle
+    [HideInInspector] public int MaxBaryons;                        // The max baryons that can be used in a puzzle
     [HideInInspector] public int NumQuarksUsed;                     // The number of quarks used in a puzzle
+    [HideInInspector] public int NumBaryonsUsed;                    // The number of baryons used in a puzzle
 
     private void Start()
     {
@@ -32,8 +34,9 @@ public class EpsilonLevelManager : MonoBehaviour
         ParticleSpawnTrans = GameObject.FindGameObjectWithTag("BallSpawnPoint").transform;
         // Set is particle attached bool to false by default
         IsParticleAttached = false;
-        // Set number of quarks used to 0 by default
+        // Set number of quarks and baryons used to 0 by default
         NumQuarksUsed = 0;
+        NumBaryonsUsed = 0;
         // Find all puzzles in the level
         GameManager.Instance.FindAllPuzzles();
     }

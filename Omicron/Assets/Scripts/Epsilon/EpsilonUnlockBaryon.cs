@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Epsilon : MonoBehaviour
+public class EpsilonUnlockBaryon : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()

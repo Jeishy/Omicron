@@ -14,13 +14,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/BetaLevel.unity
     guid: b227e0af071c57542b39b79cabb4173f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/GammaLevel.unity
     guid: 84bf396227ca4034990597a10ce2324b
   - enabled: 0
     path: Assets/Scenes/DeltaLevel.unity
     guid: 2a910b86e3e28434d9855f37d33b5fd7
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/EpsilonLevel.unity
     guid: 5b6a7bd5c029e384c973175b5f17c520
   m_configObjects: {}

@@ -24,8 +24,12 @@ public class EpsilonParticleAttach : MonoBehaviour
 
     private void ParticleAttach(GameObject particle)
     {
-        if (_epsilonManager.NumQuarksUsed < _epsilonManager.MaxQuarks)
+        Collider pCol = particle.GetComponent<Collider>();
+        if ((_epsilonManager.NumQuarksUsed < _epsilonManager.MaxQuarks && pCol.CompareTag("ShelfQuark")) || 
+                    (_epsilonManager.NumBaryonsUsed < _epsilonManager.MaxBaryons && pCol.CompareTag("ShelfBaryon")))
         {
+            // Play particle pickup sound
+            AudioManager.Instance.Play("ParticlePickup");
             // If a particle is already attached, destroy it
             if (_epsilonManager.IsParticleAttached)
             {

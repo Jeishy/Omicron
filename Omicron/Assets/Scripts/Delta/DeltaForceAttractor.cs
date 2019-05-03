@@ -25,6 +25,8 @@ public class DeltaForceAttractor : MonoBehaviour
         Collider[] photonsInRange = FindPhotonsInRange();
         if (photonsInRange.Length > 0)
         {
+            // Play force attractor sound for as long as there is a photon in range
+            AudioManager.Instance.Play("ForceAttractor");
             // Apply attraction force to all photons in range
             foreach (Collider photon in photonsInRange)
             {

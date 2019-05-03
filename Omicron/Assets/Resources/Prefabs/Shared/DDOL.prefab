@@ -623,6 +623,36 @@ MonoBehaviour:
     Volume: 0.7
     Pitch: 1
     Source: {fileID: 0}
+  - Name: PhotonShoot
+    Clip: {fileID: 8300000, guid: 3c752b3d77d67544a9462a9a46784315, type: 3}
+    Volume: 0.7
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: ForceAttractor
+    Clip: {fileID: 8300000, guid: 739784a1ead6fa3489877d90e7c7b067, type: 3}
+    Volume: 0.7
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: Wormhole
+    Clip: {fileID: 8300000, guid: 2c24989599c36d449bd68325ac19ca36, type: 3}
+    Volume: 0.7
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: ParticlePickup
+    Clip: {fileID: 8300000, guid: 21e8ae2fd9d336e45a0c14c989e30ec1, type: 3}
+    Volume: 0.7
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: ParticleEnter
+    Clip: {fileID: 8300000, guid: 9b58ca807002cb1498bcb6fb57a48234, type: 3}
+    Volume: 0.7
+    Pitch: 1
+    Source: {fileID: 0}
+  - Name: ParticleCreated
+    Clip: {fileID: 8300000, guid: f6d8f98a8ae57074fa7936cd9c988b70, type: 3}
+    Volume: 0.7
+    Pitch: 1
+    Source: {fileID: 0}
 --- !u!65 &7983354142783050478
 BoxCollider:
   m_ObjectHideFlags: 0

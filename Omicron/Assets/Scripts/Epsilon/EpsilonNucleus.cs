@@ -26,6 +26,10 @@ public class EpsilonNucleus : MonoBehaviour
         // Check if a particle has entered the nucleus
         if (col.gameObject.layer == 17)
         {
+            // Set layer of particle to default so that it cannot be targetted
+            col.gameObject.layer = 0;
+            // Play particle enter sound
+            AudioManager.Instance.Play("ParticleEnter");
             // Get reference to the particles epsilon particle component
             EpsilonParticle _epsilonParticle = col.gameObject.GetComponent<EpsilonParticle>();
 
@@ -35,12 +39,6 @@ public class EpsilonNucleus : MonoBehaviour
                 EpsilonQuark epsilonQuark = col.gameObject.GetComponent<EpsilonQuark>();
                 EpsilonQuarksInNucleus.Add(epsilonQuark);
                 CheckQuarksInNucleus();
-            }
-            else if (col.CompareTag("Baryon"))
-            {
-                // Add the quark to the list of quarks in the nucleus
-                EpsilonBaryon epsilonBaryon = col.gameObject.GetComponent<EpsilonBaryon>();
-                EpsilonBaryonsInNucleus.Add(epsilonBaryon);
             }
             
             // Set Nucleus centre trans to transform of nucleus
@@ -86,17 +84,6 @@ public class EpsilonNucleus : MonoBehaviour
                 return -1;
         }
     } 
-
-    public IEnumerator WaitToDestroyParticlesInNucleus(List<EpsilonBaryon> baryons)
-    {
-        yield return new WaitForSeconds(_epsilonManager.TimeTillParticlesDestroyed);
-        // Destroy all baryons in the baryons in nucleus list
-        foreach (EpsilonBaryon baryon in baryons)
-        {
-            GameObject baryonGO = baryon.gameObject;
-            Destroy(baryonGO);
-        }
-    }
 
     public IEnumerator WaitToDestroyParticlesInNucleus(List<EpsilonQuark> quarks)
     {

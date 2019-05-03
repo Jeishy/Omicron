@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EpsilonSetMaxQuarks : MonoBehaviour
+public class EpsilonSetMaxParticles : MonoBehaviour
 {
     [SerializeField][Range(3, 100)] private int _maxPuzzleQuarks;
+    [SerializeField][Range(3, 100)] private int _maxPuzzleBaryons;
 
     private EpsilonLevelManager _epsilonManager;
     
@@ -20,5 +21,6 @@ public class EpsilonSetMaxQuarks : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         // Set new max shootable photons amount when going to this puzzle
         _epsilonManager.MaxQuarks = _maxPuzzleQuarks;
+        _epsilonManager.MaxBaryons = _maxPuzzleBaryons;
     }
 }

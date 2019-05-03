@@ -19,6 +19,8 @@ public class DeltaWormhole : MonoBehaviour
     {
         if (col.CompareTag("Photon"))
         {
+            // Play wormhole sound
+            AudioManager.Instance.Play("Wormhole");
             // Add time to photon timer
             AddTimeToPhoton(col);
             // Send proton to exit collider position

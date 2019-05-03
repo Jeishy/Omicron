@@ -32,7 +32,8 @@ public class DeltaPhotonShot : MonoBehaviour
         // can be shot and there is a photon attached
         if (_deltaManager.PhotonsShot < _deltaManager.MaxShootablePhotons && _deltaManager.IsPhotonAttached)
         {
-            //
+            // Play photon shoot sound
+            AudioManager.Instance.Play("PhotonShoot");
             _deltaManager.IsPhotonAttached = false;
             // Increment photons shot variable
             _deltaManager.PhotonsShot++;

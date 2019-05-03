@@ -59,6 +59,8 @@ public class EpsilonCheckPuzzleComplete : MonoBehaviour
 
     private IEnumerator WaitForNextPuzzle()
     {
+        // Play particle created sound
+        AudioManager.Instance.Play("ParticleCreated");
         Debug.Log("Puzzle completed");
         yield return new WaitForSeconds(_timeTillNextPuzzle);
         GameObject nextPuzzle = GameManager.Instance.FindNextPuzzle(GameManager.Instance.FindActivePuzzle());
@@ -70,8 +72,9 @@ public class EpsilonCheckPuzzleComplete : MonoBehaviour
         else 
             GameManager.Instance.NextPuzzle();
         
-        // Set number of quarks used back to 0
+        // Set number of quarks and baryons used back to 0
         _epsilonManager.NumQuarksUsed = 0;
+        _epsilonManager.NumBaryonsUsed = 0;
         _isNextPuzzle = false;
         IsPuzzleCompleted = false;
     }

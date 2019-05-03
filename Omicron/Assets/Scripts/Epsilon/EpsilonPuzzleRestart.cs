@@ -46,8 +46,9 @@ public class EpsilonPuzzleRestart : MonoBehaviour
                     epsilonNucleus.IsParticleCreated = false;
             }
 
-            // Set quarks used to 0
+            // Set quarks and baryons used to 0
             _epsilonManager.NumQuarksUsed = 0;
+            _epsilonManager.NumBaryonsUsed = 0;
         }
     }
 }

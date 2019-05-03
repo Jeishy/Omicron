@@ -44,7 +44,7 @@ public class EpsilonInputHandler : MonoBehaviour
                 GameObject particleGO = hit.collider.gameObject;
 
                 // Check if the particle is a shelf particle
-                if (particleCol.CompareTag("ShelfQuark"))
+                if (particleCol.CompareTag("ShelfQuark") || particleCol.CompareTag("ShelfBaryon"))
                 {
                     // Attach the particle to the remote
                     _epsilonManager.ParticleAttach(particleGO);
@@ -77,7 +77,8 @@ public class EpsilonInputHandler : MonoBehaviour
                 Collider particleCol = hit.collider;
                 // Get the GO component of the particle
                 GameObject particleGO = hit.collider.gameObject;
-                if (particleCol.CompareTag("ShelfQuark"))
+                // Check if the particle is a shelf particle
+                if (particleCol.CompareTag("ShelfQuark") || particleCol.CompareTag("ShelfBaryon"))
                 {
                     _epsilonManager.ParticleAttach(particleGO);
                 }
