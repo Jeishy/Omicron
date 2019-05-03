@@ -5,8 +5,8 @@ using UnityEngine;
 public class EpsilonNucleus : MonoBehaviour
 {
     [HideInInspector] public bool IsParticleCreated;                                                                // A bool for flagging if  the desured particle in this nucleus has been created
-    [HideInInspector] public List<EpsilonQuark> EpsilonQuarksInNucleus = new List<EpsilonQuark>();                 // A list of all quarks in the nucleus
     [HideInInspector] public List<EpsilonBaryon> EpsilonBaryonsInNucleus = new List<EpsilonBaryon>();              // A list of all baryons in the nuclues
+    [HideInInspector] public List<EpsilonQuark> EpsilonQuarksInNucleus = new List<EpsilonQuark>();                 // A list of all quarks in the nucleus
  
     [SerializeField] private Baryon _desiredBaryon;                                                                 // The baryon that must be created in this nucleus
     [SerializeField] private Animator _nucluesBaryonAnimator;
@@ -40,9 +40,13 @@ public class EpsilonNucleus : MonoBehaviour
                 EpsilonQuarksInNucleus.Add(epsilonQuark);
                 CheckQuarksInNucleus();
             }
+            else if (col.CompareTag("ShelfBaryon"))
+            {
+                // Add the quark to the list of quarks in the nucleus
+                EpsilonBaryon epsilonBaryon = col.gameObject.GetComponent<EpsilonBaryon>();
+                EpsilonBaryonsInNucleus.Add(epsilonBaryon);
+            }
             
-            // Set Nucleus centre trans to transform of nucleus
-            _epsilonParticle.NucleusCentreTrans = transform;
             // Set HasEnteredNucleus bool to true
             _epsilonParticle.HasEnteredNucleus = true;
         }

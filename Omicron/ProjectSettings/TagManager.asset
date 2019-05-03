@@ -23,6 +23,7 @@ TagManager:
   - GammaParticle
   - Nucleus
   - ShelfBaryon
+  - AtomNucleus
   layers:
   - Default
   - TransparentFX

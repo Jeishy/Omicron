@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 772655430}
   - component: {fileID: 772655429}
   - component: {fileID: 772655428}
-  - component: {fileID: 772655427}
+  - component: {fileID: 8206065405708829045}
   m_Layer: 0
-  m_Name: ElementNucleus
+  m_Name: AtomNucleus
   m_TagString: Nucleus
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -94,7 +94,7 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &772655427
+--- !u!114 &8206065405708829045
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -103,14 +103,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 772655426}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ef02031690cc2e4c88d2af49390753d, type: 3}
+  m_Script: {fileID: 11500000, guid: 7ae3e574a73586f41b12b85bd1ed6ae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   IsParticleCreated: 0
-  EpsilonQuarksInNucleus: []
   EpsilonBaryonsInNucleus: []
-  _desiredBaryon: 1
-  _nucluesBaryonAnimator: {fileID: 1665546392}
+  EpsilonQuarksInNucleus: []
 --- !u!1 &1393121996
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,7 +324,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b71a1c05941d0f49a60fd23a6ba4255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NucleusCentreTrans: {fileID: 0}
   Charge: 0
   HasEnteredNucleus: 0
   IsSpeedZero: 0

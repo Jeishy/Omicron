@@ -26,26 +26,29 @@ public class EpsilonParticleShoot : MonoBehaviour
 
     private void ParticleShoot()
     {
-        // Renable collider on particle
-        Collider particleCol = _epsilonManager.CurrentAttachedParticle.GetComponent<Collider>();
-        particleCol.enabled = true;
-        // Attach particle to current puzzle transform
-        Transform particleTrans = _epsilonManager.CurrentAttachedParticle.transform;
-        particleTrans.SetParent(GameManager.Instance.FindActivePuzzle().transform);
-        // Set is particle attached boolean to false
-        _epsilonManager.IsParticleAttached = false;
-        Rigidbody particleRB = _epsilonManager.CurrentAttachedParticle.GetComponent<Rigidbody>();
-        // Get the remote's transform
-        Transform ovrRemote = _epsilonManager.OVRRemote;
-        // Detach particle from spawn point's transform
-        _epsilonManager.ParticleSpawnTrans.DetachChildren();
-        // Shoot particle in direction the remote is aimed towards
-        particleRB.velocity = ovrRemote.forward * _shotSpeed;
+        if (_epsilonManager.IsParticleAttached)
+        {
+            // Renable collider on particle
+            Collider particleCol = _epsilonManager.CurrentAttachedParticle.GetComponent<Collider>();
+            particleCol.enabled = true;
+            // Attach particle to current puzzle transform
+            Transform particleTrans = _epsilonManager.CurrentAttachedParticle.transform;
+            particleTrans.SetParent(GameManager.Instance.FindActivePuzzle().transform);
+            // Set is particle attached boolean to false
+            _epsilonManager.IsParticleAttached = false;
+            Rigidbody particleRB = _epsilonManager.CurrentAttachedParticle.GetComponent<Rigidbody>();
+            // Get the remote's transform
+            Transform ovrRemote = _epsilonManager.OVRRemote;
+            // Detach particle from spawn point's transform
+            _epsilonManager.ParticleSpawnTrans.DetachChildren();
+            // Shoot particle in direction the remote is aimed towards
+            particleRB.velocity = ovrRemote.forward * _shotSpeed;
 
-        if (particleCol.CompareTag("ShelfQuark"))
-        // Increment number of quarks used variable
-            _epsilonManager.NumQuarksUsed++;
-        else if (particleCol.CompareTag("ShelfBaryon"))
-            _epsilonManager.NumBaryonsUsed++;
+            if (particleCol.CompareTag("ShelfQuark"))
+            // Increment number of quarks used variable
+                _epsilonManager.NumQuarksUsed++;
+            else if (particleCol.CompareTag("ShelfBaryon"))
+                _epsilonManager.NumBaryonsUsed++;
+        }
     }
 }

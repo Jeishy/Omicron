@@ -30,22 +30,48 @@ public class EpsilonPuzzleRestart : MonoBehaviour
         // If puzzle hasnt been completed already, restart puzzle
         if (!_epsilonCheckPuzzle.IsPuzzleCompleted)
         {
-            // Delete all quarks and baryons in nuclei in puzzle
-            foreach (GameObject nucleus in nuclei)
+            if (nuclei.Length > 0)
             {
-                EpsilonNucleus epsilonNucleus = nucleus.GetComponent<EpsilonNucleus>();
-                // Delete all quarks and baryons in a nucleus
-                epsilonNucleus.DestroyParticlesInNucleus(epsilonNucleus.EpsilonQuarksInNucleus);
-                epsilonNucleus.DestroyParticlesInNucleus(epsilonNucleus.EpsilonBaryonsInNucleus);
-                // Clear both lists
-                epsilonNucleus.EpsilonBaryonsInNucleus.Clear();
-                epsilonNucleus.EpsilonQuarksInNucleus.Clear();
+                // Delete all quarks ons in nuclei in puzzle
+                foreach (GameObject nucleus in nuclei)
+                {
+                    EpsilonNucleus epsilonNucleus = nucleus.GetComponent<EpsilonNucleus>();
+                    EpsilonAtomNucleus epsilonAtomNucleus = nucleus.GetComponent<EpsilonAtomNucleus>();
 
-                // Reset is particle created bool to false it is true
-                if (epsilonNucleus.IsParticleCreated)
-                    epsilonNucleus.IsParticleCreated = false;
+                    if (epsilonNucleus != null)
+                    {
+                        // Delete all quarks in a nucleus
+                        if (epsilonNucleus.EpsilonQuarksInNucleus.Count > 0)
+                            epsilonNucleus.DestroyParticlesInNucleus(epsilonNucleus.EpsilonQuarksInNucleus);
+                        if (epsilonNucleus.EpsilonBaryonsInNucleus.Count > 0)
+                            epsilonNucleus.DestroyParticlesInNucleus(epsilonAtomNucleus.EpsilonBaryonsInNucleus);
+
+                        // Clear list
+                        epsilonNucleus.EpsilonQuarksInNucleus.Clear();
+                        epsilonNucleus.EpsilonBaryonsInNucleus.Clear();
+
+                        // Reset is particle created bool to false it is true
+                        if (epsilonNucleus.IsParticleCreated)
+                            epsilonNucleus.IsParticleCreated = false;
+                    }
+                    else if(epsilonAtomNucleus != null)
+                    {
+                        // Delete all quarks in a nucleus
+                        if (epsilonAtomNucleus.EpsilonQuarksInNucleus.Count > 0)
+                            epsilonAtomNucleus.DestroyParticlesInNucleus(epsilonAtomNucleus.EpsilonQuarksInNucleus);
+                        if (epsilonAtomNucleus.EpsilonBaryonsInNucleus.Count > 0)
+                            epsilonAtomNucleus.DestroyParticlesInNucleus(epsilonAtomNucleus.EpsilonBaryonsInNucleus);
+
+                        // Clear list
+                        epsilonAtomNucleus.EpsilonQuarksInNucleus.Clear();
+                        epsilonAtomNucleus.EpsilonBaryonsInNucleus.Clear();
+
+                        // Reset is particle created bool to false it is true
+                        if (epsilonAtomNucleus.IsParticleCreated)
+                            epsilonAtomNucleus.IsParticleCreated = false;
+                    }
+                }
             }
-
             // Set quarks and baryons used to 0
             _epsilonManager.NumQuarksUsed = 0;
             _epsilonManager.NumBaryonsUsed = 0;

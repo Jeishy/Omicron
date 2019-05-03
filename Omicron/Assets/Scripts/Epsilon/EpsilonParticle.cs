@@ -14,7 +14,6 @@ public enum Baryon
 
 public class EpsilonParticle : MonoBehaviour
 {
-    [HideInInspector] public Transform NucleusCentreTrans;
     [HideInInspector] public int Charge;
     [HideInInspector] public bool HasEnteredNucleus;
     [HideInInspector] public bool IsSpeedZero;

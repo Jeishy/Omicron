@@ -6,6 +6,8 @@ public class EpsilonAtomNucleus : MonoBehaviour
 {
     [HideInInspector] public bool IsParticleCreated;                                                               // A bool for flagging if  the desured particle in this nucleus has been created
     [HideInInspector] public List<EpsilonBaryon> EpsilonBaryonsInNucleus = new List<EpsilonBaryon>();              // A list of all baryons in the nuclues
+    [HideInInspector] public List<EpsilonQuark> EpsilonQuarksInNucleus = new List<EpsilonQuark>();                 // A list of all quarks in the nucleus
+
 
 
     private int _chargeInNucleus;
@@ -29,15 +31,18 @@ public class EpsilonAtomNucleus : MonoBehaviour
             AudioManager.Instance.Play("ParticleEnter");
             // Get reference to the particles epsilon particle component
             EpsilonParticle _epsilonParticle = col.gameObject.GetComponent<EpsilonParticle>();
-             if (col.CompareTag("ShelfBaryon"))
+            if (col.CompareTag("ShelfBaryon"))
             {
                 // Add the quark to the list of quarks in the nucleus
                 EpsilonBaryon epsilonBaryon = col.gameObject.GetComponent<EpsilonBaryon>();
                 EpsilonBaryonsInNucleus.Add(epsilonBaryon);
             }
-
-            // Set Nucleus centre trans to transform of nucleus
-            _epsilonParticle.NucleusCentreTrans = transform;
+            else if (col.CompareTag("ShelfQuark"))
+            {
+                // Add the quark to the list of quarks in the nucleus
+                EpsilonQuark epsilonQuark = col.gameObject.GetComponent<EpsilonQuark>();
+                EpsilonQuarksInNucleus.Add(epsilonQuark);
+            }
             // Set HasEnteredNucleus bool to true
             _epsilonParticle.HasEnteredNucleus = true;
         }
@@ -83,5 +88,18 @@ public class EpsilonAtomNucleus : MonoBehaviour
 
         // Clear the epsilon quarks in nucles list when the puzzle has been completed
         EpsilonBaryonsInNucleus.Clear();
+    }
+
+    public void DestroyParticlesInNucleus(List<EpsilonQuark> quarks)
+    {
+        // Destroy all quarks in the quarks in nucleus list
+        foreach (EpsilonQuark quark in quarks)
+        {            
+            GameObject quarkGO = quark.gameObject;
+            Destroy(quarkGO);
+        }
+
+        // Clear the epsilon quarks in nucles list when the puzzle has been completed
+        EpsilonQuarksInNucleus.Clear();
     }
 }
