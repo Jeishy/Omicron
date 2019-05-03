@@ -31,7 +31,11 @@ public class GammaTrapDoorSelect : MonoBehaviour
         _gammaManager.IsTrapDoorSelected = true;
         MeshRenderer trapDoorMeshRenderer = trapDoor.GetComponent<MeshRenderer>();
         Color originalColour = _gammaTrapDoorOver.OriginalColour;
+        // Reduce alpha of selected trap door
         trapDoorMeshRenderer.material.color = new Color(originalColour.r, originalColour.g, originalColour.b, alphaValue);
+        // Disable collider
         trapDoor.GetComponent<Collider>().enabled = false;
+        // Play trap door select sound
+        AudioManager.Instance.Play("TrapDoorSelect");
     }
 }

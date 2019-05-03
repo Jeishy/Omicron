@@ -603,18 +603,18 @@ MonoBehaviour:
     Volume: 1
     Pitch: 1
     Source: {fileID: 0}
-  - Name: AlphaShoot
-    Clip: {fileID: 8300000, guid: 6a40cfc1bb6a1d54cae2304c2c105bbf, type: 3}
+  - Name: BetaMagnetPlace
+    Clip: {fileID: 8300000, guid: 00f250dddcf161441acee04711a9e3a8, type: 3}
     Volume: 1
     Pitch: 1
     Source: {fileID: 0}
-  - Name: AlphaShoot
-    Clip: {fileID: 8300000, guid: 6a40cfc1bb6a1d54cae2304c2c105bbf, type: 3}
+  - Name: TrapDoorSelect
+    Clip: {fileID: 8300000, guid: ef1cd07361942ee4f87157c144f9aeb7, type: 3}
     Volume: 1
     Pitch: 1
     Source: {fileID: 0}
-  - Name: AlphaShoot
-    Clip: {fileID: 8300000, guid: 6a40cfc1bb6a1d54cae2304c2c105bbf, type: 3}
+  - Name: TrapDoorDeselect
+    Clip: {fileID: 8300000, guid: aa83a16987c06874a919ed95e433f81f, type: 3}
     Volume: 1
     Pitch: 1
     Source: {fileID: 0}

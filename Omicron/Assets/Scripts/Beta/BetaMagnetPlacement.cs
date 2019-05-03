@@ -56,6 +56,9 @@ public class BetaMagnetPlacement : MonoBehaviour
             // attach another magnet to the end of the remote
             if (ballsPlaced != betaManager.MaxPlaceableMagnets)
                 betaManager.MagnetAttach();
+
+            // Play magnet place sound
+            AudioManager.Instance.Play("BetaMagnetPlace");
         }
     }
 }

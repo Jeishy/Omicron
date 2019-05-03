@@ -41,6 +41,8 @@ public class GammaTrapDoorDeselect : MonoBehaviour
         trapDoorCol = trapDoor.GetComponent<Collider>();
         // Enable the collider of the trap door
         trapDoorCol.enabled = true;
+        // Play trap door deselect sound
+        AudioManager.Instance.Play("TrapDoorDeselect");
         List<GammaParticle> particles = _gammaManager.AllParticlesInPuzzle;
         foreach (GammaParticle particle in particles)
         {
