@@ -122,7 +122,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b71a1c05941d0f49a60fd23a6ba4255, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  NucleusCentreTrans: {fileID: 0}
   Charge: 0
   HasEnteredNucleus: 0
   IsSpeedZero: 0
@@ -142,3 +141,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _epsilonNucleus: {fileID: 0}
+  _spawnPoint: {fileID: 0}

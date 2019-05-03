@@ -24,9 +24,8 @@ public class EpsilonParticleAttach : MonoBehaviour
 
     private void ParticleAttach(GameObject particle)
     {
-        Collider pCol = particle.GetComponent<Collider>();
-        if ((_epsilonManager.NumQuarksUsed < _epsilonManager.MaxQuarks && pCol.CompareTag("ShelfQuark")) || 
-                    (_epsilonManager.NumBaryonsUsed < _epsilonManager.MaxBaryons && pCol.CompareTag("ShelfBaryon")))
+        if ((_epsilonManager.NumQuarksUsed < _epsilonManager.MaxQuarks && particle.GetComponent<Collider>().CompareTag("ShelfQuark")) || 
+                    (_epsilonManager.NumBaryonsUsed < _epsilonManager.MaxBaryons && particle.GetComponent<Collider>().CompareTag("ShelfBaryon")))
         {
             // Play particle pickup sound
             AudioManager.Instance.Play("ParticlePickup");

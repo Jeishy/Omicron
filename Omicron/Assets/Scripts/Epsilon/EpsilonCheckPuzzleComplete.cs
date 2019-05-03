@@ -40,19 +40,42 @@ public class EpsilonCheckPuzzleComplete : MonoBehaviour
     {
         // Get all nuclei in puzzle
         nuclei = GameObject.FindGameObjectsWithTag("Nucleus");
-
-        foreach (GameObject nucleus in nuclei)
+        GameObject activePuzzle = GameManager.Instance.FindActivePuzzle();
+        
+        if (activePuzzle.name == "4")
         {
-            // Check if all nuclei in puzzle are 
-            EpsilonNucleus deltaNucleus = nucleus.GetComponent<EpsilonNucleus>();
-            if (deltaNucleus.IsParticleCreated)
+            foreach (GameObject atomNuclei in nuclei)
             {
-                IsPuzzleCompleted = true;
+                EpsilonAtomNucleus epsilonAtomNucleus = atomNuclei.GetComponent<EpsilonAtomNucleus>();
+                if (epsilonAtomNucleus != null)
+                {
+                    if (epsilonAtomNucleus.IsParticleCreated)
+                    {
+                        IsPuzzleCompleted = true;
+                    }
+                    else
+                    {
+                        IsPuzzleCompleted = false;
+                        break;
+                    }
+                }
             }
-            else
+        }
+        else
+        {
+            foreach (GameObject nucleus in nuclei)
             {
-                IsPuzzleCompleted = false;
-                break;
+                // Check if all nuclei in puzzle are 
+                EpsilonNucleus epsilonNucleus = nucleus.GetComponent<EpsilonNucleus>();
+                if (epsilonNucleus.IsParticleCreated)
+                {
+                    IsPuzzleCompleted = true;
+                }
+                else
+                {
+                    IsPuzzleCompleted = false;
+                    break;
+                }
             }
         }
     }

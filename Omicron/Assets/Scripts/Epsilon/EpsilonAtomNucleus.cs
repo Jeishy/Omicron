@@ -8,15 +8,15 @@ public class EpsilonAtomNucleus : MonoBehaviour
     [HideInInspector] public List<EpsilonBaryon> EpsilonBaryonsInNucleus = new List<EpsilonBaryon>();              // A list of all baryons in the nuclues
     [HideInInspector] public List<EpsilonQuark> EpsilonQuarksInNucleus = new List<EpsilonQuark>();                 // A list of all quarks in the nucleus
 
+    [SerializeField] private Animator _heAtomAnim;                                                                  // Animator of the desired atom
 
-
-    private int _chargeInNucleus;
+    private int _massNumberInNucleus;
     private EpsilonLevelManager _epsilonManager;
 
     private void Start() 
     {
         // Set charge in nucleus to be neutral (to 0)
-        _chargeInNucleus = 0;
+        _massNumberInNucleus = 0;
         _epsilonManager = GameObject.Find("EpsilonLevelManager").GetComponent<EpsilonLevelManager>();
     }
 
@@ -36,6 +36,7 @@ public class EpsilonAtomNucleus : MonoBehaviour
                 // Add the quark to the list of quarks in the nucleus
                 EpsilonBaryon epsilonBaryon = col.gameObject.GetComponent<EpsilonBaryon>();
                 EpsilonBaryonsInNucleus.Add(epsilonBaryon);
+                CheckBaryonsInNucleus();
             }
             else if (col.CompareTag("ShelfQuark"))
             {
@@ -50,18 +51,19 @@ public class EpsilonAtomNucleus : MonoBehaviour
 
     private void CheckBaryonsInNucleus()
     {
-        _chargeInNucleus = 0;
+        _massNumberInNucleus = 0;
         foreach (EpsilonBaryon baryon in EpsilonBaryonsInNucleus)
         {
-            // Get the sum charge of the nucleus
-            _chargeInNucleus += baryon.Charge;
+            // Get the mass number of the nucleus
+            _massNumberInNucleus++;
         }
 
-        if (_chargeInNucleus == 18)
+        if (_massNumberInNucleus == 4)
         {
             // Destroy all quarks in nucleus
             StartCoroutine(WaitToDestroyParticlesInNucleus(EpsilonBaryonsInNucleus));
             // Spawn atom
+            _heAtomAnim.SetTrigger("Spawn");
             IsParticleCreated = true;
         }
     }
