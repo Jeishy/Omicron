@@ -19,6 +19,8 @@ public class GravityShield : MonoBehaviour
         {
             // If ball enters the gravity shield trigger, change gravity by specified Vector3
             _alphaLevelManager.GravityChange(gravityChange);
+            // Play gravity enter sound
+            AudioManager.Instance.Play("ShieldEnter");
         }
     }
 }

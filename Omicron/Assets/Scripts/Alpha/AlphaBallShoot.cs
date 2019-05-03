@@ -42,8 +42,8 @@ public class AlphaBallShoot : MonoBehaviour
             ball.GetComponent<Rigidbody>().useGravity = true;
             ballSpawnPoint.DetachChildren();
             ball.GetComponent<Rigidbody>().velocity = direction * ballShotSpeed;
+            // Play ball shoot sound
+            AudioManager.Instance.Play("AlphaShoot");
         }
-        // Play ball shoot sound
-        AudioManager.Instance.Play("AlphaShoot");
     }
 }

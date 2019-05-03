@@ -31,7 +31,8 @@ public class HubWorldOver : MonoBehaviour
         // Increase the size of the panel that was selected
         Animator anim = uiElement.GetComponent<Animator>();
         anim.SetTrigger("Increase");
-        // Play over sound
+        Debug.Log(uiElement.gameObject.name);
+        // Play UI over sound
         AudioManager.Instance.Play("UIOver");
     }
 
@@ -44,10 +45,10 @@ public class HubWorldOver : MonoBehaviour
        // Check if level is completed
        // If its been completed, show the stats panel
        // else hide the stats panel
-       if (CheckIfLevelIsCompleted(panelName))
-       {
-            statsPanel.SetActive(true);
-       }
+    //    if (CheckIfLevelIsCompleted(panelName))
+    //    {
+    //         statsPanel.SetActive(true);
+    //    }
     }
 
     private bool CheckIfLevelIsCompleted(string panelName)

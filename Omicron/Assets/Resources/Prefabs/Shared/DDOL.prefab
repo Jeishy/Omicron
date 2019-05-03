@@ -590,7 +590,7 @@ MonoBehaviour:
     Source: {fileID: 0}
   - Name: AlphaShoot
     Clip: {fileID: 8300000, guid: 6a40cfc1bb6a1d54cae2304c2c105bbf, type: 3}
-    Volume: 1
+    Volume: 0.7
     Pitch: 1
     Source: {fileID: 0}
   - Name: ShieldEnter
