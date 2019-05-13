@@ -720,6 +720,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4372604341846499126, guid: 2bc12d1f305f1ec4aba87a2e717b97c4,
+        type: 3}
+      propertyPath: SelectionVisualizer
+      value: 
+      objectReference: {fileID: 5199246218814165179}
     - target: {fileID: 5787036895271820745, guid: 2bc12d1f305f1ec4aba87a2e717b97c4,
         type: 3}
       propertyPath: _levelCompletedCanvas

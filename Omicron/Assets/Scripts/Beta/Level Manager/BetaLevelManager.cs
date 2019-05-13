@@ -21,15 +21,15 @@ public class BetaLevelManager : MonoBehaviour
 
     private void Start()
     {
-        StartCoroutine(WaitToFindPuzzles());
-        // Attach a new magnet at the start of the level
-        MagnetAttach();
+        StartCoroutine(WaiToSetupLevel());
     }
 
-    private IEnumerator WaitToFindPuzzles()
+    private IEnumerator WaiToSetupLevel()
     {
         yield return new WaitForSeconds(0.05f);
         GameManager.Instance.FindAllPuzzles();
+        // Attach a new magnet at the start of the level
+        MagnetAttach();
     }
 
     // Function for running all methods subscribed to OnMagnetPlaced event

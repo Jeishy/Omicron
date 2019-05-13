@@ -25,6 +25,9 @@ public class GameManager : MonoBehaviour {
     public event GameEventManager OnLevelRestart;
     #endregion 
 
+    public GameObject SelectionVisualizer;
+
+
     // The remote's transform
     [HideInInspector] public Transform OVRRemote;       
     // The transform of the spawn point gameobject at the front of the remote
@@ -55,14 +58,14 @@ public class GameManager : MonoBehaviour {
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            if (GameManager.Instance.FindNextPuzzle(GameManager.Instance.FindActivePuzzle()) == null)
-            {
+            //if (GameManager.Instance.FindNextPuzzle(GameManager.Instance.FindActivePuzzle()) == null)
+            //{
                 GameManager.Instance.LevelCompleted();
-            }
-            else
-            {
-                GameManager.Instance.NextPuzzle();
-            }
+            //}
+            //else
+            //{
+               // GameManager.Instance.NextPuzzle();
+            //}
         }
     }
 
@@ -71,6 +74,7 @@ public class GameManager : MonoBehaviour {
     {
         OVRRemote = GameObject.FindGameObjectWithTag("OculusRemote").transform;
         RemoteSpawnTrans = GameObject.Find("BallSpawnPoint").transform;
+        IsLevelStarted = false;
 
         if ( Instance == null)
         {

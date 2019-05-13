@@ -33,7 +33,7 @@ public class GameManagerTimer : MonoBehaviour
         // If the bool is set to true, begin incrementing the timer
         if (_gameManager.IsLevelStarted)
         {
-            _gameManager.LevelTimer = Time.deltaTime;
+            _gameManager.LevelTimer += Time.deltaTime;
         }    
     }
 }

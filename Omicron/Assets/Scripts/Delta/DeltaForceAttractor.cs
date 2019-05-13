@@ -75,10 +75,4 @@ public class DeltaForceAttractor : MonoBehaviour
         Collider[] photons = Physics.OverlapSphere(transform.position, _range, _layerMask.value);
         return photons;
     }
-
-    private void OnDrawGizmos() 
-    {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(transform.position, _range);
-    }
 }

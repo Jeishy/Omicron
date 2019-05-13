@@ -41,15 +41,34 @@ public class EpsilonCheckPuzzleComplete : MonoBehaviour
         // Get all nuclei in puzzle
         nuclei = GameObject.FindGameObjectsWithTag("Nucleus");
         GameObject activePuzzle = GameManager.Instance.FindActivePuzzle();
-        
-        if (activePuzzle.name == "4")
+        if (activePuzzle.name != null)
         {
-            foreach (GameObject atomNuclei in nuclei)
+            if (activePuzzle.name == "4")
             {
-                EpsilonAtomNucleus epsilonAtomNucleus = atomNuclei.GetComponent<EpsilonAtomNucleus>();
-                if (epsilonAtomNucleus != null)
+                foreach (GameObject atomNuclei in nuclei)
                 {
-                    if (epsilonAtomNucleus.IsParticleCreated)
+                    EpsilonAtomNucleus epsilonAtomNucleus = atomNuclei.GetComponent<EpsilonAtomNucleus>();
+                    if (epsilonAtomNucleus != null)
+                    {
+                        if (epsilonAtomNucleus.IsParticleCreated)
+                        {
+                            IsPuzzleCompleted = true;
+                        }
+                        else
+                        {
+                            IsPuzzleCompleted = false;
+                            break;
+                        }
+                    }
+                }
+            }
+            else
+            {
+                foreach (GameObject nucleus in nuclei)
+                {
+                    // Check if all nuclei in puzzle are 
+                    EpsilonNucleus epsilonNucleus = nucleus.GetComponent<EpsilonNucleus>();
+                    if (epsilonNucleus.IsParticleCreated)
                     {
                         IsPuzzleCompleted = true;
                     }
@@ -58,23 +77,6 @@ public class EpsilonCheckPuzzleComplete : MonoBehaviour
                         IsPuzzleCompleted = false;
                         break;
                     }
-                }
-            }
-        }
-        else
-        {
-            foreach (GameObject nucleus in nuclei)
-            {
-                // Check if all nuclei in puzzle are 
-                EpsilonNucleus epsilonNucleus = nucleus.GetComponent<EpsilonNucleus>();
-                if (epsilonNucleus.IsParticleCreated)
-                {
-                    IsPuzzleCompleted = true;
-                }
-                else
-                {
-                    IsPuzzleCompleted = false;
-                    break;
                 }
             }
         }

@@ -24,7 +24,7 @@ public class HubWorldLevelIndicator : MonoBehaviour
             case "BetaLevel":
                 isCompleted = CheckIfLevelIsComplete(1);
                 break;
-            case "GammaaLevel":
+            case "GammaLevel":
                 isCompleted = CheckIfLevelIsComplete(2);
                 break;
             case "DeltaLevel":
@@ -41,10 +41,10 @@ public class HubWorldLevelIndicator : MonoBehaviour
     private bool CheckIfLevelIsComplete(int level)
     {
         // Check if the level is completed from the completed levels array in the game manager
-        bool isLevelCompeted = _gameManager.CompletedLevels[level];
+        bool isLevelCompleted = _gameManager.CompletedLevels[level];
         // If true, return 0 which activates the level completed indicator
         // else, return 1 which activates the level incomplete indicator
-        if (isLevelCompeted)
+        if (isLevelCompleted)
         {
             return true;
         }

@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class HubWorldOver : MonoBehaviour
 {
+    [SerializeField] private Text _debugText;
+
     private HubWorldManager _hubManager;
     private GameManager _gameManager;
 
@@ -45,6 +48,11 @@ public class HubWorldOver : MonoBehaviour
         // If its been completed, show the stats panel
         // else hide the stats panel
         Debug.Log(panelName);
+        if(panelName == "GammaLevel" && CheckIfLevelIsCompleted(panelName))
+            _debugText.text = "Gamma level completed";
+        else if (panelName == "GammaLevel" && !CheckIfLevelIsCompleted(panelName))
+            _debugText.text = "Gamma level not completed";
+
         if (CheckIfLevelIsCompleted(panelName))
        {
             statsPanel.SetActive(true);

@@ -11,17 +11,22 @@ public class HubWorldInputHandler : MonoBehaviour
     private bool isTargetted;
     private Collider hitPanelCol;
     private string selectedLevel;
+    private bool _isPlatformVR;
 
     private void Start()
     {
         oculusRemote = GameObject.FindGameObjectWithTag("OculusRemote").transform;
         hubManager = GetComponent<HubWorldManager>();
         isTargetted = false;
+        if (Application.platform == RuntimePlatform.WindowsEditor)
+            _isPlatformVR = false;
+        else
+            _isPlatformVR = true;
     }
 
     private void Update()
     {
-        if (Application.platform == RuntimePlatform.WindowsEditor)
+        if (!_isPlatformVR)
             PCInput();
         else
             VRInput();

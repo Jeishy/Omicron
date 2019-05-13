@@ -5,11 +5,9 @@ using UnityEngine;
 public class GameManagerLevelCompleted : MonoBehaviour
 {
     [SerializeField] private GameObject _levelCompletedPanels;
-    [SerializeField] private GameObject _selectionVisualizer;
 
     private GameManager _gameManager;
     private string _currentLevel;
-    private GameObject _levelSelectionVisualizer;
 
     private void OnEnable() 
     {
@@ -31,10 +29,12 @@ public class GameManagerLevelCompleted : MonoBehaviour
 
     private void LevelCompleted()
     {
+        // Set IsLevelStarted bool to false
+        _gameManager.IsLevelStarted = false;
         // Deactivate the selection visualizer in the scene
         DeactivateSelectionVisualizer();
         // Activate normal selection visualizer
-        _selectionVisualizer.SetActive(true);
+        _gameManager.SelectionVisualizer.SetActive(true);
         // Deactivate all puzzle gameobjects
         DeactivateAllPuzzles();
 

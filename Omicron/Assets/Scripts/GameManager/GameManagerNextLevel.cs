@@ -47,7 +47,6 @@ public class GameManagerNextLevel : MonoBehaviour
                 // Finished the game!
                 break;
         }
-
         SceneManager.LoadScene(_currentLevel);
     }
 }

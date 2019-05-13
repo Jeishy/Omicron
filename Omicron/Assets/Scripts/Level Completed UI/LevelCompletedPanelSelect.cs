@@ -25,7 +25,9 @@ public class LevelCompletedPanelSelect : MonoBehaviour
         // Hide level completed panel
         _levelCompletedPanel.SetActive(false);
         string panelName = col.gameObject.name;
-        
+        // Deactive the selection visualizer for the level selected screen
+        GameManager.Instance.SelectionVisualizer.SetActive(false);
+
         switch (panelName)
         {
             case "Next Level Panel":

@@ -26,6 +26,7 @@ public class BetaMagnetAttach : MonoBehaviour
         _betaManager = GetComponent<BetaLevelManager>();
         _objectPooler = GetComponent<ObjectPooler>();
         _magnetSpawnPointTrans = GameObject.FindGameObjectWithTag("BallSpawnPoint").transform;
+        IsMagnetAttached = false;
     }
 
     private void MagnetAttach()
@@ -35,10 +36,11 @@ public class BetaMagnetAttach : MonoBehaviour
         if (!IsMagnetAttached)
         {
             IsMagnetAttached = true;
-            Vector3 magnetSpawnPointPos = _magnetSpawnPointTrans.position;                                           // Caches spawn point's position (BallSpawnPoint Gameobject)
+            Vector3 magnetSpawnPointPos = _magnetSpawnPointTrans.position;                                          // Caches spawn point's position (BallSpawnPoint Gameobject)
             currentMagnet = _objectPooler.SpawnMagnetFromPool("Magnet", magnetSpawnPointPos, Quaternion.identity);  // Spawns and caches reference to magnet next in pool
             currentMagnet.GetComponent<Transform>().SetParent(_magnetSpawnPointTrans);
             currentMagnet.GetComponentInChildren<Canvas>().enabled = false;                                         // Turns off canvas for seeing magnet's range
+            Debug.Log("Attaching magnet");
         }
     }
 }
